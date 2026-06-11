@@ -1,573 +1,867 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>六月星運・命運試煉｜五芒星航 PENTACLES STUDIO</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0B0907;
-    --surface:#161109;
-    --surface-2:#1E1810;
-    --line:rgba(201,168,118,.25);
-    --line-soft:rgba(201,168,118,.12);
-    --gold:#C9A876;
-    --gold-light:#E9D8B4;
-    --gold-dim:#8A7355;
-    --ink:#EDE3CE;
-    --muted:#A89880;
-    --wine:#5E2433;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{height:100%}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
-    font-weight:400;
-    line-height:1.8;
-    overflow-x:hidden;
-  }
-  body::before{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,168,118,.10), transparent 60%),
-      radial-gradient(ellipse 60% 40% at 50% 110%, rgba(94,36,51,.18), transparent 60%);
-  }
-  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-  .star{position:absolute;background:var(--gold-light);border-radius:50%;opacity:0;animation:twinkle var(--d,4s) ease-in-out var(--dl,0s) infinite}
-  @keyframes twinkle{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:var(--o,.7);transform:scale(1)}}
-
-  .wrap{position:relative;z-index:1;max-width:440px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:0 22px}
-
-  /* ── 頂部品牌列 ── */
-  .topbar{display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 0 4px;color:var(--gold-dim);
-    font-family:"Cormorant Garamond","Noto Serif TC",serif;font-size:11px;letter-spacing:.42em;text-indent:.42em;text-transform:uppercase}
-  .topbar svg{width:14px;height:14px;flex:none}
-
-  /* ── 進度 ── */
-  .progress{display:flex;align-items:center;justify-content:center;gap:0;padding:14px 0 6px}
-  .pstep{display:flex;align-items:center}
-  .pdot{width:26px;height:26px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;
-    font-size:11px;color:var(--gold-dim);transition:all .5s;background:transparent}
-  .pline{width:34px;height:1px;background:var(--line-soft);transition:background .5s}
-  .pstep.done .pdot,.pstep.now .pdot{border-color:var(--gold);color:var(--gold-light)}
-  .pstep.now .pdot{box-shadow:0 0 14px rgba(201,168,118,.35);background:rgba(201,168,118,.08)}
-  .pstep.done .pline{background:var(--gold-dim)}
-  .progress.hide{display:none}
-
-  /* ── 畫面切換 ── */
-  .screen{display:none;flex:1;flex-direction:column;animation:fadeUp .65s ease both}
-  .screen.active{display:flex}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-  .stage-tag{display:flex;align-items:center;gap:12px;justify-content:center;margin:26px 0 10px;color:var(--gold);
-    font-size:12px;letter-spacing:.35em;text-indent:.35em}
-  .stage-tag::before,.stage-tag::after{content:"";width:36px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim))}
-  .stage-tag::after{background:linear-gradient(90deg,var(--gold-dim),transparent)}
-
-  h1.display{font-size:30px;font-weight:600;letter-spacing:.14em;text-align:center;color:var(--gold-light);line-height:1.5;margin:4px 0 2px;
-    text-shadow:0 0 30px rgba(201,168,118,.25)}
-  h2.stage-title{font-size:23px;font-weight:600;letter-spacing:.12em;text-align:center;color:var(--gold-light);margin-bottom:6px}
-  .sub{text-align:center;color:var(--muted);font-size:13.5px;letter-spacing:.06em}
-
-  /* ── 序章 ── */
-  #s-intro .hero-mark{margin:34px auto 18px;width:96px;height:96px;position:relative;display:flex;align-items:center;justify-content:center}
-  .hero-mark .ring{position:absolute;inset:0;border:1px solid var(--line);border-radius:50%;animation:slowspin 24s linear infinite}
-  .hero-mark .ring::before{content:"✦";position:absolute;top:-9px;left:50%;transform:translateX(-50%);color:var(--gold);font-size:12px}
-  @keyframes slowspin{to{transform:rotate(360deg)}}
-  .hero-mark svg{width:54px;height:54px;filter:drop-shadow(0 0 12px rgba(201,168,118,.45))}
-  .intro-quote{text-align:center;color:var(--muted);font-size:14px;letter-spacing:.08em;margin:14px 0 26px}
-  .rules{border:1px solid var(--line-soft);background:linear-gradient(180deg,rgba(201,168,118,.05),transparent);border-radius:4px;padding:22px 20px;margin-bottom:22px}
-  .rules h3{font-size:12px;letter-spacing:.3em;text-indent:.3em;color:var(--gold);text-align:center;margin-bottom:16px;font-weight:500}
-  .rule{display:flex;gap:14px;align-items:flex-start;padding:9px 0}
-  .rule + .rule{border-top:1px dashed var(--line-soft)}
-  .rule .no{font-family:"Cormorant Garamond",serif;color:var(--gold);font-size:20px;line-height:1.3;min-width:22px;text-align:center}
-  .rule b{display:block;font-size:14.5px;color:var(--ink);font-weight:600;letter-spacing:.06em}
-  .rule span{display:block;font-size:12.5px;color:var(--muted);line-height:1.7}
-  .free-note{text-align:center;font-size:12px;color:var(--gold-dim);letter-spacing:.12em;margin-bottom:18px}
-
-  /* ── 按鈕 ── */
-  .btn{display:block;width:100%;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(201,168,118,.16),rgba(201,168,118,.04));
-    color:var(--gold-light);font-family:inherit;font-size:15px;font-weight:600;letter-spacing:.3em;text-indent:.3em;
-    padding:16px;border-radius:3px;cursor:pointer;transition:all .3s;text-align:center;text-decoration:none}
-  .btn:active{transform:scale(.98)}
-  .btn:hover{background:linear-gradient(180deg,rgba(201,168,118,.28),rgba(201,168,118,.08));box-shadow:0 0 24px rgba(201,168,118,.25)}
-  .btn.primary{background:linear-gradient(180deg,#D9BC8A,#B08F5C);color:#1A130A;border-color:#E9D8B4;text-shadow:none}
-  .btn.primary:hover{box-shadow:0 0 30px rgba(217,188,138,.45)}
-  .btn.ghost{border-color:var(--line);color:var(--muted);font-weight:400;letter-spacing:.2em;text-indent:.2em;font-size:13px;padding:13px}
-  .btn[disabled]{opacity:.35;pointer-events:none}
-
-  /* ── 星座選擇 ── */
-  .zgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0 16px}
-  .zbtn{border:1px solid var(--line-soft);background:rgba(255,255,255,.015);border-radius:4px;padding:13px 4px 11px;cursor:pointer;
-    color:var(--ink);font-family:inherit;text-align:center;transition:all .25s;position:relative}
-  .zbtn .sym{display:block;font-size:21px;color:var(--gold);margin-bottom:3px;font-weight:400}
-  .zbtn .nm{display:block;font-size:14px;letter-spacing:.1em;font-weight:500}
-  .zbtn .dt{display:block;font-size:9.5px;color:var(--muted);letter-spacing:.05em;margin-top:1px;font-family:"Cormorant Garamond",serif}
-  .zbtn:hover{border-color:var(--gold-dim);background:rgba(201,168,118,.06)}
-  .zbtn.sel{border-color:var(--gold);background:rgba(201,168,118,.12);box-shadow:0 0 16px rgba(201,168,118,.2)}
-  .zbtn.sel::after{content:"✦";position:absolute;top:5px;right:7px;font-size:9px;color:var(--gold)}
-  .skip-link{display:block;text-align:center;color:var(--muted);font-size:12.5px;letter-spacing:.1em;text-decoration:underline;
-    text-underline-offset:4px;text-decoration-color:var(--line);background:none;border:none;cursor:pointer;font-family:inherit;margin:2px auto 18px;padding:6px}
-  .skip-link:hover{color:var(--gold)}
-
-  /* ── 第二關 能量 ── */
-  .charge-zone{margin:26px auto 10px;width:230px;height:230px;position:relative;cursor:pointer;user-select:none;-webkit-user-select:none}
-  .charge-zone svg.ringline{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
-  .ringline .track{fill:none;stroke:var(--line-soft);stroke-width:1.5}
-  .ringline .fill{fill:none;stroke:var(--gold);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:691;stroke-dashoffset:691;
-    transition:stroke-dashoffset .45s ease;filter:drop-shadow(0 0 6px rgba(201,168,118,.6))}
-  .penta{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-  .penta svg{width:120px;height:120px;transition:filter .4s, transform .2s;filter:drop-shadow(0 0 6px rgba(201,168,118,.25))}
-  .charge-zone.pulse .penta svg{animation:tapPulse .35s ease}
-  @keyframes tapPulse{40%{transform:scale(1.14)}100%{transform:scale(1)}}
-  .charge-zone.full .penta svg{animation:burst .9s ease both}
-  @keyframes burst{0%{transform:scale(1)}45%{transform:scale(1.45);filter:drop-shadow(0 0 36px rgba(233,216,180,.95))}100%{transform:scale(1.08);filter:drop-shadow(0 0 18px rgba(233,216,180,.6))}}
-  .tapcount{text-align:center;font-family:"Cormorant Garamond",serif;font-size:22px;color:var(--gold);letter-spacing:.2em;margin-top:8px}
-  .charge-hint{text-align:center;color:var(--muted);font-size:13px;letter-spacing:.1em;animation:hintFloat 2.4s ease-in-out infinite}
-  @keyframes hintFloat{0%,100%{opacity:.55}50%{opacity:1}}
-
-  /* ── 第三關 抽牌 ── */
-  .fan{position:relative;height:300px;margin:30px 0 4px}
-  .tcard{position:absolute;left:50%;top:50%;width:96px;height:160px;margin:-80px 0 0 -48px;cursor:pointer;
-    transform-origin:50% 120%;transition:transform .55s cubic-bezier(.22,.8,.3,1), opacity .45s, filter .3s;perspective:800px}
-  .tcard .inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,.7,.3,1)}
-  .tcard .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:7px;overflow:hidden}
-  .tcard .back{
-    border:1px solid var(--gold-dim);
-    background:
-      radial-gradient(circle at 50% 50%, rgba(201,168,118,.22), transparent 62%),
-      repeating-linear-gradient(45deg, rgba(201,168,118,.10) 0 2px, transparent 2px 11px),
-      repeating-linear-gradient(-45deg, rgba(201,168,118,.10) 0 2px, transparent 2px 11px),
-      linear-gradient(160deg,#221A0F,#120D07);
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 8px 22px rgba(0,0,0,.55), inset 0 0 0 4px rgba(11,9,7,.9), inset 0 0 0 5px rgba(201,168,118,.35);
-  }
-  .tcard .back span{color:var(--gold);font-size:22px;text-shadow:0 0 10px rgba(201,168,118,.7)}
-  .tcard .front{
-    transform:rotateY(180deg);border:1px solid var(--gold);
-    background:linear-gradient(170deg,#2A2113,#171008);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:10px;
-    box-shadow:0 10px 30px rgba(0,0,0,.6), inset 0 0 0 3px rgba(11,9,7,.9), inset 0 0 0 4px rgba(233,216,180,.5), 0 0 26px rgba(201,168,118,.35);
-  }
-  .tcard .front .csym{font-size:30px;color:var(--gold-light);text-shadow:0 0 14px rgba(233,216,180,.7)}
-  .tcard .front .cname{font-size:15px;font-weight:600;letter-spacing:.18em;text-indent:.18em;color:var(--gold-light)}
-  .tcard .front .cen{font-family:"Cormorant Garamond",serif;font-size:9px;letter-spacing:.22em;color:var(--gold-dim);text-transform:uppercase;text-align:center}
-  .tcard:hover{filter:brightness(1.18)}
-  .fan.locked .tcard{pointer-events:none}
-  .tcard.chosen{transform:translateY(-30px) scale(1.42)!important;z-index:30}
-  .tcard.chosen .inner{transform:rotateY(180deg)}
-  .tcard.away{opacity:0;transform:translateY(70px) scale(.7)!important}
-  .draw-msg{min-height:84px;text-align:center;padding:0 8px}
-  .draw-msg .pos{display:inline-block;font-size:11px;letter-spacing:.3em;text-indent:.3em;color:var(--gold);border:1px solid var(--line);
-    border-radius:2px;padding:3px 10px;margin-bottom:8px;opacity:0;transition:opacity .5s .5s}
-  .draw-msg p{color:var(--ink);font-size:14.5px;line-height:1.9;opacity:0;transition:opacity .5s .8s}
-  .draw-msg.show .pos,.draw-msg.show p{opacity:1}
-
-  /* ── 結果頁 ── */
-  .seal{display:flex;align-items:center;justify-content:center;gap:12px;margin:24px 0 4px;color:var(--gold);font-size:11px;letter-spacing:.35em;text-indent:.35em}
-  .seal::before,.seal::after{content:"✦";font-size:9px;letter-spacing:0;text-indent:0}
-  .combo-card{border:1px solid var(--line);border-radius:4px;padding:24px 20px 20px;margin:14px 0 18px;text-align:center;position:relative;
-    background:linear-gradient(180deg,rgba(201,168,118,.09),rgba(201,168,118,.02))}
-  .combo-card::before{content:"";position:absolute;inset:5px;border:1px solid var(--line-soft);border-radius:2px;pointer-events:none}
-  .combo-name{font-size:25px;font-weight:600;letter-spacing:.12em;color:var(--gold-light);margin:2px 0 4px}
-  .combo-sub{font-size:12px;color:var(--muted);letter-spacing:.12em}
-  .bogo{display:inline-block;margin-top:10px;font-size:11.5px;letter-spacing:.15em;color:#F0DFC0;background:var(--wine);
-    border:1px solid rgba(233,216,180,.4);border-radius:2px;padding:4px 12px}
-  .theme-line{text-align:center;font-size:17px;font-weight:600;letter-spacing:.1em;color:var(--gold-light);margin:6px 0 12px}
-  .kws{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px}
-  .kw{font-size:12px;letter-spacing:.18em;text-indent:.09em;color:var(--gold);border:1px solid var(--line);border-radius:999px;padding:5px 14px}
-  .free-block{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:18px 2px;margin-bottom:18px}
-  .free-block h4{font-size:12px;letter-spacing:.3em;text-indent:.3em;color:var(--gold);margin-bottom:10px;font-weight:500;text-align:center}
-  .free-block p{font-size:14px;color:var(--ink);line-height:2}
-  .mini-card-row{display:flex;gap:16px;align-items:center;border:1px solid var(--line-soft);border-radius:4px;padding:16px;margin-bottom:22px;
-    background:rgba(201,168,118,.04)}
-  .mini-card{flex:none;width:60px;height:98px;border-radius:5px;border:1px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-    background:linear-gradient(170deg,#2A2113,#171008);box-shadow:inset 0 0 0 2px rgba(11,9,7,.9), inset 0 0 0 3px rgba(233,216,180,.45), 0 0 16px rgba(201,168,118,.25)}
-  .mini-card .csym{font-size:20px;color:var(--gold-light)}
-  .mini-card .cname{font-size:9.5px;letter-spacing:.08em;color:var(--gold-light)}
-  .mini-info b{display:block;font-size:13px;color:var(--gold);letter-spacing:.12em;margin-bottom:4px;font-weight:500}
-  .mini-info p{font-size:13px;color:var(--ink);line-height:1.85}
-
-  /* 鎖定區 */
-  .lock-head{text-align:center;margin:6px 0 14px}
-  .lock-head .t{font-size:16px;font-weight:600;letter-spacing:.15em;color:var(--gold-light)}
-  .lock-head .s{font-size:12px;color:var(--muted);letter-spacing:.08em;margin-top:3px}
-  .lock-item{position:relative;border:1px solid var(--line-soft);border-radius:4px;padding:14px 16px;margin-bottom:10px;overflow:hidden;
-    background:rgba(255,255,255,.012)}
-  .lock-item .lt{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;letter-spacing:.12em;color:var(--ink);font-weight:600}
-  .lock-item .lt .en{font-family:"Cormorant Garamond",serif;font-size:10px;letter-spacing:.22em;color:var(--gold-dim);text-transform:uppercase;font-weight:500}
-  .blurline{margin-top:9px;font-size:12.5px;color:var(--muted);line-height:1.9;filter:blur(4.5px);user-select:none;-webkit-user-select:none;pointer-events:none}
-  .lock-badge{position:absolute;right:12px;bottom:10px;font-size:10.5px;letter-spacing:.2em;color:var(--gold);display:flex;align-items:center;gap:5px}
-  .lock-badge svg{width:11px;height:11px}
-
-  /* CTA */
-  .cta-panel{border:1px solid var(--gold-dim);border-radius:4px;padding:24px 20px;margin:20px 0 14px;text-align:center;position:relative;
-    background:
-      radial-gradient(ellipse 90% 80% at 50% 0%, rgba(201,168,118,.14), transparent 70%),
-      linear-gradient(180deg,#1B140B,#120D07)}
-  .cta-panel::before{content:"✦ ✦ ✦";position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--bg);
-    padding:0 12px;color:var(--gold);font-size:10px;letter-spacing:.5em;text-indent:.5em}
-  .cta-panel h3{font-size:19px;font-weight:600;letter-spacing:.12em;color:var(--gold-light);margin-bottom:8px}
-  .cta-panel .desc{font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:14px}
-  .price{font-family:"Cormorant Garamond","Noto Serif TC",serif;margin-bottom:16px}
-  .price .now{font-size:34px;color:var(--gold-light);letter-spacing:.04em}
-  .price .was{font-size:15px;color:var(--muted);text-decoration:line-through;margin-left:10px}
-  .price .unit{font-size:12px;color:var(--muted);letter-spacing:.1em}
-  .cta-notes{margin-top:12px;font-size:11px;color:var(--gold-dim);letter-spacing:.08em;line-height:2}
-  .retry-row{margin:6px 0 30px}
-  .foot{text-align:center;font-size:10.5px;color:var(--gold-dim);letter-spacing:.14em;padding:0 0 26px;line-height:2}
-  .foot b{color:var(--gold);font-weight:500;font-family:"Cormorant Garamond",serif;letter-spacing:.3em}
-
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.15s!important}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>六月星運・命運試煉｜五芒星航 PENTACLES STUDIO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0908;
+      --surface:#17110d;
+      --surface-2:#211812;
+      --surface-3:#101715;
+      --line:rgba(207,174,124,.28);
+      --line-soft:rgba(207,174,124,.13);
+      --gold:#cfae7c;
+      --gold-light:#f0dfba;
+      --gold-dim:#927757;
+      --ink:#f3ead8;
+      --muted:#ad9d86;
+      --wine:#642437;
+      --teal:#5aa69a;
+      --violet:#8c6fba;
+      --danger:#cc6f68;
+      --shadow:0 18px 60px rgba(0,0,0,.42);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html,body{min-height:100%}
+    body{
+      background:
+        radial-gradient(ellipse 82% 44% at 50% -10%, rgba(207,174,124,.12), transparent 62%),
+        radial-gradient(ellipse 50% 42% at 100% 22%, rgba(90,166,154,.12), transparent 64%),
+        radial-gradient(ellipse 52% 46% at 0% 75%, rgba(100,36,55,.18), transparent 64%),
+        var(--bg);
+      color:var(--ink);
+      font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+      line-height:1.8;
+      overflow-x:hidden;
+    }
+    button,input{font:inherit}
+    button{color:inherit}
+    a{color:inherit}
+    .stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .star{position:absolute;background:var(--gold-light);border-radius:50%;opacity:0;animation:twinkle var(--d,4s) ease-in-out var(--dl,0s) infinite}
+    @keyframes twinkle{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:var(--o,.7);transform:scale(1)}}
+    .wrap{position:relative;z-index:1;width:min(760px,100%);margin:0 auto;min-height:100dvh;padding:0 20px 32px;display:flex;flex-direction:column}
+    .topbar{display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 0 2px;color:var(--gold-dim);font-family:"Cormorant Garamond","Noto Serif TC",serif;font-size:11px;letter-spacing:.38em;text-indent:.38em;text-transform:uppercase}
+    .brand-mark{width:16px;height:16px;flex:none}
+    .progress{display:flex;align-items:center;justify-content:center;gap:0;padding:12px 0 4px}
+    .pstep{display:flex;align-items:center}
+    .pdot{width:28px;height:28px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold-dim);background:rgba(0,0,0,.1);transition:.35s}
+    .pline{width:42px;height:1px;background:var(--line-soft);transition:.35s}
+    .pstep.done .pdot,.pstep.now .pdot{border-color:var(--gold);color:var(--gold-light)}
+    .pstep.now .pdot{box-shadow:0 0 16px rgba(207,174,124,.35);background:rgba(207,174,124,.08)}
+    .pstep.done .pline{background:var(--gold-dim)}
+    .progress.hide{display:none}
+    .screen{display:none;flex:1;flex-direction:column;animation:fadeUp .55s ease both}
+    .screen.active{display:flex}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    .stage-tag{display:flex;align-items:center;gap:12px;justify-content:center;margin:26px 0 10px;color:var(--gold);font-size:12px;letter-spacing:.28em;text-indent:.28em;text-align:center}
+    .stage-tag::before,.stage-tag::after{content:"";width:36px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim))}
+    .stage-tag::after{background:linear-gradient(90deg,var(--gold-dim),transparent)}
+    h1.display{font-size:clamp(30px,7vw,48px);font-weight:600;letter-spacing:.12em;text-align:center;color:var(--gold-light);line-height:1.45;margin:4px 0 4px;text-shadow:0 0 30px rgba(207,174,124,.24)}
+    h2.stage-title{font-size:clamp(23px,5.6vw,34px);font-weight:600;letter-spacing:.1em;text-align:center;color:var(--gold-light);margin-bottom:6px}
+    .sub{text-align:center;color:var(--muted);font-size:14px;letter-spacing:.05em}
+    #s-intro .hero-mark{margin:30px auto 18px;width:104px;height:104px;position:relative;display:flex;align-items:center;justify-content:center}
+    .ring{position:absolute;inset:0;border:1px solid var(--line);border-radius:50%;animation:slowspin 28s linear infinite}
+    .ring::before{content:"✦";position:absolute;top:-10px;left:50%;transform:translateX(-50%);color:var(--gold);font-size:12px}
+    @keyframes slowspin{to{transform:rotate(360deg)}}
+    .hero-mark svg{width:58px;height:58px;filter:drop-shadow(0 0 12px rgba(207,174,124,.45))}
+    .intro-quote{text-align:center;color:var(--muted);font-size:14.5px;letter-spacing:.07em;margin:14px 0 24px}
+    .rules{border:1px solid var(--line-soft);background:linear-gradient(180deg,rgba(207,174,124,.06),rgba(90,166,154,.025));border-radius:8px;padding:22px 20px;margin:0 auto 22px;width:min(560px,100%);box-shadow:var(--shadow)}
+    .rules h3,.panel-title{font-size:12px;letter-spacing:.28em;text-indent:.28em;color:var(--gold);text-align:center;margin-bottom:16px;font-weight:500}
+    .rule{display:flex;gap:14px;align-items:flex-start;padding:10px 0}
+    .rule + .rule{border-top:1px dashed var(--line-soft)}
+    .rule .no{font-family:"Cormorant Garamond",serif;color:var(--gold);font-size:21px;line-height:1.35;min-width:26px;text-align:center}
+    .rule b{display:block;font-size:14.5px;color:var(--ink);font-weight:600;letter-spacing:.06em}
+    .rule span{display:block;font-size:12.5px;color:var(--muted);line-height:1.75}
+    .free-note{text-align:center;font-size:12px;color:var(--gold-dim);letter-spacing:.1em;margin-bottom:18px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(207,174,124,.16),rgba(207,174,124,.04));color:var(--gold-light);font-family:inherit;font-size:15px;font-weight:600;letter-spacing:.22em;text-indent:.22em;padding:15px 16px;border-radius:6px;cursor:pointer;transition:transform .2s, box-shadow .25s, background .25s;text-align:center;text-decoration:none;min-height:52px}
+    .btn:hover{background:linear-gradient(180deg,rgba(207,174,124,.26),rgba(207,174,124,.08));box-shadow:0 0 24px rgba(207,174,124,.22)}
+    .btn:active{transform:scale(.985)}
+    .btn.primary{background:linear-gradient(180deg,#e4c992,#b8955f);color:#17100a;border-color:#f4e4bf;text-shadow:none}
+    .btn.primary:hover{box-shadow:0 0 30px rgba(228,201,146,.38)}
+    .btn.ghost{border-color:var(--line);color:var(--muted);font-weight:400;letter-spacing:.12em;text-indent:.12em;font-size:13px;padding:12px;background:rgba(255,255,255,.015)}
+    .btn.compact{width:auto;min-height:42px;padding:10px 14px;font-size:12.5px;letter-spacing:.08em;text-indent:0}
+    .btn[disabled]{opacity:.35;pointer-events:none}
+    .zgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0 16px}
+    .zbtn{border:1px solid var(--line-soft);background:rgba(255,255,255,.018);border-radius:8px;padding:13px 5px 11px;cursor:pointer;color:var(--ink);font-family:inherit;text-align:center;transition:.22s;position:relative;min-height:88px}
+    .zbtn .sym{display:block;font-size:24px;color:var(--gold);margin-bottom:2px;font-weight:400}
+    .zbtn .nm{display:block;font-size:14px;letter-spacing:.08em;font-weight:500}
+    .zbtn .dt{display:block;font-size:10px;color:var(--muted);letter-spacing:.03em;margin-top:1px;font-family:"Cormorant Garamond",serif}
+    .zbtn:hover{border-color:var(--gold-dim);background:rgba(207,174,124,.06)}
+    .zbtn.sel{border-color:var(--gold);background:rgba(207,174,124,.12);box-shadow:0 0 16px rgba(207,174,124,.2)}
+    .zbtn.sel::after{content:"✦";position:absolute;top:6px;right:8px;font-size:9px;color:var(--gold)}
+    .helper-panel,.choice-panel,.soft-panel{border:1px solid var(--line-soft);background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(207,174,124,.025));border-radius:8px;padding:16px;margin:18px 0 4px}
+    .helper-grid{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+    .field-label{display:block;color:var(--gold);font-size:12px;letter-spacing:.12em;margin-bottom:6px}
+    .date-input{width:100%;min-height:44px;border:1px solid var(--line);background:#0f0b08;color:var(--ink);border-radius:6px;padding:9px 12px}
+    .helper-msg{font-size:12.5px;color:var(--muted);line-height:1.75;margin-top:9px}
+    .skip-link{display:block;text-align:center;color:var(--muted);font-size:12.5px;letter-spacing:.08em;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line);background:none;border:none;cursor:pointer;font-family:inherit;margin:2px auto 18px;padding:8px}
+    .skip-link:hover{color:var(--gold)}
+    .charge-zone{margin:26px auto 10px;width:230px;height:230px;position:relative;cursor:pointer;user-select:none}
+    .charge-zone svg.ringline{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+    .track{fill:none;stroke:var(--line-soft);stroke-width:1.5}
+    .fill{fill:none;stroke:var(--gold);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:691;stroke-dashoffset:691;transition:stroke-dashoffset .42s ease;filter:drop-shadow(0 0 6px rgba(207,174,124,.55))}
+    .penta{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+    .penta svg{width:122px;height:122px;transition:filter .35s, transform .2s;filter:drop-shadow(0 0 6px rgba(207,174,124,.25))}
+    .charge-zone.pulse .penta svg{animation:tapPulse .35s ease}
+    @keyframes tapPulse{40%{transform:scale(1.14)}100%{transform:scale(1)}}
+    .charge-zone.full .penta svg{animation:burst .9s ease both}
+    @keyframes burst{0%{transform:scale(1)}45%{transform:scale(1.42);filter:drop-shadow(0 0 36px rgba(240,223,186,.95))}100%{transform:scale(1.08);filter:drop-shadow(0 0 18px rgba(240,223,186,.6))}}
+    .tapcount{text-align:center;font-family:"Cormorant Garamond",serif;font-size:22px;color:var(--gold);letter-spacing:.18em;margin-top:8px}
+    .charge-hint{text-align:center;color:var(--muted);font-size:13px;letter-spacing:.08em;animation:hintFloat 2.4s ease-in-out infinite}
+    @keyframes hintFloat{0%,100%{opacity:.55}50%{opacity:1}}
+    .choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0}
+    .choice-btn{border:1px solid var(--line-soft);background:rgba(255,255,255,.02);border-radius:8px;padding:16px 14px;text-align:left;cursor:pointer;transition:.25s;min-height:126px}
+    .choice-btn strong{display:block;color:var(--gold-light);font-size:17px;letter-spacing:.08em;margin-bottom:5px}
+    .choice-btn span{display:block;color:var(--muted);font-size:12.5px;line-height:1.75}
+    .choice-btn.active{border-color:var(--gold);background:linear-gradient(180deg,rgba(207,174,124,.13),rgba(90,166,154,.04));box-shadow:0 0 18px rgba(207,174,124,.16)}
+    .segmented{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 18px}
+    .segmented button{border:1px solid var(--line-soft);background:rgba(255,255,255,.018);color:var(--muted);border-radius:999px;min-height:42px;cursor:pointer;transition:.22s}
+    .segmented button.active{border-color:var(--teal);color:var(--ink);background:rgba(90,166,154,.12)}
+    .fan-wrap{position:relative;margin:20px 0 4px}
+    .fan{position:relative;height:340px;margin:10px auto 6px;max-width:620px}
+    .tcard{position:absolute;left:50%;top:52%;width:92px;height:154px;cursor:pointer;transform-origin:50% 118%;transform:translate(-50%,-50%) rotate(var(--rot)) translateY(var(--rise,0));transition:transform .45s cubic-bezier(.22,.8,.3,1), opacity .3s, filter .25s;perspective:800px;z-index:var(--z)}
+    .tcard .inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,.7,.3,1)}
+    .tcard .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:8px;overflow:hidden}
+    .tcard .back{border:1px solid var(--gold-dim);background:radial-gradient(circle at 50% 45%, rgba(207,174,124,.22), transparent 60%),repeating-linear-gradient(45deg,rgba(207,174,124,.10) 0 2px,transparent 2px 11px),linear-gradient(160deg,#261b12,#100b07);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.58), inset 0 0 0 4px rgba(11,9,8,.9), inset 0 0 0 5px rgba(207,174,124,.34)}
+    .tcard .back span{color:var(--gold);font-size:24px;text-shadow:0 0 10px rgba(207,174,124,.7)}
+    .tcard .front{transform:rotateY(180deg);border:1px solid var(--gold);background:linear-gradient(170deg,#2a2115,#171008);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:9px;box-shadow:0 12px 34px rgba(0,0,0,.62), inset 0 0 0 3px rgba(11,9,8,.9), inset 0 0 0 4px rgba(240,223,186,.48),0 0 28px rgba(207,174,124,.32)}
+    .tcard .csym{font-size:26px;color:var(--gold-light);text-shadow:0 0 14px rgba(240,223,186,.65)}
+    .tcard .cname{font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--gold-light);text-align:center;line-height:1.35}
+    .tcard .cen{font-family:"Cormorant Garamond",serif;font-size:9px;letter-spacing:.16em;color:var(--gold-dim);text-transform:uppercase;text-align:center;line-height:1.2}
+    .tcard:hover{filter:brightness(1.16)}
+    .tcard.candidate{transform:translate(-50%,-78%) rotate(0deg) scale(1.18);z-index:90}
+    .tcard.revealed{top:12px;transform:translate(calc(-50% + var(--done-x,0px)),0) rotate(0deg) scale(.72);z-index:70;pointer-events:none}
+    .tcard.revealed .inner{transform:rotateY(180deg)}
+    .tcard.away{opacity:.14;pointer-events:none;filter:grayscale(.3)}
+    .draw-panel{min-height:118px;text-align:center;padding:0 8px}
+    .draw-status{display:inline-block;font-size:11px;letter-spacing:.22em;text-indent:.22em;color:var(--gold);border:1px solid var(--line);border-radius:4px;padding:4px 10px;margin-bottom:10px}
+    .draw-copy{color:var(--ink);font-size:14.5px;line-height:1.9}
+    .chosen-list{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:14px 0 10px}
+    .chosen-pill{font-size:12px;color:var(--gold-light);border:1px solid var(--line-soft);border-radius:999px;padding:4px 10px;background:rgba(207,174,124,.06)}
+    .draw-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px auto 26px;max-width:540px}
+    .seal{display:flex;align-items:center;justify-content:center;gap:12px;margin:22px 0 4px;color:var(--gold);font-size:11px;letter-spacing:.28em;text-indent:.28em;text-align:center}
+    .seal::before,.seal::after{content:"✦";font-size:9px;letter-spacing:0;text-indent:0}
+    .combo-card{border:1px solid var(--line);border-radius:8px;padding:24px 20px 20px;margin:14px 0 18px;text-align:center;position:relative;background:linear-gradient(180deg,rgba(207,174,124,.09),rgba(90,166,154,.035));box-shadow:var(--shadow)}
+    .combo-card::before{content:"";position:absolute;inset:6px;border:1px solid var(--line-soft);border-radius:5px;pointer-events:none}
+    .combo-name{font-size:clamp(24px,5.6vw,36px);font-weight:600;letter-spacing:.08em;color:var(--gold-light);margin:2px 0 4px}
+    .combo-sub{font-size:12px;color:var(--muted);letter-spacing:.1em}
+    .bogo{display:inline-block;margin-top:10px;font-size:11.5px;letter-spacing:.12em;color:#f7e6c4;background:var(--wine);border:1px solid rgba(240,223,186,.38);border-radius:4px;padding:4px 12px}
+    .theme-line{text-align:center;font-size:17px;font-weight:600;letter-spacing:.08em;color:var(--gold-light);margin:4px 0 12px}
+    .kws{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px}
+    .kw{font-size:12px;letter-spacing:.12em;color:var(--gold);border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:rgba(0,0,0,.08)}
+    .free-block{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:18px 2px;margin-bottom:18px}
+    .free-block h4{font-size:12px;letter-spacing:.26em;text-indent:.26em;color:var(--gold);margin-bottom:10px;font-weight:500;text-align:center}
+    .free-block p{font-size:14.5px;color:var(--ink);line-height:2}
+    .topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0 20px}
+    .topic{border:1px solid var(--line-soft);border-radius:8px;padding:15px;background:rgba(255,255,255,.015)}
+    .topic h5{color:var(--gold);font-size:13px;letter-spacing:.12em;margin-bottom:6px}
+    .topic p{font-size:13px;color:var(--ink);line-height:1.85}
+    .topic .micro{display:block;color:var(--muted);font-size:11.5px;margin-top:7px;line-height:1.65}
+    .anchor-row,.spread-card{display:grid;grid-template-columns:72px 1fr;gap:15px;align-items:center;border:1px solid var(--line-soft);border-radius:8px;padding:15px;margin-bottom:12px;background:rgba(207,174,124,.035)}
+    .mini-card{width:64px;height:104px;border-radius:7px;border:1px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:linear-gradient(170deg,#2a2115,#171008);box-shadow:inset 0 0 0 2px rgba(11,9,8,.9), inset 0 0 0 3px rgba(240,223,186,.45),0 0 16px rgba(207,174,124,.22)}
+    .mini-card .csym{font-size:22px;color:var(--gold-light)}
+    .mini-card .cname{font-size:9.5px;letter-spacing:.05em;color:var(--gold-light);text-align:center;line-height:1.25}
+    .mini-info b{display:block;font-size:13px;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;font-weight:500}
+    .mini-info p{font-size:13px;color:var(--ink);line-height:1.85}
+    .spread-list{margin:14px 0 20px}
+    .transition-panel{border:1px solid rgba(90,166,154,.32);border-radius:8px;padding:18px 16px;margin:18px 0;background:linear-gradient(180deg,rgba(90,166,154,.09),rgba(207,174,124,.025))}
+    .transition-panel h4{font-size:15px;color:var(--gold-light);letter-spacing:.12em;text-align:center;margin-bottom:8px}
+    .transition-panel p{font-size:14px;color:var(--ink);line-height:2}
+    .lock-head{text-align:center;margin:12px 0 14px}
+    .lock-head .t{font-size:16px;font-weight:600;letter-spacing:.12em;color:var(--gold-light)}
+    .lock-head .s{font-size:12px;color:var(--muted);letter-spacing:.06em;margin-top:3px}
+    .lock-item{position:relative;border:1px solid var(--line-soft);border-radius:8px;padding:14px 16px 34px;margin-bottom:10px;overflow:hidden;background:rgba(255,255,255,.012);cursor:pointer;transition:.22s}
+    .lock-item:hover{border-color:var(--gold-dim);background:rgba(207,174,124,.04)}
+    .lock-item .lt{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13.5px;letter-spacing:.1em;color:var(--ink);font-weight:600}
+    .lock-item .en{font-family:"Cormorant Garamond",serif;font-size:10px;letter-spacing:.2em;color:var(--gold-dim);text-transform:uppercase;font-weight:500;white-space:nowrap}
+    .teaser{margin-top:9px;font-size:12.5px;color:var(--muted);line-height:1.9}
+    .blurline{display:inline;filter:blur(4px);user-select:none;pointer-events:none}
+    .lock-badge{position:absolute;right:12px;bottom:10px;font-size:10.5px;letter-spacing:.16em;color:var(--gold);display:flex;align-items:center;gap:5px}
+    .lock-badge svg{width:11px;height:11px;flex:none}
+    .cta-panel{border:1px solid var(--gold-dim);border-radius:8px;padding:24px 20px;margin:20px 0 14px;text-align:center;position:relative;background:radial-gradient(ellipse 90% 80% at 50% 0%,rgba(207,174,124,.14),transparent 70%),linear-gradient(180deg,#1b140d,#120d08);box-shadow:var(--shadow)}
+    .cta-panel::before{content:"✦ ✦ ✦";position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--bg);padding:0 12px;color:var(--gold);font-size:10px;letter-spacing:.42em;text-indent:.42em}
+    .cta-panel h3{font-size:19px;font-weight:600;letter-spacing:.1em;color:var(--gold-light);margin-bottom:8px}
+    .cta-panel .desc{font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:14px}
+    .price{font-family:"Cormorant Garamond","Noto Serif TC",serif;margin-bottom:16px}
+    .price .now{font-size:34px;color:var(--gold-light);letter-spacing:.04em}
+    .price .was{font-size:15px;color:var(--muted);text-decoration:line-through;margin-left:10px}
+    .price .unit{font-size:12px;color:var(--muted);letter-spacing:.08em}
+    .cta-notes{margin-top:12px;font-size:11px;color:var(--gold-dim);letter-spacing:.06em;line-height:2}
+    .retry-row{margin:6px 0 28px}
+    .foot{text-align:center;font-size:10.5px;color:var(--gold-dim);letter-spacing:.12em;padding:0 0 20px;line-height:2}
+    .foot b{color:var(--gold);font-weight:500;font-family:"Cormorant Garamond",serif;letter-spacing:.26em}
+    @media (max-width:680px){
+      .wrap{padding:0 18px 28px}
+      .zgrid{grid-template-columns:repeat(3,1fr);gap:9px}
+      .helper-grid,.draw-actions{grid-template-columns:1fr}
+      .choice-grid,.topic-grid{grid-template-columns:1fr}
+      .fan{height:320px}
+      .tcard{width:78px;height:132px}
+      .anchor-row,.spread-card{grid-template-columns:60px 1fr;gap:12px}
+      .mini-card{width:56px;height:92px}
+      .pline{width:26px}
+    }
+    @media (max-width:390px){
+      .zgrid{grid-template-columns:repeat(2,1fr)}
+      .choice-grid,.segmented{grid-template-columns:1fr}
+      .fan{height:300px}
+      .tcard{width:72px;height:122px}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.12s!important}
+    }
+  </style>
 </head>
 <body>
-<div class="stars" id="stars"></div>
-
-<div class="wrap">
-  <div class="topbar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="#C9A876" stroke-width="1.1"><circle cx="12" cy="12" r="10.5"/><path d="M12 3.2 14.4 9.8 21.4 9.9 15.9 14.1 18 20.8 12 16.7 6 20.8 8.1 14.1 2.6 9.9 9.6 9.8Z"/></svg>
-    PENTACLES STUDIO
-  </div>
-
-  <div class="progress hide" id="progress">
-    <div class="pstep" data-p="1"><div class="pdot">一</div><div class="pline"></div></div>
-    <div class="pstep" data-p="2"><div class="pdot">二</div><div class="pline"></div></div>
-    <div class="pstep" data-p="3"><div class="pdot">三</div></div>
-  </div>
-
-  <!-- ═══════ 序章 ═══════ -->
-  <section class="screen active" id="s-intro">
-    <div class="hero-mark">
-      <div class="ring"></div>
-      <svg viewBox="0 0 24 24" fill="none" stroke="#E9D8B4" stroke-width="1"><circle cx="12" cy="12" r="11"/><path d="M12 2.6 14.6 9.6 22 9.7 16.1 14.2 18.3 21.4 12 17 5.7 21.4 7.9 14.2 2 9.7 9.4 9.6Z"/></svg>
+  <div class="stars" id="stars"></div>
+  <main class="wrap">
+    <div class="topbar">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="#CFAE7C" stroke-width="1.1"><circle cx="12" cy="12" r="10.5"/><path d="M12 3.2 14.4 9.8 21.4 9.9 15.9 14.1 18 20.8 12 16.7 6 20.8 8.1 14.1 2.6 9.9 9.6 9.8Z"/></svg>
+      PENTACLES STUDIO
     </div>
-    <h1 class="display">六月星運<br>命運試煉</h1>
-    <p class="intro-quote">通過三道試煉，宇宙將為你揭示<br>2026 年六月，專屬於你的運勢指引。</p>
-
-    <div class="rules">
-      <h3>試 煉 規 則</h3>
-      <div class="rule"><div class="no">壹</div><div><b>啟動星盤</b><span>選出你的太陽與上升星座，定位你的能量座標。</span></div></div>
-      <div class="rule"><div class="no">貳</div><div><b>凝聚星能量</b><span>連點五芒星五次，喚醒沉睡的星之力。</span></div></div>
-      <div class="rule"><div class="no">參</div><div><b>命運抽牌</b><span>靜心、憑直覺抽出一張指引牌，解鎖你的六月運勢。</span></div></div>
+    <div class="progress hide" id="progress" aria-label="試煉進度">
+      <div class="pstep" data-p="1"><div class="pdot">一</div><div class="pline"></div></div>
+      <div class="pstep" data-p="2"><div class="pdot">二</div><div class="pline"></div></div>
+      <div class="pstep" data-p="3"><div class="pdot">三</div><div class="pline"></div></div>
+      <div class="pstep" data-p="4"><div class="pdot">四</div></div>
     </div>
 
-    <p class="free-note">✦ 本試煉完全免費・破關即可獲得六月運勢搶先看 ✦</p>
-    <button class="btn primary" onclick="go('s-sun',1)">開 啟 試 煉</button>
-    <div style="height:34px"></div>
-  </section>
-
-  <!-- ═══════ 第一關（太陽）═══════ -->
-  <section class="screen" id="s-sun">
-    <div class="stage-tag">第 一 關 ・ 啟 動 星 盤</div>
-    <h2 class="stage-title">你的太陽星座</h2>
-    <p class="sub">太陽，代表你最核心的本我能量。</p>
-    <div class="zgrid" id="sunGrid"></div>
-    <div style="height:24px"></div>
-  </section>
-
-  <!-- ═══════ 第一關（上升）═══════ -->
-  <section class="screen" id="s-rising">
-    <div class="stage-tag">第 一 關 ・ 啟 動 星 盤</div>
-    <h2 class="stage-title">你的上升星座</h2>
-    <p class="sub">上升，是你面對世界的姿態。<br>占卜師私房建議：上升的影響高達 80%！</p>
-    <div class="zgrid" id="risingGrid"></div>
-    <button class="skip-link" onclick="setRising(null)">我不知道我的上升星座，跳過 →</button>
-  </section>
-
-  <!-- ═══════ 第二關 ═══════ -->
-  <section class="screen" id="s-charge">
-    <div class="stage-tag">第 二 關 ・ 凝 聚 星 能 量</div>
-    <h2 class="stage-title">喚醒星之力</h2>
-    <p class="sub">將意念集中於指尖——</p>
-    <div class="charge-zone" id="chargeZone">
-      <svg class="ringline" viewBox="0 0 230 230">
-        <circle class="track" cx="115" cy="115" r="110"/>
-        <circle class="fill" id="ringFill" cx="115" cy="115" r="110"/>
-      </svg>
-      <div class="penta">
-        <svg viewBox="0 0 24 24" fill="rgba(201,168,118,.06)" stroke="#C9A876" stroke-width=".9"><circle cx="12" cy="12" r="11.4"/><path d="M12 2.2 14.7 9.5 22.4 9.6 16.3 14.3 18.6 21.8 12 17.2 5.4 21.8 7.7 14.3 1.6 9.6 9.3 9.5Z"/></svg>
+    <section class="screen active" id="s-intro">
+      <div class="hero-mark">
+        <div class="ring"></div>
+        <svg viewBox="0 0 24 24" fill="rgba(207,174,124,.05)" stroke="#F0DFBA" stroke-width="1"><circle cx="12" cy="12" r="11"/><path d="M12 2.6 14.6 9.6 22 9.7 16.1 14.2 18.3 21.4 12 17 5.7 21.4 7.9 14.2 2 9.7 9.4 9.6Z"/></svg>
       </div>
-    </div>
-    <div class="tapcount" id="tapCount">0 / 5</div>
-    <p class="charge-hint">✦ 點擊五芒星，凝聚能量 ✦</p>
-    <div style="height:30px"></div>
-  </section>
-
-  <!-- ═══════ 第三關 ═══════ -->
-  <section class="screen" id="s-draw">
-    <div class="stage-tag">第 三 關 ・ 命 運 抽 牌</div>
-    <h2 class="stage-title">憑直覺，抽一張</h2>
-    <p class="sub">深呼吸，默想「我的六月」，<br>讓那張在呼喚你的牌，被你選中。</p>
-    <div class="fan" id="fan"></div>
-    <div class="draw-msg" id="drawMsg">
-      <span class="pos" id="cardPos"></span>
-      <p id="cardMsg"></p>
-    </div>
-    <button class="btn primary" id="revealBtn" disabled onclick="showResult()">解 鎖 我 的 六 月 運 勢</button>
-    <div style="height:30px"></div>
-  </section>
-
-  <!-- ═══════ 結果 ═══════ -->
-  <section class="screen" id="s-result">
-    <div class="seal">試 煉 完 成 ・ 星 運 解 鎖</div>
-
-    <div class="combo-card">
-      <div class="combo-sub" id="comboSub"></div>
-      <div class="combo-name" id="comboName"></div>
-      <div class="combo-sub">2026 · JUNE · 六月星運</div>
-      <div id="bogoSlot"></div>
-    </div>
-
-    <div class="theme-line" id="themeLine"></div>
-    <div class="kws" id="kwRow"></div>
-
-    <div class="free-block">
-      <h4>總 體 運 勢 ・ 搶 先 看</h4>
-      <p id="overview"></p>
-    </div>
-
-    <div class="mini-card-row">
-      <div class="mini-card"><span class="csym" id="rSym"></span><span class="cname" id="rName"></span></div>
-      <div class="mini-info">
-        <b id="rTitle"></b>
-        <p id="rMsg"></p>
+      <h1 class="display">六月星運<br>命運試煉</h1>
+      <p class="intro-quote">通過三道試煉，宇宙將為你揭示<br>2026 年六月，專屬於你的運勢指引。</p>
+      <div class="rules">
+        <h3>試 煉 規 則</h3>
+        <div class="rule"><div class="no">壹</div><div><b>啟動星盤</b><span>選出你的太陽與上升星座，定位你的能量座標。</span></div></div>
+        <div class="rule"><div class="no">貳</div><div><b>凝聚星能量</b><span>連點五芒星五次，喚醒沉睡的星之力。</span></div></div>
+        <div class="rule"><div class="no">參</div><div><b>命運抽牌</b><span>靜心、憑直覺抽出一張指引牌，解鎖你的六月運勢。</span></div></div>
       </div>
-    </div>
+      <p class="free-note">✦ 本試煉完全免費・破關即可獲得六月運勢搶先看 ✦</p>
+      <button class="btn primary" type="button" onclick="go('s-sun',1)">開 啟 試 煉</button>
+      <div style="height:34px"></div>
+    </section>
 
-    <div class="lock-head">
-      <div class="t">你的完整版報告，還藏著——</div>
-      <div class="s">以下章節已為你寫好，等待解鎖</div>
-    </div>
-    <div id="lockList"></div>
+    <section class="screen" id="s-sun">
+      <div class="stage-tag">第 一 關 ・ 啟 動 星 盤</div>
+      <h2 class="stage-title">你的太陽星座</h2>
+      <p class="sub">太陽，代表你最核心的本我能量。</p>
+      <div class="helper-panel">
+        <label class="field-label" for="birthDate">不知道太陽星座？輸入出生日期</label>
+        <div class="helper-grid">
+          <input class="date-input" id="birthDate" type="date">
+          <button class="btn compact" type="button" onclick="selectSunByBirth()">自動帶入</button>
+        </div>
+        <p class="helper-msg" id="birthMsg">系統會依常見西洋星座日期判斷；若生日落在交界日，仍建議以個人星盤校正。</p>
+      </div>
+      <div class="zgrid" id="sunGrid"></div>
+      <div style="height:24px"></div>
+    </section>
 
-    <div class="cta-panel">
-      <h3 id="ctaTitle">解鎖完整版星運報告</h3>
-      <p class="desc">五大生活領域逐張解牌・本月開運指南<br>幸運色 / 幸運數字 / 開運行動 / 要避開的雷區<br>四套精選牌卡交叉解析，PDF 即買即寄到信箱</p>
-      <div class="price"><span class="unit">NT.</span><span class="now">60</span><span class="was">原價 75</span></div>
-      <a class="btn primary" href="https://portaly.cc/pentacles.studiotw" target="_blank" rel="noopener" id="buyBtn">前 往 解 鎖 完 整 報 告</a>
-      <p class="cta-notes" id="ctaNotes">✦ 共 78 種「太陽＋上升」組合，前後順序不拘 ✦<br>✦ 太陽＝上升的單一星座組合，享買一送一 ✦</p>
-    </div>
+    <section class="screen" id="s-rising">
+      <div class="stage-tag">第 一 關 ・ 啟 動 星 盤</div>
+      <h2 class="stage-title">你的上升星座</h2>
+      <p class="sub">上升，是你面對世界的姿態。<br>本次解讀會以上升 80%＋太陽 20% 綜合參考。</p>
+      <div class="zgrid" id="risingGrid"></div>
+      <button class="skip-link" type="button" onclick="setRising(null)">我不知道我的上升星座，先用太陽星座解讀 →</button>
+    </section>
 
-    <div class="retry-row">
-      <button class="btn ghost" onclick="resetGame()">↺ 重 新 試 煉 一 次</button>
-    </div>
+    <section class="screen" id="s-charge">
+      <div class="stage-tag">第 二 關 ・ 凝 聚 星 能 量</div>
+      <h2 class="stage-title">喚醒星之力</h2>
+      <p class="sub">將意念集中於指尖。</p>
+      <div class="charge-zone" id="chargeZone" role="button" tabindex="0" aria-label="點擊五芒星凝聚能量">
+        <svg class="ringline" viewBox="0 0 230 230">
+          <circle class="track" cx="115" cy="115" r="110"/>
+          <circle class="fill" id="ringFill" cx="115" cy="115" r="110"/>
+        </svg>
+        <div class="penta">
+          <svg viewBox="0 0 24 24" fill="rgba(207,174,124,.06)" stroke="#CFAE7C" stroke-width=".9"><circle cx="12" cy="12" r="11.4"/><path d="M12 2.2 14.7 9.5 22.4 9.6 16.3 14.3 18.6 21.8 12 17.2 5.4 21.8 7.7 14.3 1.6 9.6 9.3 9.5Z"/></svg>
+        </div>
+      </div>
+      <div class="tapcount" id="tapCount">0 / 5</div>
+      <p class="charge-hint">✦ 點擊五芒星，凝聚能量 ✦</p>
+      <div style="height:30px"></div>
+    </section>
 
-    <p class="foot">本體驗為趣味占卜參考・完整報告由占卜師專業解牌<br><b>PENTACLES STUDIO ・ 五芒星航</b></p>
-  </section>
-</div>
+    <section class="screen" id="s-oracle">
+      <div class="stage-tag">第 三 關 ・ 選 擇 牌 陣</div>
+      <h2 class="stage-title">選擇你的占卜方式</h2>
+      <p class="sub">78 種太陽＋上升組合，會對應一張專屬守護牌；你也可以決定這次要抽幾張。</p>
+      <div class="choice-panel">
+        <div class="choice-grid">
+          <button class="choice-btn active" type="button" data-deck="tarot" onclick="selectDeck('tarot')">
+            <strong>塔羅占卜</strong>
+            <span>使用 78 張塔羅牌，適合看六月主題、轉折、內在課題與具體行動。</span>
+          </button>
+          <button class="choice-btn" type="button" data-deck="poker" onclick="selectDeck('poker')">
+            <strong>撲克占卜</strong>
+            <span>使用撲克牌四花色能量，適合看日常事件、關係互動與財務節奏。</span>
+          </button>
+        </div>
+        <h3 class="panel-title">抽 牌 數 量</h3>
+        <div class="segmented" id="drawCountBtns">
+          <button type="button" data-count="1" onclick="setDrawCount(1)">1 張・核心訊息</button>
+          <button class="active" type="button" data-count="3" onclick="setDrawCount(3)">3 張・過去現在下一步</button>
+          <button type="button" data-count="5" onclick="setDrawCount(5)">5 張・五大主題</button>
+        </div>
+        <button class="btn primary" type="button" onclick="startDraw()">展 開 扇 形 牌 陣</button>
+      </div>
+    </section>
 
-<script>
-/* ───────────────── 資料 ───────────────── */
-const SIGNS = [
- {id:0, name:"牡羊座", sym:"♈", dates:"3/21–4/19",
-  theme:"化整為零，穩中求快",
-  kw:["行動","聚焦","節奏"],
-  read:"六月的你動能很強，但能量需要收束在一、兩件最重要的事情上。月中之後局勢漸漸明朗，懂得先蹲後跳的牡羊，反而走得最遠、最漂亮。"},
- {id:1, name:"金牛座", sym:"♉", dates:"4/20–5/20",
-  theme:"守住節奏，價值浮現",
-  kw:["沉穩","盤點","收穫"],
-  read:"與其追逐新目標，不如把手上的資源重新整理。六月適合盤點與深耕，看似平淡的累積，月底前會冒出具體回報的苗頭。"},
- {id:2, name:"雙子座", sym:"♊", dates:"5/21–6/21",
-  theme:"訊息爆量，挑重點說",
-  kw:["溝通","篩選","連結"],
-  read:"六月的人際與訊息量明顯增加，先過濾、再回應，是你的保命守則。其中一段不經意的對話，可能悄悄埋下一個合作的種子。"},
- {id:3, name:"巨蟹座", sym:"♋", dates:"6/22–7/22",
-  theme:"先安內，再攘外",
-  kw:["安頓","界線","滋養"],
-  read:"把生活與內心整理好，是六月最重要的功課。當你溫柔而堅定地為自己劃出界線，原本卡住的運勢，反而會開始流動起來。"},
- {id:4, name:"獅子座", sym:"♌", dates:"7/23–8/22",
-  theme:"舞台已搭好，等你上場",
-  kw:["曝光","自信","準備"],
-  read:"六月有被看見的機會悄悄靠近，關鍵在於事前的準備是否扎實。把光芒留給最重要的場合，一次漂亮的亮相勝過十次曝光。"},
- {id:5, name:"處女座", sym:"♍", dates:"8/23–9/22",
-  theme:"放過細節，看見全局",
-  kw:["取捨","效率","信任"],
-  read:"不必每一件事都親自把關。六月練習放手與授權，你會發現效率與心情同步回升，真正重要的事也終於有了空間。"},
- {id:6, name:"天秤座", sym:"♎", dates:"9/23–10/23",
-  theme:"關係洗牌，留下對的人",
-  kw:["平衡","選擇","真誠"],
-  read:"六月的人際圈開始自然篩選，有些緣分淡去，是為了讓對的人靠近。誠實表達你的立場，留下來的關係會比以前更穩固。"},
- {id:7, name:"天蠍座", sym:"♏", dates:"10/24–11/22",
-  theme:"深水靜流，蓄勢待發",
-  kw:["洞察","沉澱","轉化"],
-  read:"表面風平浪靜，底下卻在醞釀大事。六月適合暗中佈局、累積籌碼，月底之前，你會等到一個值得出手的時機。"},
- {id:8, name:"射手座", sym:"♐", dates:"11/23–12/21",
-  theme:"事業登頂，學會放下，向前走",
-  kw:["領導","放下","保守","向前"],
-  read:"事業宮位有王者格局的牌面進場，穩穩推進就會登頂；財務這個月求穩不求攻，感情受了傷別急著做決定。一句話：帶著事業的力量，頭也不回地向前走。"},
- {id:9, name:"摩羯座", sym:"♑", dates:"12/22–1/19",
-  theme:"築底完成，開始爬升",
-  kw:["累積","升級","耐心"],
-  read:"前一陣子默默的努力，在六月開始顯像。不用急著向誰證明什麼，按部就班往上走，成績自己會說話。"},
- {id:10, name:"水瓶座", sym:"♒", dates:"1/20–2/18",
-  theme:"跳出框架，遇見同路人",
-  kw:["創新","社群","靈感"],
-  read:"六月的靈感與人脈互相加乘。一個看似不按牌理出牌的想法，可能正是你等待已久的突破口，記得說出來讓對的人聽見。"},
- {id:11, name:"雙魚座", sym:"♓", dates:"2/19–3/20",
-  theme:"直覺很準，記得落地",
-  kw:["直覺","整理","機緣"],
-  read:"六月的第六感特別靈，但靈感需要搭配實際行動才能成真。留意日常轉角處的小巧合——宇宙的驚喜，常常藏在最不起眼的地方。"}
-];
+    <section class="screen" id="s-draw">
+      <div class="stage-tag">第 三 關 ・ 命 運 抽 牌</div>
+      <h2 class="stage-title">憑直覺，選中它</h2>
+      <p class="sub" id="drawSub">第一次點選會讓牌浮出；再點一下確認，才會翻開。</p>
+      <div class="fan-wrap">
+        <div class="fan" id="fan"></div>
+      </div>
+      <div class="draw-panel">
+        <span class="draw-status" id="drawStatus">等待抽牌</span>
+        <p class="draw-copy" id="drawCopy">請從扇形牌陣中選出第一張牌。</p>
+        <div class="chosen-list" id="chosenList"></div>
+      </div>
+      <div class="draw-actions">
+        <button class="btn ghost" id="confirmBtn" type="button" disabled onclick="confirmCandidate()">確認翻開這張牌</button>
+        <button class="btn primary" id="revealBtn" type="button" disabled onclick="showResult()">解 鎖 我 的 六 月 運 勢</button>
+      </div>
+    </section>
 
-const CARDS = [
- {sym:"☀", name:"太陽", en:"THE SUN", msg:"光正打在你身上。大方展現自己，本月你做的好事、做出的好成績，都會被看見。"},
- {sym:"✶", name:"星星", en:"THE STAR", msg:"願望已經在路上了。保持信念、照顧好自己，慢慢來，反而比較快。"},
- {sym:"◎", name:"世界", en:"THE WORLD", msg:"一個階段即將圓滿。把收尾做漂亮，新的篇章自然會為你展開。"},
- {sym:"∞", name:"力量", en:"STRENGTH", msg:"溫柔而堅定。這個月你最強的武器不是硬碰硬，而是你的耐心與柔軟。"},
- {sym:"✦", name:"魔術師", en:"THE MAGICIAN", msg:"資源其實都在你手上了，差的只是「開始」。本月最忌空想，最利行動。"},
- {sym:"♡", name:"戀人", en:"THE LOVERS", msg:"重要的選擇即將出現。別只算利弊——跟著真心走的那條路，才走得長遠。"},
- {sym:"☸", name:"命運之輪", en:"WHEEL OF FORTUNE", msg:"轉機正悄悄靠近。留意突然出現的邀約與機會，順勢而為，好運會接住你。"},
- {sym:"⚖", name:"節制", en:"TEMPERANCE", msg:"急不得。把生活的節奏調穩、調勻，事情會在剛剛好的時間，剛剛好地完成。"},
- {sym:"❀", name:"皇后", en:"THE EMPRESS", msg:"先把自己照顧好，豐盛會自然靠近。本月適合犒賞自己，也適合醞釀新計畫。"},
- {sym:"♞", name:"戰車", en:"THE CHARIOT", msg:"目標明確，就全速前進。本月你最大的阻礙不是別人，而是自己的猶豫。"},
- {sym:"☽", name:"隱士", en:"THE HERMIT", msg:"留一點時間獨處。你在尋找的答案，會在安靜下來的那一刻自己浮現。"},
- {sym:"✧", name:"正義", en:"JUSTICE", msg:"誠實與平衡，是本月最好的策略。問心無愧地做決定，結果會站在你這邊。"}
-];
+    <section class="screen" id="s-result">
+      <div class="seal">試 煉 完 成 ・ 星 運 解 鎖</div>
+      <div class="combo-card">
+        <div class="combo-sub" id="comboSub"></div>
+        <div class="combo-name" id="comboName"></div>
+        <div class="combo-sub">2026 · JUNE · 六月星運</div>
+        <div id="bogoSlot"></div>
+      </div>
+      <div class="theme-line" id="themeLine"></div>
+      <div class="kws" id="kwRow"></div>
+      <div class="free-block">
+        <h4>總 體 運 勢 ・ 搶 先 看</h4>
+        <p id="overview"></p>
+      </div>
+      <div class="anchor-row" id="anchorRow"></div>
+      <div class="topic-grid" id="topicGrid"></div>
+      <div class="spread-list" id="spreadList"></div>
+      <div class="transition-panel">
+        <h4>給六月的你，一個過渡提醒</h4>
+        <p id="softSummary"></p>
+      </div>
+      <div class="lock-head">
+        <div class="t">你的完整版報告，還藏著——</div>
+        <div class="s">以下章節已為你寫好，點任一章節會前往解鎖入口</div>
+      </div>
+      <div id="lockList"></div>
+      <div class="cta-panel" id="buyPanel">
+        <h3 id="ctaTitle">解鎖完整版星運報告</h3>
+        <p class="desc" id="ctaDesc">五大生活領域逐張解牌・本月開運指南<br>幸運色 / 幸運數字 / 開運行動 / 要避開的雷區<br>四套牌卡交叉解析，PDF即買即寄到信箱</p>
+        <div class="price"><span class="unit">NT.</span><span class="now">60</span><span class="was">原價 75</span></div>
+        <a class="btn primary" href="https://portaly.cc/pentacles.studiotw" target="_blank" rel="noopener" id="buyBtn">前 往 解 鎖 完 整 報 告</a>
+        <p class="cta-notes" id="ctaNotes">✦ 共 78 種「太陽＋上升」組合，前後順序不拘 ✦<br>✦ 太陽＝上升的單一星座組合，享買一送一 ✦</p>
+      </div>
+      <div class="retry-row">
+        <button class="btn ghost" type="button" onclick="resetGame()">↺ 重 新 試 煉 一 次</button>
+      </div>
+      <p class="foot">本體驗為趣味占卜參考・完整報告由占卜師專業解牌<br><b>PENTACLES STUDIO ・ 五芒星航</b></p>
+    </section>
+  </main>
 
-/* ───────────────── 狀態 ───────────────── */
-let sunSign=null, risingSign=undefined, taps=0, drawn=null;
+  <script>
+    const SIGNS = [{"key": "aries", "name": "牡羊座", "short": "牡羊", "sym": "♈", "dates": "3/21–4/19", "theme": "順著改變的風，放下自尊向前飛", "kw": ["改變", "收尾", "耐心", "愛意"], "overview": "六月的牡羊座充滿行動力與愛意，但真正的關鍵不是衝得多快，而是願不願意把最後一段路走穩。當你把掌控欲放輕、把細節收乾淨，改變反而會推著你向前。", "topics": {"career": "事業卡在最後 1%，不是能力不夠，是細節需要耐心收尾。先把已經開始的案子收乾淨，六月的行動力才不會被返工拖住。", "wealth": "財務壓力開始鬆動，適合重新規劃收支與長期理財。別再替不屬於你的責任買單，平衡會慢慢回來。", "love": "感情有新開始或甜蜜升溫，但越喜歡越要保留自己的重心。依賴不是安全感，能自在相處才是。", "home": "家中容易想掌控全局，越急越讓彼此緊繃。用溫柔取代命令，很多擔心會自己降溫。", "study": "短期學習與專案里程碑很亮眼，先享受眼前成果。遠方理想暫時不用一次定案，讓改變的風先吹一陣。"}, "guidance": "講話前多三秒，收尾時多一分耐心。六月不是要你慢下來，而是讓速度有方向。", "luck": {"colors": "珊瑚紅、暖金", "numbers": "1、9", "action": "把一件拖到最後的事收尾", "avoid": "逞強、替別人扛責任"}}, {"key": "taurus", "name": "金牛座", "short": "金牛", "sym": "♉", "dates": "4/20–5/20", "theme": "傷口正在癒合，別再只是觀望", "kw": ["復原", "合作", "穩定", "行動"], "overview": "六月的金牛座正在從舊傷、爭吵與焦慮中慢慢回到身體裡。你不需要急著證明自己已經好了，只要願意從旁觀的位置走出來，就會看見新的合作與穩定復甦。", "topics": {"career": "事業壞運正在退散，適合接住真心契合的合作。跟相處舒服、價值觀一致的人站在一起，會比單打獨鬥更有力。", "wealth": "財務谷底已過，但復甦需要保守而穩定的節奏。避免冒進，先讓現金流和支出習慣恢復秩序。", "love": "感情直覺很準，你能感覺到關係裡真正的溫度。想維持現狀也沒有錯，但別用舒適圈掩蓋真正想說的話。", "home": "內心已經累到不想再爭辯，這是放下舊包袱的訊號。給自己安靜的空間，平靜會比勝負更重要。", "study": "焦慮和懷舊正在退去，思緒重新開機。適合學新東西、整理目標，把腦袋裡的雜訊清掉。"}, "guidance": "不要只站在岸邊觀察水流。六月的療癒會在你願意往前一步時，變成真正的生活進展。", "luck": {"colors": "橄欖綠、象牙白", "numbers": "2、6", "action": "整理一筆固定支出", "avoid": "過度觀望、為舊傷反覆辯解"}}, {"key": "gemini", "name": "雙子座", "short": "雙子", "sym": "♊", "dates": "5/21–6/21", "theme": "別再旁觀，是時候親自下場了", "kw": ["行動", "過濾", "主導", "覺醒"], "overview": "六月的雙子座腦中有很多分析、很多可能性，但牌面提醒你，答案不會只靠觀察出現。你需要親自下場，離開消耗你的環境，也把金錢和情緒的主導權拿回來。", "topics": {"career": "事業上有一種清醒感：你知道哪個位置正在消耗你。若該離開、該換方法，就把計畫落地，不要只在心裡反覆推演。", "wealth": "社交花費容易增加，也要小心不靠譜的合作對象。錢一定要自己管，合約和承諾都要看清楚。", "love": "感情需要過濾不成熟或給不出承諾的人。你不是太挑剔，而是在替未來保留真正值得的位置。", "home": "家庭或內心容易有委屈與刺痛感，先別跟不講理的人硬碰硬。保護情緒，比把道理說贏更重要。", "study": "學習低潮開始結束，過去的經驗會變成靈感來源。把舊筆記、舊想法翻出來，可能會找到新的入口。"}, "guidance": "不要等到所有資訊都完美才開始。六月最有力量的動作，是把旁觀者的位置讓出來。", "luck": {"colors": "薄荷綠、銀灰", "numbers": "3、5", "action": "取消一個消耗型承諾", "avoid": "衝動答應、把錢交給別人管"}}, {"key": "cancer", "name": "巨蟹座", "short": "巨蟹", "sym": "♋", "dates": "6/22–7/22", "theme": "信任命運，順流而下，大步向前", "kw": ["療癒", "穩定", "主導", "順流"], "overview": "六月的巨蟹座像從舊傷裡慢慢浮上來。財務穩了，感情與合作也有機會修復；當你信任命運的流向，就能用更堅定的姿態往新生活前進。", "topics": {"career": "職場政治與防備感正在退散，你可以用新人的熱情重新投入。適合回到真正讓你有感的工作內容。", "wealth": "財務安全感很高，物質生活穩定而滋潤。可以適度犒賞自己，但仍要讓享受留在可負擔的範圍。", "love": "感情傷口正在癒合，適合把話說開、迎向和解。你不需要忘記過去，只要不再被過去困住。", "home": "家庭計畫可能延宕，內心也需要獨處來消化情緒。給自己一段安靜時間，比急著推進更有效。", "study": "溝通上不再非要爭輸贏，傾聽會帶來更好的結果。把語氣放柔，對方反而更願意靠近。"}, "guidance": "信任不是什麼都不做，而是在該前進時不再回頭確認每一道浪。順流，會帶你到新的岸邊。", "luck": {"colors": "珍珠白、海霧藍", "numbers": "4、8", "action": "把一段關係中的話說清楚", "avoid": "情緒悶住、把延誤解讀成失敗"}}, {"key": "leo", "name": "獅子座", "short": "獅子", "sym": "♌", "dates": "7/23–8/22", "theme": "站上高峰，也要學會放手", "kw": ["成就", "界線", "休息", "商機"], "overview": "六月的獅子座外在閃耀、成果滿滿，但身體和內心都在提醒你不要硬撐。你的光芒已經被看見，接下來要學會把不屬於你的壓力放下。", "topics": {"career": "事業極度成功，容易得到讚美、成就感或重要里程碑。真正的挑戰是別把所有責任都扛在肩上。", "wealth": "財務上能看見新商機，但資訊真假需要分辨。別被漂亮說法帶著走，先查證再出手。", "love": "感情像家人一樣穩定踏實，有伴者適合談長遠安排。單身者也能從熟悉、安心的互動裡看見溫度。", "home": "內心付出與回報容易失衡，先照顧自己、設好界線。休息不是退場，而是在替下一次登場蓄力。", "study": "學習與溝通有好消息，靈感來得快。把靈感記下來，不要讓它只停留在一瞬間的興奮。"}, "guidance": "你不必用過勞證明自己值得掌聲。六月的高峰要站穩，也要懂得下台休息。", "luck": {"colors": "日光金、莓果紅", "numbers": "5、10", "action": "刪掉一個非必要責任", "avoid": "硬撐、被假消息牽動"}}, {"key": "virgo", "name": "處女座", "short": "處女", "sym": "♍", "dates": "8/23–9/22", "theme": "停止分析，做出決定，迎接豐收", "kw": ["決斷", "豐收", "自由", "真實"], "overview": "六月的處女座最大的阻力不是外在難題，而是停不下來的分析。只要你做出決定、放下完美主義，事業豐收、財務自由與內在平靜會一一靠近。", "topics": {"career": "事業正在等待你做出關鍵決定，決定之後就是豐收。不要再讓反覆比較消耗你的高光時刻。", "wealth": "財務有機會擺脫壞習慣或不健康合約，但要控制衝動消費。刷卡前給自己三天冷靜期。", "love": "感情容易付出失衡，把愛留一點給自己。你不需要用過度照顧來換安全感。", "home": "內心焦慮正在散去，適合建立穩固根基。整理住處、帳務或生活節奏，都會讓你更踏實。", "study": "點子很多，但時機不一定都成熟。先保存、整理、等待適合的窗口，不要急著全部推出去。"}, "guidance": "你已經想得夠多了。六月請相信自己的判斷，讓行動替你回答那些想不完的問題。", "luck": {"colors": "鼠尾草綠、霧白", "numbers": "6、14", "action": "替一個決定設下期限", "avoid": "完美主義、衝動購物"}}, {"key": "libra", "name": "天秤座", "short": "天秤", "sym": "♎", "dates": "9/23–10/23", "theme": "觸底反彈，命運正在為你翻轉", "kw": ["反彈", "停損", "誠實", "翻轉"], "overview": "六月的天秤座可能經歷財務陣痛、溝通卡關和一閃而過的心碎，但這些都不是結局。命運正在翻轉，你要做的是停損、說清楚，並把掌控權拿回來。", "topics": {"career": "事業需要穩紮穩打，也要勇敢捍衛你的心血。別為了表面和氣，讓真正重要的成果被稀釋。", "wealth": "財務觸底，適合停止無效投入。承認眼前虧損並果斷停損，會比繼續補洞更有希望。", "love": "感情溝通卡關，猜測會把你困在焦慮裡。把話講開，是六月最快的解法。", "home": "內在其實擁有資源與改變現狀的能力，不要忽略自己的聲音。主動創造快樂，而不是等待別人允許。", "study": "學習與溝通可能先有刺痛的言論，之後才迎來命運翻轉。把批評轉成調整，不必把它當成定罪。"}, "guidance": "觸底不是被打敗，而是終於知道哪裡不能再放任。六月請把能量用在回升，而不是維持表面漂亮。", "luck": {"colors": "玫瑰粉、墨綠", "numbers": "7、11", "action": "停掉一個無效投入", "avoid": "猜忌、為了和氣不表態"}}, {"key": "scorpio", "name": "天蠍座", "short": "天蠍", "sym": "♏", "dates": "10/24–11/22", "theme": "享受豐收，也要在岔路口勇敢選擇", "kw": ["豐收", "選擇", "洞察", "休息"], "overview": "六月的天蠍座外在風光、事業豐收，但內心可能悄悄耗盡。你站在岔路口，不需要假裝一切照舊；承認疲憊，才能選出真正想走的方向。", "topics": {"career": "事業迎來豐盛成果，適合用創新方式領導。你過去累積的東西正在開花，但也要留意別被成果綁架。", "wealth": "財務頭腦很冷靜，適合理智砍掉不賺錢的項目。小心情緒性消費，不要用購物補內在疲勞。", "love": "有伴者能互相支持，關係趨於平衡；單身者不必勉強經營新關係。維持現狀有時也是保護能量。", "home": "生活步調太快，內心感到失控。允許自己脆弱與休息，別把每個混亂都當成必須立刻解決的任務。", "study": "思緒像閃電般清晰，容易遇到契合的夥伴。適合談合作、交換想法，讓洞察變成實際方案。"}, "guidance": "享受成功，也請正視疲憊。六月的選擇不是放棄，而是把力氣留給真正值得的路。", "luck": {"colors": "酒紅、深海藍", "numbers": "8、13", "action": "清掉一個低效項目", "avoid": "情緒性消費、假裝不累"}}, {"key": "sagittarius", "name": "射手座", "short": "射手", "sym": "♐", "dates": "11/23–12/21", "theme": "事業登頂，學會放下，向前走", "kw": ["領導", "放下", "務實", "向前"], "overview": "六月的射手座會在事業上嚐到稱王的滋味，卻也要承受財務與感情上的衝擊。把事業帶來的力量借給生活其他面向，務實盤點、學會放下，你會走得更穩。", "topics": {"career": "事業王者降臨，穩穩推進就會登頂。這是里程碑之月，請把成就感用來支持更成熟的下一步。", "wealth": "財務可能有高塔式震撼，務必守住現金。突發支出或合作變動不是懲罰，而是提醒你重建更穩的基礎。", "love": "感情可能經歷心碎或爭吵，看清真相後別急著決定。暫停不是結束，而是讓情緒有時間降溫。", "home": "內心可能低潮、無聊或缺乏希望。承認疲憊，慢慢找回火花，不必逼自己立刻振作。", "study": "小事卡關、溝通延誤或交通麻煩會出現，但不影響大方向。把心放回真正重要的目標。"}, "guidance": "不要用一時的不公平困住自己。帶著事業的力量，頭也不回地向前走。", "luck": {"colors": "靛藍、銅金", "numbers": "9、21", "action": "做一次現金流盤點", "avoid": "衝動分手、全押投資"}}, {"key": "capricorn", "name": "摩羯座", "short": "摩羯", "sym": "♑", "dates": "12/22–1/19", "theme": "大膽起步，但別抄捷徑", "kw": ["起步", "清理", "計畫", "療癒"], "overview": "六月的摩羯座心裡燃著一把想要重新開始的火，這很好，但牌面也提醒你別抄捷徑。把計畫寫清楚、把財務理乾淨，你的起步會更有力量。", "topics": {"career": "事業想大膽起步，渴望全新開始，但計畫還需要更周全。先把步驟寫下來，再踏出舒適圈。", "wealth": "財務適合大掃除，切斷壞習慣、不公平合約或不必要開銷。這是讓金錢重新變健康的好時機。", "love": "感情上容易渴望讚美卻覺得不滿足。先肯定自己，別把價值交給對方的反應決定。", "home": "內心有強大支撐，也可能有懂你的人陪伴；家庭問題暫時卡關就交給時間。不是所有事都要立刻解決。", "study": "溝通創傷正在癒合，但別鑽牛角尖。放下固執，新的理解才進得來。"}, "guidance": "大膽很好，草率不必。六月請用摩羯最擅長的實力，替新的開始打好地基。", "luck": {"colors": "石墨灰、松木綠", "numbers": "10、22", "action": "整理訂閱、帳單與合約", "avoid": "抄捷徑、等別人稱讚才安心"}}, {"key": "aquarius", "name": "水瓶座", "short": "水瓶", "sym": "♒", "dates": "1/20–2/18", "theme": "退一步，找回自己，主動創造結果", "kw": ["獨處", "務實", "界線", "主動"], "overview": "六月的水瓶座會在人群中感到一點疲憊與格格不入，情緒的消耗、感情的張力與財務暗湧，都在叫你退一步。這不是逃避，而是把能量收回來，自己創造想要的結果。", "topics": {"career": "職場情緒消耗偏大，但舊人脈是你的貴人。以前的同事、老客戶或熟悉專案，可能重新帶來支持與合作。", "wealth": "財務有遠見與拓展力，但要防範突發損失。投資、合夥與大額支出都要留備案，不要把雞蛋放在同一個籃子裡。", "love": "感情有強烈吸引，也容易伴隨控制欲或依賴。若感到窒息，請把界線說清楚，別讓佔有凌駕於愛。", "home": "家庭氛圍有溫暖與清晰溝通，但內心仍有自我抉擇的迷惘。先把家裡能說清楚的事說清楚，重大決定不用急。", "study": "日常交流能獲得勝利與認可，但你可能抗拒更深層的改變。享受掌聲，也要讓舊觀念有被更新的空間。"}, "guidance": "別等奇蹟，也別等救援。答案在你捲起袖子、開始處理手邊問題的那一刻。", "luck": {"colors": "電光藍、銀白、靛紫", "numbers": "3、6", "action": "主動聯繫一位老朋友或老同事", "avoid": "苦等回覆、讓佔有慾凌駕於愛"}}, {"key": "pisces", "name": "雙魚座", "short": "雙魚", "sym": "♓", "dates": "2/19–3/20", "theme": "快到終點了，堅持下去就有祝福", "kw": ["堅持", "祝福", "求助", "破冰"], "overview": "六月的雙魚座正走在長期努力的尾聲，難免疲憊，但祝福已經靠近。請照章行事、放下防備，該求助時求助，這段路會有人願意陪你走完。", "topics": {"career": "職場有溫情與貴人，但日常容易急躁出錯。慢一點檢查細節，反而能守住好運。", "wealth": "對存款進度可能有挫折，但你的理財頭腦依舊精明。用分析市場的態度看自己的資產，會發現情況比想像穩。", "love": "感情有熱情的新起點，但心裡仍帶著舊傷。別讓過去擋住靠近你的人，慢慢破冰就好。", "home": "內心可能覺得被現實困住，這時要向智慧長者、專業人士或成熟朋友求解。開口不是麻煩別人，是讓路變寬。", "study": "學習與溝通變得保守，高階學習容易卡住。放開防備，照規則一步步做，反而更快抵達。"}, "guidance": "你離終點比自己以為的更近。六月請把疲憊交給節奏，把困惑交給值得信任的人。", "luck": {"colors": "霧紫、海鹽白", "numbers": "12、24", "action": "向一位可信任的人請教", "avoid": "急躁出錯、因舊傷拒絕新開始"}}];
+    const PRODUCT_LINKS = {"0-0": "https://portaly.cc/pentacles.studiotw/product/hB0WXAszkHUzpIHOJGSE", "0-1": "https://portaly.cc/pentacles.studiotw/product/wUfVlVZVZ3Jbs0OPXHUE", "0-10": "https://portaly.cc/pentacles.studiotw/product/yI9uFIUiemaQGZMjPi2j", "0-11": "https://portaly.cc/pentacles.studiotw/product/OyX8w2379NkEV1EvYEtj", "0-2": "https://portaly.cc/pentacles.studiotw/product/UsMcbukwxbctg6joEfiE", "0-3": "https://portaly.cc/pentacles.studiotw/product/FhUXxSMytz3MYbadsLf2", "0-4": "https://portaly.cc/pentacles.studiotw/product/KpLhcnA2rddxomOqgife", "0-5": "https://portaly.cc/pentacles.studiotw/product/A9nVAydlySExIJAGaZpx", "0-6": "https://portaly.cc/pentacles.studiotw/product/NH2oN2Ixg6uEstNGD0kr", "0-7": "https://portaly.cc/pentacles.studiotw/product/heijHXjwt7RlSPBYfALi", "0-8": "https://portaly.cc/pentacles.studiotw/product/if4ehDWY7WnV39uNWjV9", "0-9": "https://portaly.cc/pentacles.studiotw/product/y6sWQt0cCxooDn9hRVJ5", "1-1": "https://portaly.cc/pentacles.studiotw/product/gV37qozyoQJyLlYkRnZH", "1-10": "https://portaly.cc/pentacles.studiotw/product/UVKKWIw8bANy9fLE9Keo", "1-11": "https://portaly.cc/pentacles.studiotw/product/b5XwP54J8iQipzdHBqhV", "1-2": "https://portaly.cc/pentacles.studiotw/product/PtUYduhXE3MYJEzmXukx", "1-3": "https://portaly.cc/pentacles.studiotw/product/9zjDNPpodEFdBQnD1xQs", "1-4": "https://portaly.cc/pentacles.studiotw/product/IkDwTQQqYxQlq6rFLfZC", "1-5": "https://portaly.cc/pentacles.studiotw/product/dDTIgjC82JWsLC681VGa", "1-6": "https://portaly.cc/pentacles.studiotw/product/mh3jqb5ZoNduy1LC5lt8", "1-7": "https://portaly.cc/pentacles.studiotw/product/c3PP7IW9s9p8RJYdRG1S", "1-8": "https://portaly.cc/pentacles.studiotw/product/M9yTXkP9qqw5VdnzAt9z", "1-9": "https://portaly.cc/pentacles.studiotw/product/yoayHR0wiIe2RPYr69NK", "10-10": "https://portaly.cc/pentacles.studiotw/product/FxGZX1hH17M7AiBN6xry", "10-11": "https://portaly.cc/pentacles.studiotw/product/iUYnSb0xsFQLjne3ObEm", "11-11": "https://portaly.cc/pentacles.studiotw/product/AWd7tT0yz8CMsw8CcOvw", "2-10": "https://portaly.cc/pentacles.studiotw/product/bFAUWo3SvFQ2dbcdF8Xw", "2-11": "https://portaly.cc/pentacles.studiotw/product/wNGABhI12i7byY0MHHFN", "2-2": "https://portaly.cc/pentacles.studiotw/product/C8npPgBhBk183O2YSA3d", "2-3": "https://portaly.cc/pentacles.studiotw/product/S81WtCDfYbK4PdSbMduB", "2-4": "https://portaly.cc/pentacles.studiotw/product/Xhd709A1Ias9kGi0hSmF", "2-5": "https://portaly.cc/pentacles.studiotw/product/A2n7kYWXkGNA6lPTOWkv", "2-6": "https://portaly.cc/pentacles.studiotw/product/F5WnXlZJSMlmmkr4fMeH", "2-7": "https://portaly.cc/pentacles.studiotw/product/Nn50UU098OIHZX4dUM3P", "2-8": "https://portaly.cc/pentacles.studiotw/product/sKtnkGHPfmu41R9pyfrA", "2-9": "https://portaly.cc/pentacles.studiotw/product/zpEJbZZcJya9h5rqW40P", "3-10": "https://portaly.cc/pentacles.studiotw/product/mjYXHeKZ4NvHTYqyx9kb", "3-11": "https://portaly.cc/pentacles.studiotw/product/HfgCKOdeYBKs2X01F4bK", "3-3": "https://portaly.cc/pentacles.studiotw/product/pvwpxoFgQ8Asfx5WoXgC", "3-4": "https://portaly.cc/pentacles.studiotw/product/AilR77s3BOOcXCv9uNVR", "3-5": "https://portaly.cc/pentacles.studiotw/product/GkgNZRxrBVdknhapIbiS", "3-6": "https://portaly.cc/pentacles.studiotw/product/cNHOOrgtFI0T6EiBMufZ", "3-7": "https://portaly.cc/pentacles.studiotw/product/IpsmUSd1HFTQMTtPYJVx", "3-8": "https://portaly.cc/pentacles.studiotw/product/ZOgHTenQmS1HGo03cSNC", "3-9": "https://portaly.cc/pentacles.studiotw/product/EAlp58EQa8wC2cpC4h6W", "4-10": "https://portaly.cc/pentacles.studiotw/product/hqwi2EKzDgaLQdj5G6Ei", "4-11": "https://portaly.cc/pentacles.studiotw/product/fR0FWFxz7IpNu2t7FgGR", "4-4": "https://portaly.cc/pentacles.studiotw/product/bzc5kSUGUgdwnkKoZ9vw", "4-5": "https://portaly.cc/pentacles.studiotw/product/2vZFzFeytBG3Cc00EsWz", "4-6": "https://portaly.cc/pentacles.studiotw/product/hFkgSqvScp35VbCJ7kFm", "4-7": "https://portaly.cc/pentacles.studiotw/product/GDth0gSwJ1mDa0q6jHNY", "4-8": "https://portaly.cc/pentacles.studiotw/product/7aKF0uuqVQlpllijJpKX", "4-9": "https://portaly.cc/pentacles.studiotw/product/ARadt4UfKvb5Y40fQTyf", "5-10": "https://portaly.cc/pentacles.studiotw/product/FYyECUxbhhoMLLjYlju3", "5-11": "https://portaly.cc/pentacles.studiotw/product/Pw66LQ9zrEL24kPzIwUE", "5-5": "https://portaly.cc/pentacles.studiotw/product/kdLwpZbVRbaueuKn15so", "5-6": "https://portaly.cc/pentacles.studiotw/product/oKlFZfsK5eKmxJpjE1GG", "5-7": "https://portaly.cc/pentacles.studiotw/product/RXcAjDdR51o8GD7VHiCh", "5-8": "https://portaly.cc/pentacles.studiotw/product/mQnq8N0xz2JKEcfu9Z0k", "5-9": "https://portaly.cc/pentacles.studiotw/product/424yKnWUIwbhkCAqi1UA", "6-10": "https://portaly.cc/pentacles.studiotw/product/lQ8gYO0YC1kDwaYqnXDw", "6-11": "https://portaly.cc/pentacles.studiotw/product/1aRGhOOElLOXGFKdnNQJ", "6-6": "https://portaly.cc/pentacles.studiotw/product/CbCRj0NuLwZrB7MAAVk9", "6-7": "https://portaly.cc/pentacles.studiotw/product/BuYZl2JSS2UbKpKuVXrF", "6-8": "https://portaly.cc/pentacles.studiotw/product/HAHbQb3L67ujfAA60wuX", "6-9": "https://portaly.cc/pentacles.studiotw/product/h7lDy8ppNwLLk9O38zLs", "7-10": "https://portaly.cc/pentacles.studiotw/product/JVcxFiq3wycI4NrJKmCG", "7-11": "https://portaly.cc/pentacles.studiotw/product/mavwEeq1aepK3NqxWJXJ", "7-7": "https://portaly.cc/pentacles.studiotw/product/Id3nHPXHLf096LcFkhHm", "7-8": "https://portaly.cc/pentacles.studiotw/product/Ic9SPhxv0PVn5qwzTZ55", "7-9": "https://portaly.cc/pentacles.studiotw/product/sC18oAbsiNxCb0wZrmKV", "8-10": "https://portaly.cc/pentacles.studiotw/product/omeXZYM4LxaUWbuM7SmP", "8-11": "https://portaly.cc/pentacles.studiotw/product/Q3lzZfo1M4MyRNApCFi7", "8-8": "https://portaly.cc/pentacles.studiotw/product/Yys5SiXyoloHiDULHvU4", "8-9": "https://portaly.cc/pentacles.studiotw/product/tHcvrEhivdQsd2SzLtsG", "9-10": "https://portaly.cc/pentacles.studiotw/product/f8Z9bKxBcKYCPCt2pg9C", "9-11": "https://portaly.cc/pentacles.studiotw/product/Peu76tRFn3dh7aY1AAaF", "9-9": "https://portaly.cc/pentacles.studiotw/product/hgNeUuEruJFROmGM43Jv"};
+    window.PS_ANALYTICS_ENDPOINT = window.PS_ANALYTICS_ENDPOINT || "";
 
-/* ───────────────── 星空 ───────────────── */
-(function(){
-  const box=document.getElementById('stars');
-  for(let i=0;i<46;i++){
-    const s=document.createElement('div');s.className='star';
-    const sz=(Math.random()*1.8+.7).toFixed(1);
-    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${(Math.random()*4+2.5).toFixed(1)}s;--dl:${(Math.random()*5).toFixed(1)}s;--o:${(Math.random()*.5+.3).toFixed(2)}`;
-    box.appendChild(s);
-  }
-})();
+    const TOPICS = [
+      {id:"career", title:"事業與工作", en:"CAREER & WORK"},
+      {id:"wealth", title:"財富與金錢", en:"WEALTH & MONEY"},
+      {id:"love", title:"感情與人際", en:"LOVE & RELATIONSHIPS"},
+      {id:"home", title:"家庭與內心", en:"HOME & SELF"},
+      {id:"study", title:"學習與溝通", en:"STUDY & COMMUNICATION"}
+    ];
 
-/* ───────────────── 流程控制 ───────────────── */
-function go(id, step){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const sc=document.getElementById(id);
-  sc.classList.remove('active'); void sc.offsetWidth; sc.classList.add('active');
-  const prog=document.getElementById('progress');
-  if(step){ prog.classList.remove('hide');
-    document.querySelectorAll('.pstep').forEach(p=>{
-      const n=+p.dataset.p;
-      p.classList.toggle('done', n<step);
-      p.classList.toggle('now', n===step);
+    const state = {
+      sun:null,
+      rising:undefined,
+      taps:0,
+      deckType:"tarot",
+      drawCount:3,
+      fanCards:[],
+      candidate:null,
+      drawn:[]
+    };
+
+    function $(id){ return document.getElementById(id); }
+    function escapeHtml(value){
+      return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+    }
+    function pairKey(a,b){
+      const x = Math.min(a,b), y = Math.max(a,b);
+      return x + "-" + y;
+    }
+    function comboIndex(a,b){
+      const x = Math.min(a,b), y = Math.max(a,b);
+      let idx = 0;
+      for(let i=0;i<x;i++) idx += 12 - i;
+      return idx + (y - x);
+    }
+    function currentRisingIndex(){
+      return state.rising == null ? state.sun : state.rising;
+    }
+
+    (function makeStars(){
+      const box = $("stars");
+      for(let i=0;i<58;i++){
+        const s = document.createElement("div");
+        s.className = "star";
+        const sz = (Math.random()*1.8+.7).toFixed(1);
+        s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${(Math.random()*4+2.5).toFixed(1)}s;--dl:${(Math.random()*5).toFixed(1)}s;--o:${(Math.random()*.5+.25).toFixed(2)}`;
+        box.appendChild(s);
+      }
+    })();
+
+    function go(id, step){
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      const sc = $(id);
+      sc.classList.remove("active");
+      void sc.offsetWidth;
+      sc.classList.add("active");
+      const prog = $("progress");
+      if(step){
+        prog.classList.remove("hide");
+        document.querySelectorAll(".pstep").forEach(p => {
+          const n = +p.dataset.p;
+          p.classList.toggle("done", n < step);
+          p.classList.toggle("now", n === step);
+        });
+      } else {
+        prog.classList.add("hide");
+      }
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function track(type, key, extra={}){
+      const payload = {type, key:String(key), at:new Date().toISOString(), ...extra};
+      try{
+        const stats = JSON.parse(localStorage.getItem("psJuneStats") || "{}");
+        stats[type] = stats[type] || {};
+        stats[type][payload.key] = (stats[type][payload.key] || 0) + 1;
+        stats.events = (stats.events || 0) + 1;
+        localStorage.setItem("psJuneStats", JSON.stringify(stats));
+      }catch(err){}
+      if(window.PS_ANALYTICS_ENDPOINT){
+        try{
+          const body = JSON.stringify(payload);
+          if(navigator.sendBeacon){
+            navigator.sendBeacon(window.PS_ANALYTICS_ENDPOINT, new Blob([body], {type:"application/json"}));
+          }else{
+            fetch(window.PS_ANALYTICS_ENDPOINT, {method:"POST", headers:{"Content-Type":"application/json"}, body, keepalive:true});
+          }
+        }catch(err){}
+      }
+    }
+
+    function buildGrid(elId, onPick){
+      const g = $(elId);
+      g.innerHTML = "";
+      SIGNS.forEach((z, id) => {
+        const b = document.createElement("button");
+        b.className = "zbtn";
+        b.type = "button";
+        b.dataset.id = id;
+        b.innerHTML = `<span class="sym">${z.sym}</span><span class="nm">${z.name}</span><span class="dt">${z.dates}</span>`;
+        b.addEventListener("click", () => onPick(id));
+        g.appendChild(b);
+      });
+    }
+    function markGrid(elId, id){
+      const g = $(elId);
+      g.querySelectorAll(".zbtn").forEach(b => b.classList.toggle("sel", +b.dataset.id === id));
+    }
+    buildGrid("sunGrid", id => setSun(id, true));
+    buildGrid("risingGrid", id => setRising(id));
+
+    function setSun(id, advance){
+      state.sun = id;
+      markGrid("sunGrid", id);
+      track("sun", SIGNS[id].key);
+      if(advance) setTimeout(() => go("s-rising",1), 300);
+    }
+    function setRising(id){
+      state.rising = id;
+      if(id != null){
+        markGrid("risingGrid", id);
+        track("rising", SIGNS[id].key);
+      }else{
+        track("rising", "unknown");
+      }
+      go("s-charge",2);
+    }
+    function sunFromMonthDay(month, day){
+      const md = month * 100 + day;
+      if(md >= 321 && md <= 419) return 0;
+      if(md >= 420 && md <= 520) return 1;
+      if(md >= 521 && md <= 621) return 2;
+      if(md >= 622 && md <= 722) return 3;
+      if(md >= 723 && md <= 822) return 4;
+      if(md >= 823 && md <= 922) return 5;
+      if(md >= 923 && md <= 1023) return 6;
+      if(md >= 1024 && md <= 1122) return 7;
+      if(md >= 1123 && md <= 1221) return 8;
+      if(md >= 1222 || md <= 119) return 9;
+      if(md >= 120 && md <= 218) return 10;
+      return 11;
+    }
+    function selectSunByBirth(){
+      const value = $("birthDate").value;
+      if(!value){
+        $("birthMsg").textContent = "請先選擇出生日期。";
+        return;
+      }
+      const parts = value.split("-").map(Number);
+      const id = sunFromMonthDay(parts[1], parts[2]);
+      setSun(id, false);
+      $("birthMsg").textContent = `已自動選擇：${SIGNS[id].name}。若生日在交界日前後，建議仍以個人星盤校正。`;
+      setTimeout(() => go("s-rising",1), 850);
+    }
+
+    const zone = $("chargeZone");
+    function tapCharge(){
+      if(state.taps >= 5) return;
+      state.taps++;
+      $("tapCount").textContent = state.taps + " / 5";
+      $("ringFill").style.strokeDashoffset = 691 - (691 * state.taps / 5);
+      zone.classList.remove("pulse");
+      void zone.offsetWidth;
+      zone.classList.add("pulse");
+      if(state.taps === 5){
+        zone.classList.add("full");
+        setTimeout(() => go("s-oracle",3), 850);
+      }
+    }
+    zone.addEventListener("click", tapCharge);
+    zone.addEventListener("keydown", e => {
+      if(e.key === "Enter" || e.key === " "){
+        e.preventDefault();
+        tapCharge();
+      }
     });
-  } else prog.classList.add('hide');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
 
-/* ───────────────── 星座格 ───────────────── */
-function buildGrid(elId, onPick){
-  const g=document.getElementById(elId); g.innerHTML='';
-  SIGNS.forEach(z=>{
-    const b=document.createElement('button');b.className='zbtn';
-    b.innerHTML=`<span class="sym">${z.sym}</span><span class="nm">${z.name}</span><span class="dt">${z.dates}</span>`;
-    b.onclick=()=>{ g.querySelectorAll('.zbtn').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); setTimeout(()=>onPick(z.id),420); };
-    g.appendChild(b);
-  });
-}
-buildGrid('sunGrid', id=>{ sunSign=id; go('s-rising',1); });
-buildGrid('risingGrid', id=>{ setRising(id); });
-function setRising(id){ risingSign=id; go('s-charge',2); }
+    function selectDeck(type){
+      state.deckType = type;
+      document.querySelectorAll("[data-deck]").forEach(b => b.classList.toggle("active", b.dataset.deck === type));
+      track("deck-select", type);
+    }
+    function setDrawCount(count){
+      state.drawCount = count;
+      document.querySelectorAll("#drawCountBtns button").forEach(b => b.classList.toggle("active", +b.dataset.count === count));
+      track("draw-count", count);
+    }
 
-/* ───────────────── 第二關：充能 ───────────────── */
-const zone=document.getElementById('chargeZone');
-zone.addEventListener('click', ()=>{
-  if(taps>=5) return;
-  taps++;
-  document.getElementById('tapCount').textContent=taps+' / 5';
-  document.getElementById('ringFill').style.strokeDashoffset = 691 - (691*taps/5);
-  zone.classList.remove('pulse'); void zone.offsetWidth; zone.classList.add('pulse');
-  if(taps===5){ zone.classList.add('full'); setTimeout(()=>{ buildFan(); go('s-draw',3); },950); }
-});
+    const MAJOR = [
+      ["m00","0","愚者","THE FOOL","新開始","愚者提醒你把六月當成新的旅程。未知不是威脅，而是邀請你用輕盈的方式跨出去。"],
+      ["m01","I","魔術師","THE MAGICIAN","創造","魔術師表示資源已經在你手上，差的是開始整合。請把想法落成第一個具體動作。"],
+      ["m02","II","女祭司","THE HIGH PRIESTESS","直覺","女祭司帶來安靜的洞察。別急著對外解釋，先聽懂自己心裡真正知道的事。"],
+      ["m03","III","皇后","THE EMPRESS","滋養","皇后象徵豐盛與照顧。六月先滋養自己，成果才會以更自然的速度長出來。"],
+      ["m04","IV","皇帝","THE EMPEROR","秩序","皇帝要求你建立界線與秩序。溫柔可以存在，但規則也要清楚。"],
+      ["m05","V","教皇","THE HIEROPHANT","指引","教皇提醒你尋求成熟的建議。傳統方法或專業人士，會幫你把路走穩。"],
+      ["m06","VI","戀人","THE LOVERS","選擇","戀人帶來關係與價值的選擇。不要只問哪條路容易，請問哪條路讓你更真實。"],
+      ["m07","VII","戰車","THE CHARIOT","前進","戰車讓你拿回方向盤。目標清楚後，就不要被旁人的情緒拉偏。"],
+      ["m08","VIII","力量","STRENGTH","柔韌","力量不是硬碰硬，而是穩住內在。你越溫柔堅定，越能穿過六月的考驗。"],
+      ["m09","IX","隱士","THE HERMIT","沉澱","隱士邀請你獨處，把答案從雜訊裡找回來。慢下來，是為了走得更準。"],
+      ["m10","X","命運之輪","WHEEL OF FORTUNE","轉機","命運之輪帶來轉折。當機會改變方向時，順勢調整會比抗拒更有利。"],
+      ["m11","XI","正義","JUSTICE","平衡","正義提醒你誠實面對因果。資料、合約、承諾都要清楚，結果才站得住。"],
+      ["m12","XII","吊人","THE HANGED MAN","換位","吊人讓你暫停，用新的角度看困局。不是所有等待都叫停滯，有些是在醞釀。"],
+      ["m13","XIII","死神","DEATH","轉化","死神不是結束一切，而是結束已經不適合的部分。放手後，新的生命力才進得來。"],
+      ["m14","XIV","節制","TEMPERANCE","調和","節制要求你把節奏調勻。六月適合修復、整合，不適合一口氣把自己推到極限。"],
+      ["m15","XV","惡魔","THE DEVIL","執著","惡魔照見依賴與慾望。看見它，不是責怪自己，而是拿回選擇權。"],
+      ["m16","XVI","高塔","THE TOWER","重建","高塔帶來震動，卻也拆掉不穩的結構。請先守住安全，再思考新的地基。"],
+      ["m17","XVII","星星","THE STAR","希望","星星讓你恢復信念。不要急著催促結果，持續照顧自己就是在靠近願望。"],
+      ["m18","XVIII","月亮","THE MOON","迷霧","月亮提醒你別被不安牽著走。資訊模糊時，先觀察，不要急著下定論。"],
+      ["m19","XIX","太陽","THE SUN","看見","太陽讓真相與成果被看見。大方站到光裡，但也別忘了保持謙遜。"],
+      ["m20","XX","審判","JUDGEMENT","召喚","審判帶來醒悟與召喚。某個你拖延已久的決定，正在要求你回應。"],
+      ["m21","XXI","世界","THE WORLD","完成","世界象徵階段圓滿。把收尾做漂亮，你會準備好進入下一章。"]
+    ];
+    const SUITS = [
+      {id:"wands", zh:"權杖", sym:"✹", en:"WANDS", field:"行動與工作", advice:"把熱情落到具體步驟，不要只靠一時衝勁。"},
+      {id:"cups", zh:"聖杯", sym:"♡", en:"CUPS", field:"情緒與關係", advice:"照顧感受，也讓界線保持清楚。"},
+      {id:"swords", zh:"寶劍", sym:"◇", en:"SWORDS", field:"思考與溝通", advice:"把話說清楚，別讓猜測替你做決定。"},
+      {id:"pentacles", zh:"星幣", sym:"◆", en:"PENTACLES", field:"金錢與現實", advice:"回到資源、時間與身體，穩定會帶來答案。"}
+    ];
+    const RANKS = [
+      ["A","一","啟動"],["2","二","選擇"],["3","三","合作"],["4","四","穩固"],["5","五","挑戰"],["6","六","調整"],["7","七","評估"],["8","八","累積"],["9","九","成熟"],["10","十","完成"],["P","侍者","訊息"],["N","騎士","推進"],["Q","皇后","照顧"],["K","國王","掌握"]
+    ];
+    function buildTarot(){
+      const cards = MAJOR.map(c => ({id:c[0], sym:c[1], name:c[2], en:c[3], tag:c[4], msg:c[5], deck:"tarot"}));
+      SUITS.forEach(suit => {
+        RANKS.forEach(rank => {
+          cards.push({
+            id:`${suit.id}-${rank[0]}`,
+            sym:suit.sym,
+            name:`${suit.zh}${rank[1]}`,
+            en:`${rank[0]} OF ${suit.en}`,
+            tag:rank[2],
+            deck:"tarot",
+            msg:`${suit.zh}${rank[1]}把焦點放在「${suit.field}」的${rank[2]}。六月請先看見眼前局勢，再用務實方式前進；${suit.advice}`
+          });
+        });
+      });
+      return cards;
+    }
+    const TAROT_CARDS = buildTarot();
+    function buildPoker(){
+      const suits = [
+        {id:"heart", zh:"紅心", sym:"♥", field:"情感、人際與被支持的能力"},
+        {id:"diamond", zh:"方塊", sym:"♦", field:"金錢、資源與現實交換"},
+        {id:"club", zh:"梅花", sym:"♣", field:"工作、行動與持續累積"},
+        {id:"spade", zh:"黑桃", sym:"♠", field:"壓力、判斷與界線設定"}
+      ];
+      const values = [["A","A","新開始"],["2","2","選擇"],["3","3","合作"],["4","4","穩定"],["5","5","波動"],["6","6","修復"],["7","7","觀察"],["8","8","執行"],["9","9","成果"],["10","10","完成"],["J","J","訊息"],["Q","Q","照顧"],["K","K","主導"]];
+      const cards = [];
+      suits.forEach(s => values.forEach(v => cards.push({
+        id:`${s.id}-${v[0]}`,
+        sym:s.sym,
+        name:`${s.zh} ${v[1]}`,
+        en:`${v[1]} OF ${s.id.toUpperCase()}`,
+        tag:v[2],
+        deck:"poker",
+        msg:`${s.zh} ${v[1]}指出六月的「${s.field}」正在進入${v[2]}階段。把日常小訊號當成提醒，你會更早看見該調整的方向。`
+      })));
+      cards.push({id:"joker-light", sym:"✦", name:"小丑・光", en:"JOKER LIGHT", tag:"意外祝福", deck:"poker", msg:"小丑光面帶來意外祝福。別把突發插曲都當成干擾，有些轉彎會把你帶到更好的位置。"});
+      cards.push({id:"joker-shadow", sym:"✧", name:"小丑・影", en:"JOKER SHADOW", tag:"變數提醒", deck:"poker", msg:"小丑影面提醒你保留彈性。六月若出現不按劇本的事，先穩住，再決定要不要跟著變。"});
+      return cards;
+    }
+    const POKER_CARDS = buildPoker();
 
-/* ───────────────── 第三關：抽牌 ───────────────── */
-function buildFan(){
-  const fan=document.getElementById('fan'); fan.innerHTML=''; fan.classList.remove('locked');
-  document.getElementById('drawMsg').classList.remove('show');
-  document.getElementById('revealBtn').disabled=true;
-  const N=7, spread=56;
-  const deck=[...CARDS].sort(()=>Math.random()-.5).slice(0,N);
-  deck.forEach((card,i)=>{
-    const rot=-spread/2 + spread*(i/(N-1));
-    const el=document.createElement('div');el.className='tcard';
-    el.style.transform=`rotate(${rot}deg)`;el.style.zIndex=i;
-    el.innerHTML=`<div class="inner">
-        <div class="face back"><span>✦</span></div>
-        <div class="face front"><span class="csym">${card.sym}</span><span class="cname">${card.name}</span><span class="cen">${card.en}</span></div>
-      </div>`;
-    el.onclick=()=>pick(el,card);
-    fan.appendChild(el);
-  });
-}
-function pick(el,card){
-  const fan=document.getElementById('fan');
-  if(fan.classList.contains('locked'))return;
-  fan.classList.add('locked'); drawn=card;
-  fan.querySelectorAll('.tcard').forEach(c=>{ if(c!==el) c.classList.add('away'); });
-  el.classList.add('chosen');
-  document.getElementById('cardPos').textContent=card.name+'・正位';
-  document.getElementById('cardMsg').textContent='「'+card.msg+'」';
-  setTimeout(()=>{ document.getElementById('drawMsg').classList.add('show'); document.getElementById('revealBtn').disabled=false; },650);
-}
+    function shuffle(items){
+      const arr = [...items];
+      for(let i=arr.length-1;i>0;i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
 
-/* ───────────────── 結果 ───────────────── */
-function showResult(){
-  const sun=SIGNS[sunSign];
-  let comboName, comboSub, isSingle=false;
-  if(risingSign==null || risingSign===sunSign){
-    isSingle=true;
-    comboName=sun.name;
-    comboSub = risingSign===sunSign ? '太陽 × 上升 ・ 能量合一' : '太陽星座 ・ 單一組合';
-  }else{
-    const a=Math.min(sunSign,risingSign), b=Math.max(sunSign,risingSign);
-    comboName=SIGNS[a].name+' Ｘ '+SIGNS[b].name;
-    comboSub='你的專屬組合（太陽＋上升・順序不拘）';
-  }
-  document.getElementById('comboName').textContent=comboName;
-  document.getElementById('comboSub').textContent=comboSub;
-  document.getElementById('bogoSlot').innerHTML = isSingle ? '<span class="bogo">🎁 單一星座組合・享買一送一</span>' : '';
-  document.getElementById('themeLine').textContent='本月主題 ——「'+sun.theme+'」';
-  document.getElementById('kwRow').innerHTML=sun.kw.map(k=>`<span class="kw">${k}</span>`).join('');
-  document.getElementById('overview').textContent=sun.read;
+    function startDraw(){
+      state.drawn = [];
+      state.candidate = null;
+      const fanSize = state.drawCount === 1 ? 7 : state.drawCount === 3 ? 9 : 11;
+      let pool = state.deckType === "tarot" ? TAROT_CARDS : POKER_CARDS;
+      let chosen = [];
+      if(state.deckType === "tarot"){
+        const anchor = TAROT_CARDS[comboIndex(state.sun, currentRisingIndex())];
+        chosen.push(anchor);
+        pool = pool.filter(c => c.id !== anchor.id);
+      }
+      chosen = shuffle([...chosen, ...shuffle(pool).slice(0, fanSize - chosen.length)]);
+      state.fanCards = chosen.map((card, i) => ({...card, fanId:i, candidate:false, revealed:false, away:false, position:null}));
+      renderFan();
+      updateDrawUI();
+      track("draw-start", state.deckType, {count:state.drawCount});
+      go("s-draw",3);
+    }
 
-  document.getElementById('rSym').textContent=drawn.sym;
-  document.getElementById('rName').textContent=drawn.name;
-  document.getElementById('rTitle').textContent='你的六月指引牌 ・ '+drawn.name+'（正位）';
-  document.getElementById('rMsg').textContent=drawn.msg;
+    function renderFan(){
+      const fan = $("fan");
+      fan.innerHTML = "";
+      const n = state.fanCards.length;
+      const spread = n > 9 ? 74 : 62;
+      state.fanCards.forEach((card, i) => {
+        const rot = -spread / 2 + spread * (i / Math.max(1, n - 1));
+        const el = document.createElement("div");
+        el.className = "tcard";
+        if(card.candidate) el.classList.add("candidate");
+        if(card.revealed) el.classList.add("revealed");
+        if(card.away) el.classList.add("away");
+        if(card.revealed && card.position != null){
+          const spreadSpacing = state.drawCount > 3 ? 62 : 82;
+          const doneX = (card.position - (state.drawCount - 1) / 2) * spreadSpacing;
+          el.style.setProperty("--done-x", doneX + "px");
+        }
+        el.style.setProperty("--rot", rot + "deg");
+        el.style.setProperty("--z", String(i + 1));
+        el.innerHTML = `<div class="inner">
+          <div class="face back"><span>${state.deckType === "tarot" ? "✦" : "◆"}</span></div>
+          <div class="face front"><span class="csym">${escapeHtml(card.sym)}</span><span class="cname">${escapeHtml(card.name)}</span><span class="cen">${escapeHtml(card.en)}</span></div>
+        </div>`;
+        el.addEventListener("click", () => handleCardClick(card.fanId));
+        fan.appendChild(el);
+      });
+    }
 
-  const locks=[
-    {t:'事業與工作',en:'CAREER & WORK',f:'月初的工作節奏將出現一個重要的轉折點，貴人會在你最需要的時候……'},
-    {t:'財富與金錢',en:'WEALTH & MONEY',f:'正財與偏財呈現截然不同的走向，本月有一筆需要特別留意的……'},
-    {t:'感情與人際',en:'LOVE & RELATIONSHIPS',f:'有伴者與單身者各有一張關鍵牌，月中前後將迎來一次……'},
-    {t:'家庭與內心',en:'FAMILY & INNER SELF',f:'內在能量正在悄悄重整，一位重要的家人或長輩會帶來……'},
-    {t:'學習與溝通',en:'STUDY & COMMUNICATION',f:'溝通宮位的牌面提醒你，在某個特定時段務必……'},
-    {t:'本月開運指南',en:'LUCKY GUIDE',f:'幸運色・幸運數字・開運行動・要避開的雷區，全部為你整理好……'}
-  ];
-  document.getElementById('lockList').innerHTML=locks.map(l=>`
-    <div class="lock-item">
-      <div class="lt"><span>${l.t}</span><span class="en">${l.en}</span></div>
-      <p class="blurline">${l.f}${l.f}</p>
-      <span class="lock-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A876" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>完整版解鎖</span>
-    </div>`).join('');
+    function handleCardClick(fanId){
+      const card = state.fanCards.find(c => c.fanId === fanId);
+      if(!card || card.revealed || state.drawn.length >= state.drawCount) return;
+      track("card-click", `${state.deckType}:${card.id}`);
+      if(state.candidate === fanId){
+        confirmCandidate();
+        return;
+      }
+      state.candidate = fanId;
+      state.fanCards.forEach(c => c.candidate = c.fanId === fanId);
+      renderFan();
+      updateDrawUI();
+    }
 
-  document.getElementById('ctaTitle').textContent='解鎖「'+comboName+'」完整版報告';
-  go('s-result',null);
-}
+    function confirmCandidate(){
+      if(state.candidate == null) return;
+      const card = state.fanCards.find(c => c.fanId === state.candidate);
+      if(!card) return;
+      card.candidate = false;
+      card.revealed = true;
+      card.position = state.drawn.length;
+      state.drawn.push(card);
+      state.candidate = null;
+      if(state.drawn.length >= state.drawCount){
+        state.fanCards.forEach(c => { if(!c.revealed) c.away = true; });
+      }
+      track("card-reveal", `${state.deckType}:${card.id}`, {position:card.position + 1});
+      renderFan();
+      updateDrawUI();
+    }
 
-function resetGame(){
-  sunSign=null;risingSign=undefined;taps=0;drawn=null;
-  document.getElementById('tapCount').textContent='0 / 5';
-  document.getElementById('ringFill').style.strokeDashoffset=691;
-  zone.classList.remove('full','pulse');
-  document.querySelectorAll('.zbtn').forEach(x=>x.classList.remove('sel'));
-  go('s-intro',null);
-}
-</script>
+    function updateDrawUI(){
+      const remaining = state.drawCount - state.drawn.length;
+      $("confirmBtn").disabled = state.candidate == null;
+      $("revealBtn").disabled = remaining > 0;
+      $("drawStatus").textContent = state.drawn.length >= state.drawCount ? "牌陣完成" : `已翻 ${state.drawn.length} / ${state.drawCount}`;
+      if(state.candidate != null){
+        const card = state.fanCards.find(c => c.fanId === state.candidate);
+        $("drawCopy").textContent = `你選中了「${card.name}」。再點一下這張牌，或按下確認，才會翻開。`;
+      }else if(remaining > 0){
+        $("drawCopy").textContent = remaining === state.drawCount ? "請從扇形牌陣中選出第一張牌。" : `還需要 ${remaining} 張牌。讓直覺選下一張。`;
+      }else{
+        $("drawCopy").textContent = "牌面已完成，現在可以解鎖你的六月運勢。";
+      }
+      const positions = spreadPositions();
+      $("chosenList").innerHTML = state.drawn.map((c, i) => `<span class="chosen-pill">${escapeHtml(positions[i])}：${escapeHtml(c.name)}</span>`).join("");
+    }
+
+    function spreadPositions(){
+      if(state.drawCount === 1) return ["六月核心"];
+      if(state.drawCount === 3) return ["目前課題", "可用資源", "下一步行動"];
+      return ["事業與工作", "財富與金錢", "感情與人際", "家庭與內心", "學習與溝通"];
+    }
+
+    function comboDisplay(){
+      const sun = SIGNS[state.sun];
+      const risingKnown = state.rising != null;
+      const rising = SIGNS[currentRisingIndex()];
+      const single = !risingKnown || state.rising === state.sun;
+      const key = pairKey(state.sun, currentRisingIndex());
+      const orderedName = single ? sun.name : `${sun.name} × ${rising.name}`;
+      const productName = single ? sun.name : `${SIGNS[Math.min(state.sun,currentRisingIndex())].name} × ${SIGNS[Math.max(state.sun,currentRisingIndex())].name}`;
+      return {sun, rising, risingKnown, single, key, orderedName, productName};
+    }
+
+    function mergedKeywords(sun, rising, single){
+      const list = single ? sun.kw : [...rising.kw, ...sun.kw];
+      return [...new Set(list)].slice(0, 6);
+    }
+
+    function topicText(topicId, combo){
+      const sunText = combo.sun.topics[topicId];
+      if(combo.single) return {main:sunText, micro:"以太陽星座為主，完整報告會拆出上中下旬與對應牌面。"};
+      const risingText = combo.rising.topics[topicId];
+      return {
+        main:risingText,
+        micro:`外在事件以上升 ${combo.rising.name} 為主；內在動機參考太陽 ${combo.sun.name}：${sunText}`
+      };
+    }
+
+    function cardReading(card, position, combo){
+      const subject = combo.single ? combo.sun.name : `${combo.rising.name}的外在節奏與${combo.sun.name}的內在願望`;
+      return `${card.msg} 放在「${position}」的位置時，它提醒${subject}：先不要急著把六月定義成好或壞，請把牌面指向的課題拆成一個今天能做的小動作。`;
+    }
+
+    function showResult(){
+      if(state.drawn.length < state.drawCount) return;
+      const combo = comboDisplay();
+      track("combo", combo.key, {sun:combo.sun.key, rising:combo.rising.key, deck:state.deckType});
+      $("comboName").textContent = combo.orderedName;
+      $("comboSub").textContent = combo.single ? (combo.risingKnown ? "太陽 × 上升 ・ 能量合一" : "太陽星座 ・ 單一組合") : "太陽＋上升綜合解讀 ・ 順序不拘";
+      $("bogoSlot").innerHTML = combo.single ? '<span class="bogo">單一星座組合・享買一送一</span>' : "";
+      $("themeLine").textContent = combo.single ? `本月主題 ——「${combo.sun.theme}」` : `上升 80%「${combo.rising.theme}」 × 太陽 20%「${combo.sun.theme}」`;
+      $("kwRow").innerHTML = mergedKeywords(combo.sun, combo.rising, combo.single).map(k => `<span class="kw">${escapeHtml(k)}</span>`).join("");
+      $("overview").textContent = combo.single
+        ? combo.sun.overview
+        : `六月先看上升 ${combo.rising.name} 的外在事件：${combo.rising.overview} 同時，太陽 ${combo.sun.name} 會說明你內在真正想守住的核心：${combo.sun.overview}`;
+
+      const anchor = TAROT_CARDS[comboIndex(state.sun, currentRisingIndex())];
+      $("anchorRow").innerHTML = `<div class="mini-card"><span class="csym">${escapeHtml(anchor.sym)}</span><span class="cname">${escapeHtml(anchor.name)}</span></div>
+        <div class="mini-info"><b>78 組合牌陣 ・ ${escapeHtml(combo.productName)} 的守護牌</b><p>${escapeHtml(anchor.msg)} 這張牌會作為完整版報告的入口定錨，協助你理解太陽與上升如何在六月互相牽動。</p></div>`;
+
+      $("topicGrid").innerHTML = TOPICS.map(t => {
+        const text = topicText(t.id, combo);
+        return `<article class="topic"><h5>${escapeHtml(t.title)}</h5><p>${escapeHtml(text.main)}</p><span class="micro">${escapeHtml(text.micro)}</span></article>`;
+      }).join("");
+
+      const positions = spreadPositions();
+      $("spreadList").innerHTML = state.drawn.map((card, i) => `<div class="spread-card">
+        <div class="mini-card"><span class="csym">${escapeHtml(card.sym)}</span><span class="cname">${escapeHtml(card.name)}</span></div>
+        <div class="mini-info"><b>${escapeHtml(positions[i])} ・ ${escapeHtml(card.name)}（正位）</b><p>${escapeHtml(cardReading(card, positions[i], combo))}</p></div>
+      </div>`).join("");
+
+      $("softSummary").textContent = combo.single
+        ? `${combo.sun.guidance} 完整版不是要把你推向焦慮，而是陪你把六月拆成能照顧自己的步驟：哪些地方該前進，哪些地方該休息，哪些人事物要保留距離。`
+        : `${combo.rising.guidance} 同時，${combo.sun.guidance} 完整版會把外在事件與內在選擇分開說清楚，讓你不是被運勢牽著走，而是帶著更安定的心做決定。`;
+
+      buildLocks(combo);
+      buildCTA(combo);
+      go("s-result",4);
+    }
+
+    function buildLocks(combo){
+      const hints = TOPICS.map(t => {
+        const text = topicText(t.id, combo);
+        return {
+          ...t,
+          teaser:`${text.main} 更細的牌面會指出月中前後的轉折、你該先處理的人事物，以及最容易忽略的下一步。`
+        };
+      });
+      hints.push({title:"本月時間軸", en:"JUNE TIMELINE", teaser:"上旬、中旬、下旬各有不同能量。完整版會把轉折點標出來，讓你提前安排節奏。"});
+      $("lockList").innerHTML = hints.map(h => `<div class="lock-item" onclick="scrollToBuy()">
+        <div class="lt"><span>${escapeHtml(h.title)}</span><span class="en">${escapeHtml(h.en)}</span></div>
+        <p class="teaser">${escapeHtml(h.teaser.slice(0, 34))}<span class="blurline">${escapeHtml(h.teaser.slice(34))}</span></p>
+        <span class="lock-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#CFAE7C" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>點此解鎖完整版</span>
+      </div>`).join("");
+    }
+    function buildCTA(combo){
+      const link = PRODUCT_LINKS[combo.key] || `https://portaly.cc/pentacles.studiotw?combo=${encodeURIComponent(combo.productName)}`;
+      $("ctaTitle").textContent = `解鎖「${combo.productName}」完整版報告`;
+      $("buyBtn").href = link;
+      $("buyBtn").textContent = "前 往 解 鎖 完 整 報 告";
+      $("ctaNotes").innerHTML = "✦ 共 78 種「太陽＋上升」組合，前後順序不拘 ✦<br>✦ 太陽＝上升的單一星座組合，享買一送一 ✦";
+    }
+    function scrollToBuy(){
+      $("buyPanel").scrollIntoView({behavior:"smooth", block:"start"});
+      track("lock-click", comboDisplay().key);
+    }
+    function resetGame(){
+      state.sun = null;
+      state.rising = undefined;
+      state.taps = 0;
+      state.deckType = "tarot";
+      state.drawCount = 3;
+      state.fanCards = [];
+      state.candidate = null;
+      state.drawn = [];
+      $("tapCount").textContent = "0 / 5";
+      $("ringFill").style.strokeDashoffset = 691;
+      zone.classList.remove("full","pulse");
+      document.querySelectorAll(".zbtn").forEach(x => x.classList.remove("sel"));
+      document.querySelectorAll("[data-deck]").forEach(b => b.classList.toggle("active", b.dataset.deck === "tarot"));
+      document.querySelectorAll("#drawCountBtns button").forEach(b => b.classList.toggle("active", +b.dataset.count === 3));
+      go("s-intro",null);
+    }
+  </script>
 </body>
 </html>
