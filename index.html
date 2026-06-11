@@ -121,11 +121,11 @@
     .choice-btn span{display:block;color:var(--muted);font-size:12.5px;line-height:1.75}
     .choice-btn.active{border-color:var(--gold);background:linear-gradient(180deg,rgba(207,174,124,.13),rgba(90,166,154,.04));box-shadow:0 0 18px rgba(207,174,124,.16)}
     .segmented{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 18px}
-    .segmented button{border:1px solid var(--line-soft);background:rgba(255,255,255,.018);color:var(--muted);border-radius:999px;min-height:42px;cursor:pointer;transition:.22s}
+    .segmented button{border:1px solid var(--line-soft);background:rgba(255,255,255,.018);color:var(--muted);border-radius:999px;min-height:38px;padding:8px 9px;cursor:pointer;transition:.22s;font-size:12px;line-height:1.35;letter-spacing:.02em}
     .segmented button.active{border-color:var(--teal);color:var(--ink);background:rgba(90,166,154,.12)}
     .fan-wrap{position:relative;margin:20px 0 4px}
-    .fan{position:relative;height:340px;margin:10px auto 6px;max-width:620px}
-    .tcard{position:absolute;left:50%;top:52%;width:92px;height:154px;cursor:pointer;transform-origin:50% 118%;transform:translate(-50%,-50%) rotate(var(--rot)) translateY(var(--rise,0));transition:transform .45s cubic-bezier(.22,.8,.3,1), opacity .3s, filter .25s;perspective:800px;z-index:var(--z)}
+    .fan{position:relative;height:370px;margin:12px auto 8px;max-width:680px}
+    .tcard{position:absolute;left:50%;top:53%;width:100px;height:166px;cursor:pointer;transform-origin:50% 118%;transform:translate(-50%,-50%) rotate(var(--rot)) translateY(var(--rise,0));transition:transform .45s cubic-bezier(.22,.8,.3,1), opacity .3s, filter .25s;perspective:800px;z-index:var(--z)}
     .tcard .inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,.7,.3,1)}
     .tcard .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:8px;overflow:hidden}
     .tcard .back{border:1px solid var(--gold-dim);background:radial-gradient(circle at 50% 45%, rgba(207,174,124,.22), transparent 60%),repeating-linear-gradient(45deg,rgba(207,174,124,.10) 0 2px,transparent 2px 11px),linear-gradient(160deg,#261b12,#100b07);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.58), inset 0 0 0 4px rgba(11,9,8,.9), inset 0 0 0 5px rgba(207,174,124,.34)}
@@ -158,18 +158,18 @@
     .free-block{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:18px 2px;margin-bottom:18px}
     .free-block h4{font-size:12px;letter-spacing:.26em;text-indent:.26em;color:var(--gold);margin-bottom:10px;font-weight:500;text-align:center}
     .free-block p{font-size:14.5px;color:var(--ink);line-height:2}
-    .topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0 20px}
-    .topic{border:1px solid var(--line-soft);border-radius:8px;padding:15px;background:rgba(255,255,255,.015)}
-    .topic h5{color:var(--gold);font-size:13px;letter-spacing:.12em;margin-bottom:6px}
-    .topic p{font-size:13px;color:var(--ink);line-height:1.85}
-    .topic .micro{display:block;color:var(--muted);font-size:11.5px;margin-top:7px;line-height:1.65}
-    .anchor-row,.spread-card{display:grid;grid-template-columns:72px 1fr;gap:15px;align-items:center;border:1px solid var(--line-soft);border-radius:8px;padding:15px;margin-bottom:12px;background:rgba(207,174,124,.035)}
+    .free-advice{margin-top:14px;padding-top:14px;border-top:1px solid var(--line-soft)}
+    .free-advice b{display:block;font-size:12.5px;letter-spacing:.16em;color:var(--gold);margin-bottom:5px;font-weight:500}
+    .free-advice p{font-size:13.5px;color:var(--muted);line-height:1.9}
+    .spread-card{display:grid;grid-template-columns:72px 1fr;gap:15px;align-items:center;border:1px solid var(--line-soft);border-radius:8px;padding:15px;margin-bottom:12px;background:rgba(207,174,124,.035)}
     .mini-card{width:64px;height:104px;border-radius:7px;border:1px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:linear-gradient(170deg,#2a2115,#171008);box-shadow:inset 0 0 0 2px rgba(11,9,8,.9), inset 0 0 0 3px rgba(240,223,186,.45),0 0 16px rgba(207,174,124,.22)}
     .mini-card .csym{font-size:22px;color:var(--gold-light)}
     .mini-card .cname{font-size:9.5px;letter-spacing:.05em;color:var(--gold-light);text-align:center;line-height:1.25}
     .mini-info b{display:block;font-size:13px;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;font-weight:500}
     .mini-info p{font-size:13px;color:var(--ink);line-height:1.85}
     .spread-list{margin:14px 0 20px}
+    .spread-list h4{font-size:12px;letter-spacing:.26em;text-indent:.26em;color:var(--gold);margin:0 0 12px;font-weight:500;text-align:center}
+    .mini-card.rev{border-color:var(--danger);box-shadow:inset 0 0 0 2px rgba(11,9,8,.9), inset 0 0 0 3px rgba(204,111,104,.42),0 0 16px rgba(204,111,104,.2)}
     .transition-panel{border:1px solid rgba(90,166,154,.32);border-radius:8px;padding:18px 16px;margin:18px 0;background:linear-gradient(180deg,rgba(90,166,154,.09),rgba(207,174,124,.025))}
     .transition-panel h4{font-size:15px;color:var(--gold-light);letter-spacing:.12em;text-align:center;margin-bottom:8px}
     .transition-panel p{font-size:14px;color:var(--ink);line-height:2}
@@ -180,7 +180,7 @@
     .lock-item:hover{border-color:var(--gold-dim);background:rgba(207,174,124,.04)}
     .lock-item .lt{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13.5px;letter-spacing:.1em;color:var(--ink);font-weight:600}
     .lock-item .en{font-family:"Cormorant Garamond",serif;font-size:10px;letter-spacing:.2em;color:var(--gold-dim);text-transform:uppercase;font-weight:500;white-space:nowrap}
-    .teaser{margin-top:9px;font-size:12.5px;color:var(--muted);line-height:1.9}
+    .teaser{margin-top:9px;font-size:12.5px;color:var(--muted);line-height:2}
     .blurline{display:inline;filter:blur(4px);user-select:none;pointer-events:none}
     .lock-badge{position:absolute;right:12px;bottom:10px;font-size:10.5px;letter-spacing:.16em;color:var(--gold);display:flex;align-items:center;gap:5px}
     .lock-badge svg{width:11px;height:11px;flex:none}
@@ -200,18 +200,19 @@
       .wrap{padding:0 18px 28px}
       .zgrid{grid-template-columns:repeat(3,1fr);gap:9px}
       .helper-grid,.draw-actions{grid-template-columns:1fr}
-      .choice-grid,.topic-grid{grid-template-columns:1fr}
-      .fan{height:320px}
-      .tcard{width:78px;height:132px}
-      .anchor-row,.spread-card{grid-template-columns:60px 1fr;gap:12px}
+      .choice-grid{grid-template-columns:1fr}
+      .fan{height:335px}
+      .tcard{width:82px;height:138px}
+      .spread-card{grid-template-columns:60px 1fr;gap:12px}
       .mini-card{width:56px;height:92px}
       .pline{width:26px}
     }
     @media (max-width:390px){
       .zgrid{grid-template-columns:repeat(2,1fr)}
       .choice-grid,.segmented{grid-template-columns:1fr}
-      .fan{height:300px}
-      .tcard{width:72px;height:122px}
+      .segmented button{font-size:11.5px;min-height:36px}
+      .fan{height:315px}
+      .tcard{width:74px;height:126px}
     }
     @media (prefers-reduced-motion: reduce){
       *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.12s!important}
@@ -295,7 +296,7 @@
     <section class="screen" id="s-oracle">
       <div class="stage-tag">第 三 關 ・ 選 擇 牌 陣</div>
       <h2 class="stage-title">選擇你的占卜方式</h2>
-      <p class="sub">78 種太陽＋上升組合，會對應一張專屬守護牌；你也可以決定這次要抽幾張。</p>
+      <p class="sub">78 種太陽＋上升組合，會對應一套專屬六月牌陣；你也可以決定這次要抽幾張。</p>
       <div class="choice-panel">
         <div class="choice-grid">
           <button class="choice-btn active" type="button" data-deck="tarot" onclick="selectDeck('tarot')">
@@ -348,9 +349,11 @@
       <div class="free-block">
         <h4>總 體 運 勢 ・ 搶 先 看</h4>
         <p id="overview"></p>
+        <div class="free-advice">
+          <b>塔羅占卜師的私房建議</b>
+          <p>五芒星航的塔羅星運，建議「上升與太陽」一起看：參考比例大約是 上升 80% ＋ 太陽 20%，兩者搭配的精準度最高。先讀抽到牌陣，再回到完整報告，最容易抓到重點。</p>
+        </div>
       </div>
-      <div class="anchor-row" id="anchorRow"></div>
-      <div class="topic-grid" id="topicGrid"></div>
       <div class="spread-list" id="spreadList"></div>
       <div class="transition-panel">
         <h4>給六月的你，一個過渡提醒</h4>
@@ -358,7 +361,7 @@
       </div>
       <div class="lock-head">
         <div class="t">你的完整版報告，還藏著——</div>
-        <div class="s">以下章節已為你寫好，點任一章節會前往解鎖入口</div>
+        <div class="s">以下章節已為你寫好，等待解鎖</div>
       </div>
       <div id="lockList"></div>
       <div class="cta-panel" id="buyPanel">
@@ -653,7 +656,7 @@
     function startDraw(){
       state.drawn = [];
       state.candidate = null;
-      const fanSize = state.drawCount === 1 ? 7 : state.drawCount === 3 ? 9 : 11;
+      const fanSize = state.drawCount === 1 ? 9 : state.drawCount === 3 ? 13 : 15;
       let pool = state.deckType === "tarot" ? TAROT_CARDS : POKER_CARDS;
       let chosen = [];
       if(state.deckType === "tarot"){
@@ -662,7 +665,7 @@
         pool = pool.filter(c => c.id !== anchor.id);
       }
       chosen = shuffle([...chosen, ...shuffle(pool).slice(0, fanSize - chosen.length)]);
-      state.fanCards = chosen.map((card, i) => ({...card, fanId:i, candidate:false, revealed:false, away:false, position:null}));
+      state.fanCards = chosen.map((card, i) => ({...card, fanId:i, candidate:false, revealed:false, away:false, position:null, orientation:null}));
       renderFan();
       updateDrawUI();
       track("draw-start", state.deckType, {count:state.drawCount});
@@ -673,7 +676,7 @@
       const fan = $("fan");
       fan.innerHTML = "";
       const n = state.fanCards.length;
-      const spread = n > 9 ? 74 : 62;
+      const spread = n > 13 ? 92 : n > 9 ? 82 : 68;
       state.fanCards.forEach((card, i) => {
         const rot = -spread / 2 + spread * (i / Math.max(1, n - 1));
         const el = document.createElement("div");
@@ -682,7 +685,7 @@
         if(card.revealed) el.classList.add("revealed");
         if(card.away) el.classList.add("away");
         if(card.revealed && card.position != null){
-          const spreadSpacing = state.drawCount > 3 ? 62 : 82;
+          const spreadSpacing = state.drawCount > 3 ? 58 : 82;
           const doneX = (card.position - (state.drawCount - 1) / 2) * spreadSpacing;
           el.style.setProperty("--done-x", doneX + "px");
         }
@@ -718,6 +721,7 @@
       card.candidate = false;
       card.revealed = true;
       card.position = state.drawn.length;
+      card.orientation = Math.random() < 0.5 ? "upright" : "reversed";
       state.drawn.push(card);
       state.candidate = null;
       if(state.drawn.length >= state.drawCount){
@@ -742,7 +746,7 @@
         $("drawCopy").textContent = "牌面已完成，現在可以解鎖你的六月運勢。";
       }
       const positions = spreadPositions();
-      $("chosenList").innerHTML = state.drawn.map((c, i) => `<span class="chosen-pill">${escapeHtml(positions[i])}：${escapeHtml(c.name)}</span>`).join("");
+      $("chosenList").innerHTML = state.drawn.map((c, i) => `<span class="chosen-pill">${escapeHtml(positions[i])}：${escapeHtml(c.name)}・${orientationLabel(c)}</span>`).join("");
     }
 
     function spreadPositions(){
@@ -777,9 +781,63 @@
       };
     }
 
-    function cardReading(card, position, combo){
-      const subject = combo.single ? combo.sun.name : `${combo.rising.name}的外在節奏與${combo.sun.name}的內在願望`;
-      return `${card.msg} 放在「${position}」的位置時，它提醒${subject}：先不要急著把六月定義成好或壞，請把牌面指向的課題拆成一個今天能做的小動作。`;
+    function orientationLabel(card){
+      return card.orientation === "reversed" ? "逆位" : "正位";
+    }
+
+    function cardEssence(card){
+      return card.msg
+        .replace(/^.*?指出六月的「([^」]+)」正在進入/, "這張牌指出「$1」正在進入")
+        .replace(/^.*?把焦點放在/, "牌面焦點落在")
+        .replace(/。$/, "");
+    }
+
+    function cardReading(card, position, index){
+      const name = card.name;
+      const tag = card.tag ? `「${card.tag}」` : "這股能量";
+      const essence = cardEssence(card);
+      const side = card.orientation === "reversed" ? "reversed" : "upright";
+      const readings = {
+        "六月核心": {
+          upright: `${name}正位把六月的主旋律推向${tag}。它提醒你，核心答案已經浮到檯面上，越能專注在最重要的一件事，越能把混亂整理成方向。牌面補充：${essence}。`,
+          reversed: `${name}逆位表示主題還被壓在心裡，可能明明知道該做什麼，卻被疲憊、猶豫或外界噪音拖住。它提醒你，先把真正不想面對的原因說出來，六月才會開始轉動。`
+        },
+        "目前課題": {
+          upright: `${name}正位指出眼前課題已經很清楚，不需要再用更多理由包裝。它提醒你，先承認哪個環節正在消耗你，再決定要修補、停損，或重新排列優先順序。`,
+          reversed: `${name}逆位落在課題位，代表問題不是沒有答案，而是你可能一直繞開最敏感的那一點。它提醒你，別急著解釋給別人聽，先對自己誠實。`
+        },
+        "可用資源": {
+          upright: `${name}正位在資源位，是一張可以拿來用的牌。它提醒你，手邊已經有可借力的人、經驗或工具；把資源列出來，你會發現自己不是空手上路。`,
+          reversed: `${name}逆位在資源位，表示資源存在，但使用方式需要調整。它提醒你，不要把幫助看成壓力，也不要把舊方法當成唯一方法，換一種拿法就會順。`
+        },
+        "下一步行動": {
+          upright: `${name}正位給出的下一步很直接：把想法落地。它提醒你，挑一件能在今天完成的小事開始做，行動本身會打開後面的路。`,
+          reversed: `${name}逆位提醒你，下一步不是硬衝，而是先移除卡住行動的阻力。把拖延、過度準備或害怕犯錯的念頭降到最低，再出手會更穩。`
+        },
+        "事業與工作": {
+          upright: `${name}正位落在事業位，代表工作能量正在成形。它提醒你，先把目標、責任與溝通對象釐清，專案才會真正往前，而不是只在忙碌裡打轉。`,
+          reversed: `${name}逆位落在事業位，容易出現方向不明、情緒消耗或進度反覆。它提醒你，暫時別把所有事攬到身上，先修正流程與界線。`
+        },
+        "財富與金錢": {
+          upright: `${name}正位在財富位，提醒你用清楚的數字看六月。收入、支出、合約與承諾都要攤開檢查；穩定累積會比短線刺激更值得。`,
+          reversed: `${name}逆位在財富位，表示金錢能量可能被衝動、延遲或看不清的成本卡住。它提醒你，先停下不必要的投入，再確認每一筆錢流向哪裡。`
+        },
+        "感情與人際": {
+          upright: `${name}正位落在關係位，焦點是更真實的互動。它提醒你，願意靠近的人會用行動表態；你也可以把需求說得更柔和、更清楚。`,
+          reversed: `${name}逆位落在關係位，代表某些互動需要重新看待。它提醒你，不要用猜測填補沉默，也不要為了維持表面和平而壓下自己的感受。`
+        },
+        "家庭與內心": {
+          upright: `${name}正位進入家庭與內心位，像是把心裡的燈慢慢點亮。它提醒你，先照顧身體、情緒與安全感，很多外在問題會因此變得比較能處理。`,
+          reversed: `${name}逆位在內心位，表示你可能把疲憊藏太久，或把家中的壓力吞進自己心裡。它提醒你，先允許脆弱存在，不必立刻把一切修好。`
+        },
+        "學習與溝通": {
+          upright: `${name}正位落在學習與溝通位，代表訊息可以被整理成清楚的方向。它提醒你，說重點、問清楚、留下紀錄，會讓六月少掉很多誤會。`,
+          reversed: `${name}逆位在溝通位，容易出現話說太快、理解偏差或資訊過載。它提醒你，先確認對方真正聽到什麼，再決定要不要繼續推進。`
+        }
+      };
+      return readings[position]?.[side] || (side === "reversed"
+        ? `${name}逆位提醒你，先看見能量被卡住的位置，再重新選擇更輕盈的做法。`
+        : `${name}正位提醒你，把注意力放回當下正在發生的訊號，下一步會比想像中清楚。`);
     }
 
     function showResult(){
@@ -789,30 +847,21 @@
       $("comboName").textContent = combo.orderedName;
       $("comboSub").textContent = combo.single ? (combo.risingKnown ? "太陽 × 上升 ・ 能量合一" : "太陽星座 ・ 單一組合") : "太陽＋上升綜合解讀 ・ 順序不拘";
       $("bogoSlot").innerHTML = combo.single ? '<span class="bogo">單一星座組合・享買一送一</span>' : "";
-      $("themeLine").textContent = combo.single ? `本月主題 ——「${combo.sun.theme}」` : `上升 80%「${combo.rising.theme}」 × 太陽 20%「${combo.sun.theme}」`;
+      $("themeLine").textContent = combo.single ? `本月主題 ——「${combo.sun.theme}」` : `上升「${combo.rising.theme}」 × 太陽「${combo.sun.theme}」`;
       $("kwRow").innerHTML = mergedKeywords(combo.sun, combo.rising, combo.single).map(k => `<span class="kw">${escapeHtml(k)}</span>`).join("");
       $("overview").textContent = combo.single
         ? combo.sun.overview
         : `六月先看上升 ${combo.rising.name} 的外在事件：${combo.rising.overview} 同時，太陽 ${combo.sun.name} 會說明你內在真正想守住的核心：${combo.sun.overview}`;
 
-      const anchor = TAROT_CARDS[comboIndex(state.sun, currentRisingIndex())];
-      $("anchorRow").innerHTML = `<div class="mini-card"><span class="csym">${escapeHtml(anchor.sym)}</span><span class="cname">${escapeHtml(anchor.name)}</span></div>
-        <div class="mini-info"><b>78 組合牌陣 ・ ${escapeHtml(combo.productName)} 的守護牌</b><p>${escapeHtml(anchor.msg)} 這張牌會作為完整版報告的入口定錨，協助你理解太陽與上升如何在六月互相牽動。</p></div>`;
-
-      $("topicGrid").innerHTML = TOPICS.map(t => {
-        const text = topicText(t.id, combo);
-        return `<article class="topic"><h5>${escapeHtml(t.title)}</h5><p>${escapeHtml(text.main)}</p><span class="micro">${escapeHtml(text.micro)}</span></article>`;
-      }).join("");
-
       const positions = spreadPositions();
-      $("spreadList").innerHTML = state.drawn.map((card, i) => `<div class="spread-card">
-        <div class="mini-card"><span class="csym">${escapeHtml(card.sym)}</span><span class="cname">${escapeHtml(card.name)}</span></div>
-        <div class="mini-info"><b>${escapeHtml(positions[i])} ・ ${escapeHtml(card.name)}（正位）</b><p>${escapeHtml(cardReading(card, positions[i], combo))}</p></div>
+      $("spreadList").innerHTML = `<h4>抽 到 牌 陣 ・ 解 讀</h4>` + state.drawn.map((card, i) => `<div class="spread-card">
+        <div class="mini-card ${card.orientation === "reversed" ? "rev" : ""}"><span class="csym">${escapeHtml(card.sym)}</span><span class="cname">${escapeHtml(card.name)}</span></div>
+        <div class="mini-info"><b>${escapeHtml(positions[i])} ・ ${escapeHtml(card.name)}（${orientationLabel(card)}）</b><p>${escapeHtml(cardReading(card, positions[i], i))}</p></div>
       </div>`).join("");
 
       $("softSummary").textContent = combo.single
         ? `${combo.sun.guidance} 完整版不是要把你推向焦慮，而是陪你把六月拆成能照顧自己的步驟：哪些地方該前進，哪些地方該休息，哪些人事物要保留距離。`
-        : `${combo.rising.guidance} 同時，${combo.sun.guidance} 完整版會把外在事件與內在選擇分開說清楚，讓你不是被運勢牽著走，而是帶著更安定的心做決定。`;
+        : `${combo.rising.guidance} 同時，${combo.sun.guidance} 完整版會把五大主題、時間軸與開運提醒整理成更完整的陪伴，讓你不是被運勢牽著走，而是帶著更安定的心做決定。`;
 
       buildLocks(combo);
       buildCTA(combo);
@@ -820,19 +869,32 @@
     }
 
     function buildLocks(combo){
-      const hints = TOPICS.map(t => {
+      const lockVisibleChars = 92;
+      const hints = TOPICS.map((t, i) => {
         const text = topicText(t.id, combo);
+        const next = TOPICS[(i + 1) % TOPICS.length];
+        const nextText = topicText(next.id, combo);
         return {
           ...t,
-          teaser:`${text.main} 更細的牌面會指出月中前後的轉折、你該先處理的人事物，以及最容易忽略的下一步。`
+          teaser:`${text.main} 這一章還會和${next.title}交叉看：${nextText.main} 完整版會接著揭開月中前後的轉折、你該先處理的人事物，以及最容易忽略的下一步。`
         };
       });
-      hints.push({title:"本月時間軸", en:"JUNE TIMELINE", teaser:"上旬、中旬、下旬各有不同能量。完整版會把轉折點標出來，讓你提前安排節奏。"});
-      $("lockList").innerHTML = hints.map(h => `<div class="lock-item" onclick="scrollToBuy()">
+      const combinedTopics = TOPICS.map(t => `${t.title}：${topicText(t.id, combo).main}`).join(" ");
+      hints.push({
+        title:"本月時間軸",
+        en:"JUNE TIMELINE",
+        teaser:"上旬、中旬、下旬各有不同能量，五大主題會在不同時間點彼此牽動。",
+        hidden:`${combinedTopics} 完整版會把轉折點標出來，讓你提前安排節奏。`
+      });
+      $("lockList").innerHTML = hints.map(h => {
+        const visible = h.hidden == null ? h.teaser.slice(0, lockVisibleChars) : h.teaser;
+        const hidden = h.hidden == null ? h.teaser.slice(lockVisibleChars) : h.hidden;
+        return `<div class="lock-item" onclick="scrollToBuy()">
         <div class="lt"><span>${escapeHtml(h.title)}</span><span class="en">${escapeHtml(h.en)}</span></div>
-        <p class="teaser">${escapeHtml(h.teaser.slice(0, 34))}<span class="blurline">${escapeHtml(h.teaser.slice(34))}</span></p>
+        <p class="teaser">${escapeHtml(visible)}<span class="blurline">${escapeHtml(hidden)}</span></p>
         <span class="lock-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#CFAE7C" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>點此解鎖完整版</span>
-      </div>`).join("");
+      </div>`;
+      }).join("");
     }
     function buildCTA(combo){
       const link = PRODUCT_LINKS[combo.key] || `https://portaly.cc/pentacles.studiotw?combo=${encodeURIComponent(combo.productName)}`;
