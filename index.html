@@ -704,26 +704,32 @@
       return map[card.name] || card.sym;
     }
 
-    const TAROT_IMAGE_BASE = "https://www.trustedtarot.com/img/cards/";
-    const MAJOR_IMAGE_SLUGS = {
-      m00:"the-fool", m01:"the-magician", m02:"the-high-priestess", m03:"the-empress",
-      m04:"the-emperor", m05:"the-hierophant", m06:"the-lovers", m07:"the-chariot",
-      m08:"strength", m09:"the-hermit", m10:"wheel-of-fortune", m11:"justice",
-      m12:"the-hanged-man", m13:"death", m14:"temperance", m15:"the-devil",
-      m16:"the-tower", m17:"the-star", m18:"the-moon", m19:"the-sun",
-      m20:"judgement", m21:"the-world"
+    const TAROT_IMAGE_BASE = "https://commons.wikimedia.org/wiki/Special:FilePath/";
+    const MAJOR_IMAGE_FILES = {
+      m00:"RWS_Tarot_00_Fool.jpg", m01:"RWS_Tarot_01_Magician.jpg",
+      m02:"RWS_Tarot_02_High_Priestess.jpg", m03:"RWS_Tarot_03_Empress.jpg",
+      m04:"RWS_Tarot_04_Emperor.jpg", m05:"RWS_Tarot_05_Hierophant.jpg",
+      m06:"RWS_Tarot_06_Lovers.jpg", m07:"RWS_Tarot_07_Chariot.jpg",
+      m08:"RWS_Tarot_08_Strength.jpg", m09:"RWS_Tarot_09_Hermit.jpg",
+      m10:"RWS_Tarot_10_Wheel_of_Fortune.jpg", m11:"RWS_Tarot_11_Justice.jpg",
+      m12:"RWS_Tarot_12_Hanged_Man.jpg", m13:"RWS_Tarot_13_Death.jpg",
+      m14:"RWS_Tarot_14_Temperance.jpg", m15:"RWS_Tarot_15_Devil.jpg",
+      m16:"RWS_Tarot_16_Tower.jpg", m17:"RWS_Tarot_17_Star.jpg",
+      m18:"RWS_Tarot_18_Moon.jpg", m19:"RWS_Tarot_19_Sun.jpg",
+      m20:"RWS_Tarot_20_Judgement.jpg", m21:"RWS_Tarot_21_World.jpg"
     };
-    const MINOR_RANK_SLUGS = {
-      A:"ace", "2":"two", "3":"three", "4":"four", "5":"five", "6":"six", "7":"seven",
-      "8":"eight", "9":"nine", "10":"ten", P:"page", N:"knight", Q:"queen", K:"king"
-    };
+    const MINOR_SUIT_FILES = {wands:"Wands", cups:"Cups", swords:"Swords", pentacles:"Pents"};
+    const MINOR_RANK_NUMBERS = {A:"01", "2":"02", "3":"03", "4":"04", "5":"05", "6":"06", "7":"07", "8":"08", "9":"09", "10":"10", P:"11", N:"12", Q:"13", K:"14"};
     function tarotImageUrl(card){
+      let fileName = "";
       if(card.arcana === "major"){
-        const slug = MAJOR_IMAGE_SLUGS[card.id];
-        return slug ? `${TAROT_IMAGE_BASE}${slug}.png` : "";
+        fileName = MAJOR_IMAGE_FILES[card.id] || "";
+      }else{
+        const suit = MINOR_SUIT_FILES[card.suitId];
+        const rank = MINOR_RANK_NUMBERS[card.rank];
+        fileName = suit && rank ? `${suit}${rank}.jpg` : "";
       }
-      const rank = MINOR_RANK_SLUGS[card.rank];
-      return rank && card.suitId ? `${TAROT_IMAGE_BASE}${rank}-of-${card.suitId}.png` : "";
+      return fileName ? `${TAROT_IMAGE_BASE}${encodeURIComponent(fileName)}` : "";
     }
 
     function cardFaceHtml(card){
