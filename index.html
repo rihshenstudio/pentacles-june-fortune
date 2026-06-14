@@ -87,7 +87,7 @@
     .btn.ghost{border-color:var(--line);color:var(--muted);font-weight:400;letter-spacing:.12em;text-indent:.12em;font-size:13px;padding:12px;background:rgba(255,255,255,.015)}
     .btn.compact{width:auto;min-height:42px;padding:10px 14px;font-size:12.5px;letter-spacing:.08em;text-indent:0}
     .btn[disabled]{opacity:.35;pointer-events:none}
-    .zgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0 16px}
+    .zgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0 16px}
     .zbtn{border:1px solid var(--line-soft);background:rgba(255,255,255,.018);border-radius:8px;padding:13px 5px 11px;cursor:pointer;color:var(--ink);font-family:inherit;text-align:center;transition:.22s;position:relative;min-height:88px}
     .zbtn .sym{display:block;font-size:24px;color:var(--gold);margin-bottom:2px;font-weight:400}
     .zbtn .nm{display:block;font-size:14px;letter-spacing:.08em;font-weight:500}
@@ -172,6 +172,9 @@
     .tarot-title{padding:2px 4px 5px;text-align:center;font-size:9px;line-height:1.18;font-weight:700;letter-spacing:.04em;color:#402313}
     .tarot-title small{display:block;font-family:"Cormorant Garamond",serif;font-size:7px;letter-spacing:.09em;font-weight:600;color:#7c5a32;text-transform:uppercase}
     .poker-face{border:1px solid #ded0b7;background:linear-gradient(180deg,#fffdf8,#f5eadc);box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px rgba(0,0,0,.08);font-family:Georgia,"Times New Roman",serif}
+    .poker-face.poker-photo{display:block;padding:0;background:#f4efe4;box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px rgba(0,0,0,.08)}
+    .poker-img{display:block;width:100%;height:100%;object-fit:contain;padding:2px;box-sizing:border-box;background:#f4efe4}
+    .poker-fallback{display:none;position:absolute;inset:0;width:100%;height:100%}
     .poker-face.red{color:#b51f28}
     .poker-face.black{color:#17130f}
     .poker-corner{position:absolute;display:flex;flex-direction:column;align-items:center;font-weight:700;line-height:.86;font-size:12px}
@@ -251,7 +254,7 @@
     .foot b{color:var(--gold);font-weight:500;font-family:"Cormorant Garamond",serif;letter-spacing:.26em}
     @media (max-width:680px){
       .wrap{padding:0 18px 28px}
-      .zgrid{grid-template-columns:repeat(3,1fr);gap:9px}
+      .zgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
       .helper-grid,.draw-actions{grid-template-columns:1fr}
       .choice-grid{grid-template-columns:1fr}
       .fan{grid-template-columns:repeat(auto-fit,minmax(48px,1fr));gap:8px;max-height:390px}
@@ -271,12 +274,12 @@
       h2.stage-title{font-size:28px;letter-spacing:.06em;line-height:1.32}
       .stage-tag{font-size:11px;letter-spacing:.2em;text-indent:.2em}
       .sub{font-size:14.5px;line-height:1.75;letter-spacing:.02em}
-      .zgrid{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
-      .zbtn{min-height:82px;padding:11px 8px 10px}
+      .zgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:18px}
+      .zbtn{min-height:82px;padding:10px 4px 9px}
       .zbtn .nm,.zbtn .dt{white-space:normal;word-break:keep-all}
-      .zbtn .sym{font-size:25px}
-      .zbtn .nm{font-size:15px;letter-spacing:.05em}
-      .zbtn .dt{font-size:11px}
+      .zbtn .sym{font-size:23px}
+      .zbtn .nm{font-size:13.5px;letter-spacing:.03em}
+      .zbtn .dt{font-size:10px;letter-spacing:0}
       .helper-panel,.choice-panel,.soft-panel{padding:14px}
       .helper-grid{grid-template-columns:1fr}
       .btn{font-size:14px;letter-spacing:.12em;text-indent:.12em;min-height:50px}
@@ -313,6 +316,11 @@
     @media (max-width:390px){
       .choice-grid,.segmented{grid-template-columns:1fr}
       .segmented button{font-size:12.5px;min-height:40px}
+      .zgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+      .zbtn{min-height:78px;padding:9px 3px 8px}
+      .zbtn .sym{font-size:22px}
+      .zbtn .nm{font-size:13px}
+      .zbtn .dt{font-size:9.5px}
       .fan{grid-template-columns:repeat(auto-fit,minmax(44px,1fr));max-height:370px}
       .tcard{min-height:72px}
     }
@@ -760,7 +768,17 @@
       return positions[n] || [];
     }
 
-    function pokerFaceHtml(card){
+    const POKER_IMAGE_BASE = "https://deckofcardsapi.com/static/img/";
+    const POKER_SUIT_CODES = {heart:"H", diamond:"D", club:"C", spade:"S"};
+    const POKER_RANK_CODES = {A:"A", "2":"2", "3":"3", "4":"4", "5":"5", "6":"6", "7":"7", "8":"8", "9":"9", "10":"0", J:"J", Q:"Q", K:"K"};
+    function pokerImageUrl(card){
+      if(card.isJoker) return `${POKER_IMAGE_BASE}${card.id === "joker-light" ? "X1" : "X2"}.png`;
+      const rank = POKER_RANK_CODES[card.rank];
+      const suit = POKER_SUIT_CODES[card.suitId];
+      return rank && suit ? `${POKER_IMAGE_BASE}${rank}${suit}.png` : "";
+    }
+
+    function pokerFallbackFaceHtml(card){
       const color = card.color || "black";
       if(card.isJoker){
         return `<div class="card-face poker-face joker-face">
@@ -776,6 +794,18 @@
         ${court}
         <div class="poker-corner br"><span>${escapeHtml(card.rank)}</span><span>${escapeHtml(card.sym)}</span></div>
       </div>`;
+    }
+
+    function pokerFaceHtml(card){
+      const imageUrl = pokerImageUrl(card);
+      const fallback = pokerFallbackFaceHtml(card).replace('class="card-face poker-face', 'class="poker-fallback poker-face');
+      if(imageUrl){
+        return `<div class="card-face poker-face poker-photo ${escapeHtml(card.color || "black")}">
+          <img class="poker-img" src="${escapeHtml(imageUrl)}" alt="${escapeHtml(card.name)}" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+          ${fallback}
+        </div>`;
+      }
+      return pokerFallbackFaceHtml(card);
     }
 
     const MAJOR = [
