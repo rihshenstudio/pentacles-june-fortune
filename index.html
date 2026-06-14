@@ -123,28 +123,80 @@
     .segmented{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 18px}
     .segmented button{border:1px solid var(--line-soft);background:rgba(255,255,255,.018);color:var(--muted);border-radius:999px;min-height:38px;padding:8px 9px;cursor:pointer;transition:.22s;font-size:12px;line-height:1.35;letter-spacing:.02em}
     .segmented button.active{border-color:var(--teal);color:var(--ink);background:rgba(90,166,154,.12)}
-    .fan-wrap{position:relative;margin:18px 0 4px}
-    .fan{display:grid;grid-template-columns:repeat(auto-fit,minmax(58px,1fr));gap:10px;align-items:start;max-height:430px;overflow:auto;margin:12px auto 8px;max-width:720px;padding:8px 4px 14px;scrollbar-color:rgba(207,174,124,.45) rgba(255,255,255,.04)}
-    .tcard{position:relative;width:100%;aspect-ratio:60/96;min-height:92px;cursor:pointer;transition:transform .24s cubic-bezier(.22,.8,.3,1), opacity .3s, filter .25s;perspective:800px;z-index:var(--z)}
+    .fan-wrap{position:relative;margin:18px 0 4px;min-height:240px}
+    .shuffle-stage{position:absolute;inset:6px 0 auto;min-height:214px;display:none;align-items:center;justify-content:center;z-index:120;pointer-events:none}
+    .shuffle-stage.show{display:flex}
+    .deck-stack{position:relative;width:124px;height:182px;filter:drop-shadow(0 18px 28px rgba(0,0,0,.58))}
+    .shuffle-card{position:absolute;inset:0;border:1px solid var(--gold-dim);border-radius:9px;background:radial-gradient(circle at 50% 42%, rgba(207,174,124,.24), transparent 58%),repeating-linear-gradient(45deg,rgba(207,174,124,.12) 0 2px,transparent 2px 12px),linear-gradient(160deg,#2b2016,#100b07);box-shadow:inset 0 0 0 4px rgba(11,9,8,.9), inset 0 0 0 5px rgba(207,174,124,.32)}
+    .shuffle-card:nth-child(1){animation:shuffleLeft 1.28s ease-in-out infinite}
+    .shuffle-card:nth-child(2){animation:shuffleRight 1.28s .14s ease-in-out infinite}
+    .shuffle-card:nth-child(3){animation:shuffleTop 1.28s .25s ease-in-out infinite}
+    .shuffle-card:nth-child(4){animation:shuffleSettle 1.28s .36s ease-in-out infinite}
+    .shuffle-copy{position:absolute;top:calc(50% + 112px);left:50%;transform:translateX(-50%);white-space:nowrap;color:var(--gold-light);font-size:12px;letter-spacing:.18em;text-indent:.18em}
+    @keyframes shuffleLeft{0%,100%{transform:translate(0,0) rotate(-2deg)}35%{transform:translate(-64px,-10px) rotate(-16deg)}68%{transform:translate(8px,6px) rotate(3deg)}}
+    @keyframes shuffleRight{0%,100%{transform:translate(3px,4px) rotate(2deg)}35%{transform:translate(66px,-8px) rotate(16deg)}70%{transform:translate(-5px,2px) rotate(-3deg)}}
+    @keyframes shuffleTop{0%,100%{transform:translate(-3px,-3px) rotate(-1deg)}42%{transform:translate(0,-34px) rotate(5deg)}78%{transform:translate(2px,3px) rotate(0deg)}}
+    @keyframes shuffleSettle{0%,100%{transform:translate(6px,7px) rotate(3deg)}45%{transform:translate(-12px,18px) rotate(-8deg)}72%{transform:translate(0,0) rotate(1deg)}}
+    .fan{display:grid;grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:10px;align-items:start;max-height:430px;overflow:auto;margin:12px auto 8px;max-width:720px;padding:8px 4px 14px;scrollbar-color:rgba(207,174,124,.45) rgba(255,255,255,.04)}
+    .fan.is-shuffling{opacity:.08;filter:blur(2px);pointer-events:none}
+    .fan.is-dealing{pointer-events:none}
+    .fan.no-deal .tcard{animation:none}
+    .tcard{position:relative;width:100%;aspect-ratio:60/96;min-height:104px;cursor:pointer;transition:transform .24s cubic-bezier(.22,.8,.3,1), opacity .3s, filter .25s, outline-color .22s;perspective:800px;z-index:var(--z);animation:dealIn .68s cubic-bezier(.18,.82,.26,1) both;animation-delay:var(--delay,0ms);outline:2px solid transparent;outline-offset:2px}
     .tcard .inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,.7,.3,1)}
     .tcard .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:8px;overflow:hidden}
     .tcard .back{border:1px solid var(--gold-dim);background:radial-gradient(circle at 50% 45%, rgba(207,174,124,.22), transparent 60%),repeating-linear-gradient(45deg,rgba(207,174,124,.10) 0 2px,transparent 2px 11px),linear-gradient(160deg,#261b12,#100b07);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.58), inset 0 0 0 4px rgba(11,9,8,.9), inset 0 0 0 5px rgba(207,174,124,.34)}
     .tcard .back span{color:var(--gold);font-size:24px;text-shadow:0 0 10px rgba(207,174,124,.7)}
-    .tcard .front{transform:rotateY(180deg);border:1px solid var(--gold);background:linear-gradient(170deg,#2a2115,#171008);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:9px;box-shadow:0 12px 34px rgba(0,0,0,.62), inset 0 0 0 3px rgba(11,9,8,.9), inset 0 0 0 4px rgba(240,223,186,.48),0 0 28px rgba(207,174,124,.32)}
+    .tcard .front{transform:rotateY(180deg);border:1px solid var(--gold);background:#f5ead4;color:#1a1009;display:flex;align-items:stretch;justify-content:stretch;padding:4px;box-shadow:0 12px 34px rgba(0,0,0,.62), inset 0 0 0 3px rgba(11,9,8,.9), inset 0 0 0 4px rgba(240,223,186,.48),0 0 28px rgba(207,174,124,.32)}
+    @keyframes dealIn{0%{opacity:0;transform:translateY(-42px) scale(.78) rotate(-10deg)}70%{opacity:1;transform:translateY(4px) scale(1.02) rotate(1deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
     .tcard .csym{font-size:26px;color:var(--gold-light);text-shadow:0 0 14px rgba(240,223,186,.65)}
     .tcard .cname{font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--gold-light);text-align:center;line-height:1.35}
     .tcard .cen{font-family:"Cormorant Garamond",serif;font-size:9px;letter-spacing:.16em;color:var(--gold-dim);text-transform:uppercase;text-align:center;line-height:1.2}
     .tcard:hover{filter:brightness(1.16)}
-    .tcard.candidate{transform:translateY(-8px) scale(1.08);z-index:90;filter:brightness(1.18)}
+    .tcard.candidate{z-index:90;filter:brightness(1.14);outline-color:var(--gold-light)}
+    .tcard.candidate .back{box-shadow:0 10px 24px rgba(0,0,0,.58), inset 0 0 0 4px rgba(11,9,8,.9), inset 0 0 0 5px rgba(240,223,186,.58),0 0 20px rgba(240,223,186,.32)}
     .tcard.revealed{transform:scale(.96);z-index:70;pointer-events:none}
     .tcard.revealed .inner{transform:rotateY(180deg)}
+    .tcard.revealed .front.revface .card-face{transform:rotate(180deg)}
+    .fan.draw-complete .tcard.revealed .front{animation:cardCompleteGlow 1.05s ease both}
+    @keyframes cardCompleteGlow{0%,100%{box-shadow:0 12px 34px rgba(0,0,0,.62), inset 0 0 0 3px rgba(11,9,8,.9), inset 0 0 0 4px rgba(240,223,186,.48),0 0 28px rgba(207,174,124,.32)}50%{box-shadow:0 12px 34px rgba(0,0,0,.62), inset 0 0 0 3px rgba(11,9,8,.9), inset 0 0 0 4px rgba(240,223,186,.72),0 0 38px rgba(240,223,186,.68)}}
     .tcard.away{opacity:.16;pointer-events:none;filter:grayscale(.35)}
+    .card-face{width:100%;height:100%;border-radius:5px;overflow:hidden;position:relative;transition:transform .28s ease;background:#f6ead2}
+    .tarot-face{display:grid;grid-template-rows:auto 1fr auto;border:1px solid #8b683f;background:linear-gradient(180deg,#f7ecd8,#dfc79b);box-shadow:inset 0 0 0 2px #fdf4dd,inset 0 0 0 3px rgba(99,67,31,.42)}
+    .tarot-face.tarot-photo{display:block;padding:0;background:#efe0bf;box-shadow:inset 0 0 0 2px #fdf4dd,inset 0 0 0 3px rgba(99,67,31,.42)}
+    .tarot-img{display:block;width:100%;height:100%;object-fit:contain;padding:2px;box-sizing:border-box;background:#f2e2bf}
+    .tarot-fallback{display:none;width:100%;height:100%;grid-template-rows:auto 1fr auto}
+    .tarot-top{display:flex;align-items:center;justify-content:space-between;padding:3px 5px 2px;font-family:"Cormorant Garamond",serif;font-size:11px;font-weight:600;color:#5b3519}
+    .tarot-art{margin:2px 6px;border:1px solid rgba(92,57,25,.45);border-radius:4px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(160deg,#28423c,#bd9f64)}
+    .tarot-art::before{content:"";position:absolute;inset:8%;border:1px solid rgba(255,245,214,.45);border-radius:50% 50% 8px 8px;background:radial-gradient(circle at 50% 28%,rgba(255,242,195,.74),transparent 17%),radial-gradient(circle at 48% 68%,rgba(27,18,14,.28),transparent 30%)}
+    .tarot-art .art-symbol{position:relative;z-index:1;font-size:clamp(19px,4.4vw,34px);color:#fff3c7;text-shadow:0 2px 8px rgba(0,0,0,.72)}
+    .tarot-title{padding:2px 4px 5px;text-align:center;font-size:9px;line-height:1.18;font-weight:700;letter-spacing:.04em;color:#402313}
+    .tarot-title small{display:block;font-family:"Cormorant Garamond",serif;font-size:7px;letter-spacing:.09em;font-weight:600;color:#7c5a32;text-transform:uppercase}
+    .poker-face{border:1px solid #ded0b7;background:linear-gradient(180deg,#fffdf8,#f5eadc);box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px rgba(0,0,0,.08);font-family:Georgia,"Times New Roman",serif}
+    .poker-face.red{color:#b51f28}
+    .poker-face.black{color:#17130f}
+    .poker-corner{position:absolute;display:flex;flex-direction:column;align-items:center;font-weight:700;line-height:.86;font-size:12px}
+    .poker-corner.tl{top:5px;left:5px}
+    .poker-corner.br{right:5px;bottom:5px;transform:rotate(180deg)}
+    .poker-pips{position:absolute;inset:19px 13px;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;align-items:center;justify-items:center;font-size:15px}
+    .poker-pip{line-height:1}
+    .poker-center{position:absolute;inset:18px 12px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center}
+    .poker-face-card{font-size:28px;font-weight:700;line-height:.95}
+    .joker-face{background:linear-gradient(145deg,#fffaf0,#ead8ba);color:#6e1f2b}
+    .joker-face .poker-center{font-size:18px;font-weight:700;letter-spacing:.06em}
+    .mini-card .card-face{border-radius:5px}
+    .mini-card .tarot-top,.mini-card .poker-corner{font-size:8px}
+    .mini-card .tarot-title{font-size:7px;padding-bottom:3px}
+    .mini-card .tarot-title small{font-size:5.5px}
+    .mini-card .poker-pips{inset:15px 9px;font-size:11px}
+    .mini-card .poker-face-card{font-size:20px}
     .draw-panel{min-height:118px;text-align:center;padding:0 8px}
     .draw-status{display:inline-block;font-size:11px;letter-spacing:.22em;text-indent:.22em;color:var(--gold);border:1px solid var(--line);border-radius:4px;padding:4px 10px;margin-bottom:10px}
     .draw-copy{color:var(--ink);font-size:14.5px;line-height:1.9}
     .chosen-list{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:14px 0 10px}
     .chosen-pill{font-size:12px;color:var(--gold-light);border:1px solid var(--line-soft);border-radius:999px;padding:4px 10px;background:rgba(207,174,124,.06)}
     .draw-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px auto 26px;max-width:540px}
+    .ready-pulse{animation:readyPulse 1.5s ease-in-out infinite}
+    @keyframes readyPulse{0%,100%{box-shadow:0 0 0 rgba(228,201,146,0)}50%{box-shadow:0 0 28px rgba(228,201,146,.42)}}
     .seal{display:flex;align-items:center;justify-content:center;gap:12px;margin:22px 0 4px;color:var(--gold);font-size:11px;letter-spacing:.28em;text-indent:.28em;text-align:center}
     .seal::before,.seal::after{content:"✦";font-size:9px;letter-spacing:0;text-indent:0}
     .combo-card{border:1px solid var(--line);border-radius:8px;padding:24px 20px 20px;margin:14px 0 18px;text-align:center;position:relative;background:linear-gradient(180deg,rgba(207,174,124,.09),rgba(90,166,154,.035));box-shadow:var(--shadow)}
@@ -162,7 +214,7 @@
     .free-advice b{display:block;font-size:12.5px;letter-spacing:.16em;color:var(--gold);margin-bottom:5px;font-weight:500}
     .free-advice p{font-size:13.5px;color:var(--muted);line-height:1.9}
     .spread-card{display:grid;grid-template-columns:72px 1fr;gap:15px;align-items:center;border:1px solid var(--line-soft);border-radius:8px;padding:15px;margin-bottom:12px;background:rgba(207,174,124,.035)}
-    .mini-card{width:64px;height:104px;border-radius:7px;border:1px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:linear-gradient(170deg,#2a2115,#171008);box-shadow:inset 0 0 0 2px rgba(11,9,8,.9), inset 0 0 0 3px rgba(240,223,186,.45),0 0 16px rgba(207,174,124,.22)}
+    .mini-card{width:64px;height:104px;border-radius:7px;border:1px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:linear-gradient(170deg,#2a2115,#171008);box-shadow:inset 0 0 0 2px rgba(11,9,8,.9), inset 0 0 0 3px rgba(240,223,186,.45),0 0 16px rgba(207,174,124,.22);overflow:hidden;padding:3px}
     .mini-card .csym{font-size:22px;color:var(--gold-light)}
     .mini-card .cname{font-size:9.5px;letter-spacing:.05em;color:var(--gold-light);text-align:center;line-height:1.25}
     .mini-info b{display:block;font-size:13px;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;font-weight:500}
@@ -170,6 +222,7 @@
     .spread-list{margin:14px 0 20px}
     .spread-list h4{font-size:12px;letter-spacing:.26em;text-indent:.26em;color:var(--gold);margin:0 0 12px;font-weight:500;text-align:center}
     .mini-card.rev{border-color:var(--danger);box-shadow:inset 0 0 0 2px rgba(11,9,8,.9), inset 0 0 0 3px rgba(204,111,104,.42),0 0 16px rgba(204,111,104,.2)}
+    .mini-card.rev .card-face{transform:rotate(180deg)}
     .transition-panel{border:1px solid rgba(90,166,154,.32);border-radius:8px;padding:18px 16px;margin:18px 0;background:linear-gradient(180deg,rgba(90,166,154,.09),rgba(207,174,124,.025))}
     .transition-panel h4{font-size:15px;color:var(--gold-light);letter-spacing:.12em;text-align:center;margin-bottom:8px}
     .transition-panel p{font-size:14px;color:var(--ink);line-height:2}
@@ -205,14 +258,66 @@
       .tcard{min-height:78px}
       .spread-card{grid-template-columns:60px 1fr;gap:12px}
       .mini-card{width:56px;height:92px}
+      .free-block p,.transition-panel p{font-size:15px;line-height:2.05}
+      .mini-info p{font-size:14px;line-height:1.95}
+      .teaser{font-size:13.5px;line-height:2.05}
+      .lock-item .lt{font-size:14px}
+      .cta-panel .desc{font-size:13.5px}
       .pline{width:26px}
     }
+    @media (max-width:480px){
+      .wrap{padding:0 max(14px,env(safe-area-inset-left)) 30px max(14px,env(safe-area-inset-right))}
+      .topbar{font-size:10.5px;letter-spacing:.18em}
+      h2.stage-title{font-size:28px;letter-spacing:.06em;line-height:1.32}
+      .stage-tag{font-size:11px;letter-spacing:.2em;text-indent:.2em}
+      .sub{font-size:14.5px;line-height:1.75;letter-spacing:.02em}
+      .zgrid{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+      .zbtn{min-height:82px;padding:11px 8px 10px}
+      .zbtn .nm,.zbtn .dt{white-space:normal;word-break:keep-all}
+      .zbtn .sym{font-size:25px}
+      .zbtn .nm{font-size:15px;letter-spacing:.05em}
+      .zbtn .dt{font-size:11px}
+      .helper-panel,.choice-panel,.soft-panel{padding:14px}
+      .helper-grid{grid-template-columns:1fr}
+      .btn{font-size:14px;letter-spacing:.12em;text-indent:.12em;min-height:50px}
+      .btn.ghost{font-size:13px}
+      .segmented{grid-template-columns:1fr;gap:9px}
+      .segmented button{font-size:13px;min-height:42px}
+      .choice-btn{min-height:auto}
+      .fan{grid-template-columns:repeat(auto-fit,minmax(44px,1fr));max-height:360px}
+      .draw-status{font-size:10.5px;letter-spacing:.12em;text-indent:.12em;line-height:1.5}
+      .theme-line{font-size:16px;letter-spacing:.03em;line-height:1.7}
+      .combo-card{padding:22px 15px 18px}
+      .combo-name{font-size:28px;letter-spacing:.04em;line-height:1.35}
+      .combo-sub{font-size:12.5px;letter-spacing:.04em;line-height:1.7}
+      .free-block{padding:18px 1px}
+      #s-result .free-block p{font-size:15.5px;line-height:2.05}
+      #s-result .free-advice p{font-size:14.5px;line-height:1.95}
+      .free-block h4,.spread-list h4{letter-spacing:.16em;text-indent:.16em}
+      .spread-card{padding:13px 12px}
+      .mini-info b{font-size:13.5px;letter-spacing:.05em;line-height:1.55}
+      #s-result .mini-info p{font-size:14.5px;line-height:1.95}
+      .lock-head .t{font-size:17px;letter-spacing:.06em;line-height:1.55}
+      .lock-head .s{font-size:13px;line-height:1.6}
+      .lock-item{padding:15px 14px 42px}
+      .lock-item .lt{align-items:flex-start;flex-direction:column;gap:3px;letter-spacing:.06em}
+      .lock-item .en{white-space:normal}
+      #s-result .teaser{font-size:14px;line-height:2}
+      .lock-badge{letter-spacing:.08em}
+      .cta-panel{padding:24px 15px}
+      .cta-panel h3{font-size:18px;line-height:1.5;letter-spacing:.05em}
+      .cta-panel .desc{font-size:13.5px;line-height:1.95}
+      .cta-notes{font-size:12px;letter-spacing:.03em}
+      .foot{font-size:11.5px;letter-spacing:.06em}
+    }
     @media (max-width:390px){
-      .zgrid{grid-template-columns:repeat(2,1fr)}
       .choice-grid,.segmented{grid-template-columns:1fr}
-      .segmented button{font-size:11.5px;min-height:36px}
+      .segmented button{font-size:12.5px;min-height:40px}
       .fan{grid-template-columns:repeat(auto-fit,minmax(44px,1fr));max-height:370px}
       .tcard{min-height:72px}
+    }
+    @supports (-webkit-touch-callout:none){
+      body{-webkit-text-size-adjust:100%}
     }
     @media (prefers-reduced-motion: reduce){
       *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.12s!important}
@@ -323,6 +428,15 @@
       <h2 class="stage-title">憑直覺，選中它</h2>
       <p class="sub" id="drawSub">完整牌組已展開。第一次點選會標記；再點一下確認，才會翻開。</p>
       <div class="fan-wrap">
+        <div class="shuffle-stage" id="shuffleStage" aria-hidden="true">
+          <div class="deck-stack">
+            <div class="shuffle-card"></div>
+            <div class="shuffle-card"></div>
+            <div class="shuffle-card"></div>
+            <div class="shuffle-card"></div>
+          </div>
+          <div class="shuffle-copy">洗牌中・請靜心等待</div>
+        </div>
         <div class="fan" id="fan"></div>
       </div>
       <div class="draw-panel">
@@ -400,7 +514,10 @@
       drawCount:3,
       fanCards:[],
       candidate:null,
-      drawn:[]
+      drawn:[],
+      isShuffling:false,
+      isDealing:false,
+      drawCompleteNudged:false
     };
 
     function $(id){ return document.getElementById(id); }
@@ -570,6 +687,97 @@
       track("draw-count", count);
     }
 
+    function tarotArtSymbol(card){
+      const map = {
+        "愚者":"☉","魔術師":"∞","女祭司":"☾","皇后":"✿","皇帝":"♜","教皇":"✚","戀人":"♡","戰車":"♞","力量":"♌","隱士":"✦","命運之輪":"☸","正義":"⚖","吊人":"⌛","死神":"✧","節制":"♒","惡魔":"♆","高塔":"♜","星星":"★","月亮":"☽","太陽":"☀","審判":"✶","世界":"◎",
+        "權杖":"✹","聖杯":"♡","寶劍":"◇","星幣":"◆"
+      };
+      if(card.arcana === "minor") return map[card.suitZh] || card.sym;
+      return map[card.name] || card.sym;
+    }
+
+    const TAROT_IMAGE_BASE = "https://www.trustedtarot.com/img/cards/";
+    const MAJOR_IMAGE_SLUGS = {
+      m00:"the-fool", m01:"the-magician", m02:"the-high-priestess", m03:"the-empress",
+      m04:"the-emperor", m05:"the-hierophant", m06:"the-lovers", m07:"the-chariot",
+      m08:"strength", m09:"the-hermit", m10:"wheel-of-fortune", m11:"justice",
+      m12:"the-hanged-man", m13:"death", m14:"temperance", m15:"the-devil",
+      m16:"the-tower", m17:"the-star", m18:"the-moon", m19:"the-sun",
+      m20:"judgement", m21:"the-world"
+    };
+    const MINOR_RANK_SLUGS = {
+      A:"ace", "2":"two", "3":"three", "4":"four", "5":"five", "6":"six", "7":"seven",
+      "8":"eight", "9":"nine", "10":"ten", P:"page", N:"knight", Q:"queen", K:"king"
+    };
+    function tarotImageUrl(card){
+      if(card.arcana === "major"){
+        const slug = MAJOR_IMAGE_SLUGS[card.id];
+        return slug ? `${TAROT_IMAGE_BASE}${slug}.png` : "";
+      }
+      const rank = MINOR_RANK_SLUGS[card.rank];
+      return rank && card.suitId ? `${TAROT_IMAGE_BASE}${rank}-of-${card.suitId}.png` : "";
+    }
+
+    function cardFaceHtml(card){
+      if(card.deck === "poker") return pokerFaceHtml(card);
+      return tarotFaceHtml(card);
+    }
+
+    function tarotFaceHtml(card){
+      const number = card.number || card.rank || "";
+      const subtitle = card.arcana === "minor" ? card.en : card.en.replace(/^THE\s+/,"");
+      const fallback = `<div class="tarot-fallback">
+        <div class="tarot-top"><span>${escapeHtml(number)}</span><span>${escapeHtml(card.sym)}</span></div>
+        <div class="tarot-art"><span class="art-symbol">${escapeHtml(tarotArtSymbol(card))}</span></div>
+        <div class="tarot-title">${escapeHtml(card.name)}<small>${escapeHtml(subtitle)}</small></div>
+      </div>`;
+      const imageUrl = tarotImageUrl(card);
+      if(imageUrl){
+        return `<div class="card-face tarot-face tarot-photo">
+          <img class="tarot-img" src="${escapeHtml(imageUrl)}" alt="${escapeHtml(card.name)}" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
+          ${fallback}
+        </div>`;
+      }
+      return `<div class="card-face tarot-face">
+        ${fallback.replace('class="tarot-fallback"', 'class="tarot-fallback" style="display:grid"')}
+      </div>`;
+    }
+
+    function pokerPipPositions(rank){
+      const n = rank === "A" ? 1 : Number(rank);
+      const positions = {
+        1:[5],
+        2:[2,8],
+        3:[2,5,8],
+        4:[1,3,7,9],
+        5:[1,3,5,7,9],
+        6:[1,3,4,6,7,9],
+        7:[1,3,4,5,6,7,9],
+        8:[1,3,4,6,7,8,9,11],
+        9:[1,3,4,5,6,7,8,9,11],
+        10:[1,3,4,5,6,7,8,9,10,12]
+      };
+      return positions[n] || [];
+    }
+
+    function pokerFaceHtml(card){
+      const color = card.color || "black";
+      if(card.isJoker){
+        return `<div class="card-face poker-face joker-face">
+          <div class="poker-corner tl"><span>JOKER</span><span>${escapeHtml(card.sym)}</span></div>
+          <div class="poker-center"><span>${escapeHtml(card.sym)}</span><span>JOKER</span></div>
+          <div class="poker-corner br"><span>JOKER</span><span>${escapeHtml(card.sym)}</span></div>
+        </div>`;
+      }
+      const pips = pokerPipPositions(card.rank).map(pos => `<span class="poker-pip" style="grid-area:${Math.ceil(pos/3)} / ${((pos - 1) % 3) + 1}">${escapeHtml(card.sym)}</span>`).join("");
+      const court = ["J","Q","K"].includes(card.rank) ? `<div class="poker-center"><span class="poker-face-card">${escapeHtml(card.rank)}</span><span>${escapeHtml(card.sym)}</span></div>` : `<div class="poker-pips">${pips}</div>`;
+      return `<div class="card-face poker-face ${color}">
+        <div class="poker-corner tl"><span>${escapeHtml(card.rank)}</span><span>${escapeHtml(card.sym)}</span></div>
+        ${court}
+        <div class="poker-corner br"><span>${escapeHtml(card.rank)}</span><span>${escapeHtml(card.sym)}</span></div>
+      </div>`;
+    }
+
     const MAJOR = [
       ["m00","0","愚者","THE FOOL","新開始","愚者提醒你把六月當成新的旅程。未知不是威脅，而是邀請你用輕盈的方式跨出去。"],
       ["m01","I","魔術師","THE MAGICIAN","創造","魔術師表示資源已經在你手上，差的是開始整合。請把想法落成第一個具體動作。"],
@@ -604,12 +812,18 @@
       ["A","一","啟動"],["2","二","選擇"],["3","三","合作"],["4","四","穩固"],["5","五","挑戰"],["6","六","調整"],["7","七","評估"],["8","八","累積"],["9","九","成熟"],["10","十","完成"],["P","侍者","訊息"],["N","騎士","推進"],["Q","皇后","照顧"],["K","國王","掌握"]
     ];
     function buildTarot(){
-      const cards = MAJOR.map(c => ({id:c[0], sym:c[1], name:c[2], en:c[3], tag:c[4], msg:c[5], deck:"tarot"}));
+      const cards = MAJOR.map(c => ({id:c[0], sym:c[1], number:c[1], arcana:"major", name:c[2], en:c[3], tag:c[4], msg:c[5], deck:"tarot"}));
       SUITS.forEach(suit => {
         RANKS.forEach(rank => {
           cards.push({
             id:`${suit.id}-${rank[0]}`,
             sym:suit.sym,
+            number:rank[0],
+            rank:rank[0],
+            rankZh:rank[1],
+            suitId:suit.id,
+            suitZh:suit.zh,
+            arcana:"minor",
             name:`${suit.zh}${rank[1]}`,
             en:`${rank[0]} OF ${suit.en}`,
             tag:rank[2],
@@ -623,24 +837,28 @@
     const TAROT_CARDS = buildTarot();
     function buildPoker(){
       const suits = [
-        {id:"heart", zh:"紅心", sym:"♥", field:"情感、人際與被支持的能力"},
-        {id:"diamond", zh:"方塊", sym:"♦", field:"金錢、資源與現實交換"},
-        {id:"club", zh:"梅花", sym:"♣", field:"工作、行動與持續累積"},
-        {id:"spade", zh:"黑桃", sym:"♠", field:"壓力、判斷與界線設定"}
+        {id:"heart", zh:"紅心", sym:"♥", color:"red", field:"情感、人際與被支持的能力"},
+        {id:"diamond", zh:"方塊", sym:"♦", color:"red", field:"金錢、資源與現實交換"},
+        {id:"club", zh:"梅花", sym:"♣", color:"black", field:"工作、行動與持續累積"},
+        {id:"spade", zh:"黑桃", sym:"♠", color:"black", field:"壓力、判斷與界線設定"}
       ];
       const values = [["A","A","新開始"],["2","2","選擇"],["3","3","合作"],["4","4","穩定"],["5","5","波動"],["6","6","修復"],["7","7","觀察"],["8","8","執行"],["9","9","成果"],["10","10","完成"],["J","J","訊息"],["Q","Q","照顧"],["K","K","主導"]];
       const cards = [];
       suits.forEach(s => values.forEach(v => cards.push({
         id:`${s.id}-${v[0]}`,
         sym:s.sym,
+        suitId:s.id,
+        suitZh:s.zh,
+        color:s.color,
+        rank:v[0],
         name:`${s.zh} ${v[1]}`,
         en:`${v[1]} OF ${s.id.toUpperCase()}`,
         tag:v[2],
         deck:"poker",
         msg:`${s.zh} ${v[1]}指出六月的「${s.field}」正在進入${v[2]}階段。把日常小訊號當成提醒，你會更早看見該調整的方向。`
       })));
-      cards.push({id:"joker-light", sym:"✦", name:"小丑・光", en:"JOKER LIGHT", tag:"意外祝福", deck:"poker", msg:"小丑光面帶來意外祝福。別把突發插曲都當成干擾，有些轉彎會把你帶到更好的位置。"});
-      cards.push({id:"joker-shadow", sym:"✧", name:"小丑・影", en:"JOKER SHADOW", tag:"變數提醒", deck:"poker", msg:"小丑影面提醒你保留彈性。六月若出現不按劇本的事，先穩住，再決定要不要跟著變。"});
+      cards.push({id:"joker-light", sym:"✦", color:"red", isJoker:true, rank:"JOKER", name:"小丑・光", en:"JOKER LIGHT", tag:"意外祝福", deck:"poker", msg:"小丑光面帶來意外祝福。別把突發插曲都當成干擾，有些轉彎會把你帶到更好的位置。"});
+      cards.push({id:"joker-shadow", sym:"✧", color:"black", isJoker:true, rank:"JOKER", name:"小丑・影", en:"JOKER SHADOW", tag:"變數提醒", deck:"poker", msg:"小丑影面提醒你保留彈性。六月若出現不按劇本的事，先穩住，再決定要不要跟著變。"});
       return cards;
     }
     const POKER_CARDS = buildPoker();
@@ -657,6 +875,9 @@
     function startDraw(){
       state.drawn = [];
       state.candidate = null;
+      state.isShuffling = true;
+      state.isDealing = true;
+      state.drawCompleteNudged = false;
       let pool = state.deckType === "tarot" ? TAROT_CARDS : POKER_CARDS;
       let chosen = [];
       if(state.deckType === "tarot"){
@@ -666,26 +887,63 @@
       }
       chosen = shuffle([...chosen, ...shuffle(pool)]);
       state.fanCards = chosen.map((card, i) => ({...card, fanId:i, candidate:false, revealed:false, away:false, position:null, orientation:null}));
-      $("drawSub").textContent = `完整${state.deckType === "tarot" ? "塔羅" : "撲克"}牌組已展開，共 ${state.fanCards.length} 張。第一次點選會標記；再點一下確認，才會翻開。`;
-      renderFan();
+      $("drawSub").textContent = `正在洗牌，稍後會發出完整${state.deckType === "tarot" ? "塔羅" : "撲克"}牌組，共 ${state.fanCards.length} 張。`;
+      renderFan(false);
       updateDrawUI();
       track("draw-start", state.deckType, {count:state.drawCount});
       go("s-draw",3);
+      const shuffleMs = 2850;
+      const dealMs = Math.min(2400, 860 + state.fanCards.length * 18);
+      setTimeout(() => {
+        state.isShuffling = false;
+        $("drawSub").textContent = `發牌中。完整${state.deckType === "tarot" ? "塔羅" : "撲克"}牌組正在展開，請先不要點選。`;
+        renderFan(true);
+        updateDrawUI();
+        setTimeout(() => {
+          state.isDealing = false;
+          $("fan").classList.remove("is-dealing");
+          $("fan").classList.add("no-deal");
+          $("drawSub").textContent = `完整${state.deckType === "tarot" ? "塔羅" : "撲克"}牌組已展開，共 ${state.fanCards.length} 張。第一次點選會標記；再點一下確認，才會翻開。`;
+          updateDrawUI();
+        }, dealMs);
+      }, shuffleMs);
     }
 
-    function renderFan(){
+    function visibleFanCards(){
+      return state.fanCards.filter(card => !card.away);
+    }
+
+    function syncFanClasses(){
+      $("fan").querySelectorAll(".tcard").forEach(el => {
+        const card = state.fanCards.find(c => c.fanId === Number(el.dataset.fanId));
+        if(!card) return;
+        el.classList.toggle("candidate", card.candidate);
+        el.classList.toggle("revealed", card.revealed);
+        el.classList.toggle("away", card.away);
+        const front = el.querySelector(".front");
+        if(front) front.classList.toggle("revface", card.orientation === "reversed");
+      });
+    }
+
+    function renderFan(animateDeal = false){
       const fan = $("fan");
+      const shuffleStage = $("shuffleStage");
+      fan.classList.toggle("is-shuffling", state.isShuffling);
+      fan.classList.toggle("is-dealing", state.isDealing && !state.isShuffling);
+      fan.classList.toggle("no-deal", !animateDeal);
+      shuffleStage.classList.toggle("show", state.isShuffling);
       fan.innerHTML = "";
-      state.fanCards.forEach((card, i) => {
+      visibleFanCards().forEach((card, i) => {
         const el = document.createElement("div");
         el.className = "tcard";
+        el.dataset.fanId = String(card.fanId);
         if(card.candidate) el.classList.add("candidate");
         if(card.revealed) el.classList.add("revealed");
-        if(card.away) el.classList.add("away");
         el.style.setProperty("--z", String(i + 1));
+        el.style.setProperty("--delay", animateDeal ? (i * 18) + "ms" : "0ms");
         el.innerHTML = `<div class="inner">
           <div class="face back"><span>${state.deckType === "tarot" ? "✦" : "◆"}</span></div>
-          <div class="face front"><span class="csym">${escapeHtml(card.sym)}</span><span class="cname">${escapeHtml(card.name)}</span><span class="cen">${escapeHtml(card.en)}</span></div>
+          <div class="face front ${card.orientation === "reversed" ? "revface" : ""}">${cardFaceHtml(card)}</div>
         </div>`;
         el.addEventListener("click", () => handleCardClick(card.fanId));
         fan.appendChild(el);
@@ -694,7 +952,7 @@
 
     function handleCardClick(fanId){
       const card = state.fanCards.find(c => c.fanId === fanId);
-      if(!card || card.revealed || state.drawn.length >= state.drawCount) return;
+      if(state.isDealing || !card || card.revealed || card.away || state.drawn.length >= state.drawCount) return;
       track("card-click", `${state.deckType}:${card.id}`);
       if(state.candidate === fanId){
         confirmCandidate();
@@ -702,12 +960,12 @@
       }
       state.candidate = fanId;
       state.fanCards.forEach(c => c.candidate = c.fanId === fanId);
-      renderFan();
+      syncFanClasses();
       updateDrawUI();
     }
 
     function confirmCandidate(){
-      if(state.candidate == null) return;
+      if(state.isDealing || state.candidate == null) return;
       const card = state.fanCards.find(c => c.fanId === state.candidate);
       if(!card) return;
       card.candidate = false;
@@ -716,28 +974,51 @@
       card.orientation = Math.random() < 0.5 ? "upright" : "reversed";
       state.drawn.push(card);
       state.candidate = null;
-      if(state.drawn.length >= state.drawCount){
-        state.fanCards.forEach(c => { if(!c.revealed) c.away = true; });
-      }
       track("card-reveal", `${state.deckType}:${card.id}`, {position:card.position + 1});
-      renderFan();
+      syncFanClasses();
       updateDrawUI();
+      if(state.drawn.length >= state.drawCount){
+        setTimeout(() => {
+          state.fanCards.forEach(c => { if(!c.revealed) c.away = true; });
+          renderFan(false);
+          updateDrawUI();
+          completeDrawSequence();
+        }, 760);
+      }
     }
 
     function updateDrawUI(){
       const remaining = state.drawCount - state.drawn.length;
-      $("confirmBtn").disabled = state.candidate == null;
-      $("revealBtn").disabled = remaining > 0;
-      $("drawStatus").textContent = state.drawn.length >= state.drawCount ? `牌陣完成 ・ 完整牌組 ${state.fanCards.length} 張` : `完整牌組 ${state.fanCards.length} 張 ・ 已翻 ${state.drawn.length} / ${state.drawCount}`;
-      if(state.candidate != null){
+      const visibleCount = visibleFanCards().length;
+      $("confirmBtn").disabled = state.isDealing || state.candidate == null;
+      $("revealBtn").disabled = state.isDealing || remaining > 0;
+      $("revealBtn").classList.toggle("ready-pulse", !state.isDealing && remaining <= 0);
+      if(state.isDealing){
+        $("drawStatus").textContent = `${state.isShuffling ? "洗牌中" : "發牌中"} ・ 完整牌組 ${state.fanCards.length} 張`;
+        $("drawCopy").textContent = state.isShuffling ? "牌正在洗入你的六月能量，稍等一下再抽。" : "牌正在一張一張發出，等牌陣穩定後再憑直覺選。";
+      }else if(state.candidate != null){
+        $("drawStatus").textContent = `可選牌 ${visibleCount} 張 ・ 已翻 ${state.drawn.length} / ${state.drawCount}`;
         $("drawCopy").textContent = "已選定一張牌。再點一下這張牌，或按下確認，才會翻開。";
       }else if(remaining > 0){
+        $("drawStatus").textContent = `可選牌 ${visibleCount} 張 ・ 已翻 ${state.drawn.length} / ${state.drawCount}`;
         $("drawCopy").textContent = remaining === state.drawCount ? "請從完整牌陣中選出第一張牌。" : `還需要 ${remaining} 張牌。讓直覺選下一張。`;
       }else{
-        $("drawCopy").textContent = "牌面已完成，現在可以解鎖你的六月運勢。";
+        $("drawStatus").textContent = `牌陣完成 ・ 已保留 ${state.drawn.length} 張牌`;
+        $("drawCopy").textContent = "牌面已完成，往下點擊按鈕解鎖你的六月運勢。";
       }
       const positions = spreadPositions();
       $("chosenList").innerHTML = state.drawn.map((c, i) => `<span class="chosen-pill">${escapeHtml(positions[i])}：${escapeHtml(c.name)}・${orientationLabel(c)}</span>`).join("");
+    }
+
+    function completeDrawSequence(){
+      if(state.drawCompleteNudged) return;
+      state.drawCompleteNudged = true;
+      const fan = $("fan");
+      fan.classList.add("draw-complete");
+      setTimeout(() => {
+        $("revealBtn").scrollIntoView({behavior:"smooth", block:"center"});
+      }, 560);
+      setTimeout(() => fan.classList.remove("draw-complete"), 1900);
     }
 
     function spreadPositions(){
@@ -866,7 +1147,7 @@
 
       const positions = spreadPositions();
       $("spreadList").innerHTML = `<h4>抽 到 牌 陣 ・ 解 讀</h4>` + state.drawn.map((card, i) => `<div class="spread-card">
-        <div class="mini-card ${card.orientation === "reversed" ? "rev" : ""}"><span class="csym">${escapeHtml(card.sym)}</span><span class="cname">${escapeHtml(card.name)}</span></div>
+        <div class="mini-card ${card.orientation === "reversed" ? "rev" : ""}">${cardFaceHtml(card)}</div>
         <div class="mini-info"><b>${escapeHtml(positions[i])} ・ ${escapeHtml(card.name)}（${orientationLabel(card)}）</b><p>${escapeHtml(cardReading(card, positions[i], i))}</p></div>
       </div>`).join("");
 
@@ -921,6 +1202,9 @@
       state.fanCards = [];
       state.candidate = null;
       state.drawn = [];
+      state.isShuffling = false;
+      state.isDealing = false;
+      state.drawCompleteNudged = false;
       $("tapCount").textContent = "0 / 5";
       $("ringFill").style.strokeDashoffset = 691;
       zone.classList.remove("full","pulse");
