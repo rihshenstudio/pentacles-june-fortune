@@ -6,6 +6,12 @@
   <title>六月星運・命運試煉｜五芒星航 PENTACLES STUDIO</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://commons.wikimedia.org">
+  <link rel="preconnect" href="https://upload.wikimedia.org">
+  <link rel="preconnect" href="https://deckofcardsapi.com">
+  <link rel="dns-prefetch" href="//commons.wikimedia.org">
+  <link rel="dns-prefetch" href="//upload.wikimedia.org">
+  <link rel="dns-prefetch" href="//deckofcardsapi.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -729,7 +735,7 @@
         const rank = MINOR_RANK_NUMBERS[card.rank];
         fileName = suit && rank ? `${suit}${rank}.jpg` : "";
       }
-      return fileName ? `${TAROT_IMAGE_BASE}${encodeURIComponent(fileName)}` : "";
+      return fileName ? `${TAROT_IMAGE_BASE}${encodeURIComponent(fileName)}?width=260` : "";
     }
 
     function cardFaceHtml(card){
@@ -748,7 +754,7 @@
       const imageUrl = tarotImageUrl(card);
       if(imageUrl){
         return `<div class="card-face tarot-face tarot-photo">
-          <img class="tarot-img" src="${escapeHtml(imageUrl)}" alt="${escapeHtml(card.name)}" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
+          <img class="tarot-img" src="${escapeHtml(imageUrl)}" alt="${escapeHtml(card.name)}" loading="eager" decoding="async" draggable="false" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
           ${fallback}
         </div>`;
       }
@@ -807,11 +813,31 @@
       const fallback = pokerFallbackFaceHtml(card).replace('class="card-face poker-face', 'class="poker-fallback poker-face');
       if(imageUrl){
         return `<div class="card-face poker-face poker-photo ${escapeHtml(card.color || "black")}">
-          <img class="poker-img" src="${escapeHtml(imageUrl)}" alt="${escapeHtml(card.name)}" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+          <img class="poker-img" src="${escapeHtml(imageUrl)}" alt="${escapeHtml(card.name)}" loading="eager" decoding="async" draggable="false" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
           ${fallback}
         </div>`;
       }
       return pokerFallbackFaceHtml(card);
+    }
+
+    const PRELOADED_CARD_IMAGES = new Map();
+    function cardImageUrl(card){
+      return card.deck === "poker" ? pokerImageUrl(card) : tarotImageUrl(card);
+    }
+    function preloadCardImages(cards, priority = "auto"){
+      const urls = [...new Set(cards.map(cardImageUrl).filter(Boolean))];
+      urls.forEach(url => {
+        let img = PRELOADED_CARD_IMAGES.get(url);
+        if(!img){
+          img = new Image();
+          img.decoding = "async";
+          img.loading = "eager";
+          PRELOADED_CARD_IMAGES.set(url, img);
+        }
+        if("fetchPriority" in img) img.fetchPriority = priority;
+        if(!img.src) img.src = url;
+        if(img.decode) img.decode().catch(() => {});
+      });
     }
 
     const MAJOR = [
@@ -923,6 +949,7 @@
       }
       chosen = shuffle([...chosen, ...shuffle(pool)]);
       state.fanCards = chosen.map((card, i) => ({...card, fanId:i, candidate:false, revealed:false, away:false, position:null, orientation:null}));
+      preloadCardImages(state.fanCards, "auto");
       $("drawSub").textContent = `正在洗牌，稍後會發出完整${state.deckType === "tarot" ? "塔羅" : "撲克"}牌組，共 ${state.fanCards.length} 張。`;
       renderFan(false);
       updateDrawUI();
@@ -996,6 +1023,7 @@
       }
       state.candidate = fanId;
       state.fanCards.forEach(c => c.candidate = c.fanId === fanId);
+      preloadCardImages([card], "high");
       syncFanClasses();
       updateDrawUI();
     }
