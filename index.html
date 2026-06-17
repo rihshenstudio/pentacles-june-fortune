@@ -296,33 +296,33 @@
     .spread-board.pentacle .slot-3{grid-column:4;grid-row:3}
     .spread-board.pentacle .slot-4{grid-column:2;grid-row:3}
     .spread-board.pentacle .slot-5{grid-column:1;grid-row:2}
-    .spread-board.horseshoe{display:grid;grid-template-columns:repeat(7,minmax(58px,1fr));gap:10px;align-items:start;min-height:356px;padding:26px 18px 22px}
-    .spread-board.horseshoe .slot-1{margin-top:92px}
-    .spread-board.horseshoe .slot-2{margin-top:56px}
-    .spread-board.horseshoe .slot-3{margin-top:22px}
-    .spread-board.horseshoe .slot-4{margin-top:0}
-    .spread-board.horseshoe .slot-5{margin-top:22px}
-    .spread-board.horseshoe .slot-6{margin-top:56px}
-    .spread-board.horseshoe .slot-7{margin-top:92px}
-    .spread-board.horseshoe .slot-1 .mini-card{transform:rotate(-16deg)}
-    .spread-board.horseshoe .slot-2 .mini-card{transform:rotate(-10deg)}
-    .spread-board.horseshoe .slot-3 .mini-card{transform:rotate(-5deg)}
-    .spread-board.horseshoe .slot-5 .mini-card{transform:rotate(5deg)}
-    .spread-board.horseshoe .slot-6 .mini-card{transform:rotate(10deg)}
-    .spread-board.horseshoe .slot-7 .mini-card{transform:rotate(16deg)}
-    .spread-board.celtic{display:grid;grid-template-columns:repeat(7,minmax(58px,1fr));grid-template-rows:repeat(4,auto);gap:18px 14px;align-items:center;justify-items:center;min-height:500px;padding:24px 18px}
+    .spread-board.horseshoe{display:grid;grid-template-columns:repeat(7,minmax(54px,1fr));gap:8px;align-items:end;min-height:300px;padding-top:56px}
+    .spread-board.horseshoe .slot-1{transform:translateY(48px)}
+    .spread-board.horseshoe .slot-2{transform:translateY(20px)}
+    .spread-board.horseshoe .slot-3{transform:translateY(4px)}
+    .spread-board.horseshoe .slot-4{transform:translateY(-10px)}
+    .spread-board.horseshoe .slot-5{transform:translateY(4px)}
+    .spread-board.horseshoe .slot-6{transform:translateY(20px)}
+    .spread-board.horseshoe .slot-7{transform:translateY(48px)}
+    .spread-board.horseshoe .slot-1 .mini-card{transform:rotate(-14deg)}
+    .spread-board.horseshoe .slot-2 .mini-card{transform:rotate(-8deg)}
+    .spread-board.horseshoe .slot-3 .mini-card{transform:rotate(-4deg)}
+    .spread-board.horseshoe .slot-5 .mini-card{transform:rotate(4deg)}
+    .spread-board.horseshoe .slot-6 .mini-card{transform:rotate(8deg)}
+    .spread-board.horseshoe .slot-7 .mini-card{transform:rotate(14deg)}
+    .spread-board.celtic{display:grid;grid-template-columns:repeat(6,minmax(54px,1fr));grid-template-rows:repeat(4,auto);gap:14px 10px;align-items:center;justify-items:center;min-height:470px}
     .spread-board.celtic .slot-1{grid-column:2;grid-row:2;z-index:1}
-    .spread-board.celtic .slot-2{grid-column:2;grid-row:2;z-index:3;margin-left:26px}
-    .spread-board.celtic .slot-2 .mini-card{transform:rotate(90deg) scale(.92)}
-    .spread-board.celtic .slot-2 .spread-meta{margin-top:18px}
+    .spread-board.celtic .slot-2{grid-column:2;grid-row:2;z-index:3;transform:translateY(-4px)}
+    .spread-board.celtic .slot-2 .mini-card{transform:rotate(90deg)}
+    .spread-board.celtic .slot-2 .spread-meta{margin-top:14px}
     .spread-board.celtic .slot-3{grid-column:2;grid-row:3}
     .spread-board.celtic .slot-4{grid-column:1;grid-row:2}
     .spread-board.celtic .slot-5{grid-column:2;grid-row:1}
     .spread-board.celtic .slot-6{grid-column:3;grid-row:2}
-    .spread-board.celtic .slot-7{grid-column:6;grid-row:4}
-    .spread-board.celtic .slot-8{grid-column:6;grid-row:3}
-    .spread-board.celtic .slot-9{grid-column:6;grid-row:2}
-    .spread-board.celtic .slot-10{grid-column:6;grid-row:1}
+    .spread-board.celtic .slot-7{grid-column:5;grid-row:4}
+    .spread-board.celtic .slot-8{grid-column:5;grid-row:3}
+    .spread-board.celtic .slot-9{grid-column:5;grid-row:2}
+    .spread-board.celtic .slot-10{grid-column:5;grid-row:1}
     .spread-board.tree{display:grid;grid-template-columns:repeat(5,minmax(54px,1fr));grid-template-rows:repeat(5,auto);gap:12px 10px;align-items:center;justify-items:center;min-height:520px}
     .spread-board.tree .slot-1{grid-column:3;grid-row:1}
     .spread-board.tree .slot-2{grid-column:2;grid-row:2}
@@ -337,9 +337,6 @@
     @media (max-width:520px){
       .spread-board{padding:14px;min-width:520px}
       .spread-board.one,.spread-board.line,.spread-board.cross,.spread-board.pentacle{min-width:0}
-      .spread-board.horseshoe{min-width:640px}
-      .spread-board.celtic{min-width:700px}
-      .spread-board.tree{min-width:560px}
       .spread-board.line{grid-template-columns:repeat(var(--count),minmax(62px,1fr));gap:10px}
       .spread-board.cross{grid-template-columns:repeat(3,minmax(62px,1fr));gap:10px;min-height:330px}
       .spread-board.pentacle{grid-template-columns:repeat(5,minmax(48px,1fr));min-height:318px}
@@ -576,6 +573,7 @@
         <p class="prompt-intro" id="promptIntro"></p>
         <div class="prompt-box" id="promptBox" hidden aria-hidden="true"></div>
         <button class="btn primary" type="button" id="copyPromptBtn" onclick="copyPrompt()">⧉ 一 鍵 複 製 P R O M P T</button>
+        <p class="prompt-note">Prompt 內容不會顯示在頁面上；點擊按鈕後會直接複製到剪貼簿。貼到任何 AI（ChatGPT、Claude、Gemini…），就能得到專屬於你的六月解讀。</p>
       </div>
       <div class="transition-panel">
         <h4>給六月的你，一個過渡提醒</h4>
@@ -2032,7 +2030,7 @@
       $("spreadList").innerHTML = renderSpreadLayout(positions);
 
       state.promptText = buildAiPrompt(combo, positions);
-      $("promptIntro").textContent = `頁面不顯示全文，點下方按鈕即可直接複製。Prompt 內容不會顯示在頁面上。`;
+      $("promptIntro").textContent = `依照你的「${combo.orderedName}」與抽到的牌，專屬解牌指令已為你準備好；頁面不顯示全文，點下方按鈕即可直接複製。`;
       const promptBox = $("promptBox");
       if(promptBox){ promptBox.textContent = ""; promptBox.setAttribute("hidden", ""); promptBox.setAttribute("aria-hidden", "true"); }
       const copyBtn = $("copyPromptBtn");
@@ -2100,4 +2098,10 @@
       $("ringFill").style.strokeDashoffset = 691;
       zone.classList.remove("full","pulse");
       document.querySelectorAll(".zbtn").forEach(x => x.classList.remove("sel"));
-      document.querySelectorAll("[data-deck]").forEach(b => b.classList.toggle("active", 
+      document.querySelectorAll("[data-deck]").forEach(b => b.classList.toggle("active", b.dataset.deck === "tarot"));
+      buildSpreadGrid();
+      go("s-intro",null);
+    }
+  </script>
+</body>
+</html>
