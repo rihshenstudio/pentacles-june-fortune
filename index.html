@@ -310,13 +310,13 @@
     .spread-board.horseshoe .slot-5 .mini-card{transform:rotate(6deg)}
     .spread-board.horseshoe .slot-6 .mini-card{transform:rotate(11deg)}
     .spread-board.horseshoe .slot-7 .mini-card{transform:rotate(16deg)}
-    .spread-board.celtic{display:grid;grid-template-columns:repeat(6,minmax(58px,1fr));grid-template-rows:repeat(4,auto);gap:20px 14px;align-items:center;justify-items:center;min-height:520px;padding:28px 22px 24px}
-    .spread-board.celtic .slot-1{grid-column:2;grid-row:2;z-index:1;width:140px}
-    .spread-board.celtic .slot-2{grid-column:2;grid-row:2;z-index:3;width:140px}
+    .spread-board.celtic{display:grid;grid-template-columns:repeat(6,minmax(58px,1fr));grid-template-rows:repeat(4,auto);gap:24px 18px;align-items:center;justify-items:center;min-height:540px;padding:34px 24px 28px;overflow:visible}
+    .spread-board.celtic .slot-1{grid-column:2;grid-row:2;z-index:1;width:140px;position:relative}
+    .spread-board.celtic .slot-2{grid-column:2;grid-row:2;z-index:3;width:140px;position:relative}
     .spread-board.celtic .slot-1 .mini-card{transform:translateX(-2px)}
     .spread-board.celtic .slot-2 .mini-card{transform:rotate(90deg) scale(.92);margin-top:-6px}
-    .spread-board.celtic .slot-1 .spread-meta{width:122px;transform:translateX(-58px);margin-top:18px}
-    .spread-board.celtic .slot-2 .spread-meta{width:122px;transform:translateX(58px);margin-top:18px}
+    .spread-board.celtic .slot-1 .spread-meta{position:absolute;right:100%;top:50%;width:118px;margin:0 18px 0 0;transform:translateY(-50%);z-index:8;background:rgba(11,9,8,.78);border:1px solid var(--line-soft);border-radius:6px;padding:6px 7px;backdrop-filter:blur(4px)}
+    .spread-board.celtic .slot-2 .spread-meta{position:absolute;left:100%;top:50%;width:118px;margin:0 0 0 18px;transform:translateY(-50%);z-index:8;background:rgba(11,9,8,.78);border:1px solid var(--line-soft);border-radius:6px;padding:6px 7px;backdrop-filter:blur(4px)}
     .spread-board.celtic .slot-3{grid-column:2;grid-row:3}
     .spread-board.celtic .slot-4{grid-column:1;grid-row:2}
     .spread-board.celtic .slot-5{grid-column:2;grid-row:1}
