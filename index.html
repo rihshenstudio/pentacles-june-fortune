@@ -274,6 +274,74 @@
     .prompt-box{white-space:pre-wrap;word-break:break-word;font-size:13px;line-height:1.95;color:var(--ink);background:#0f0b08;border:1px solid var(--line-soft);border-radius:6px;padding:15px 14px;max-height:360px;overflow:auto;margin-bottom:14px;font-family:"Noto Serif TC","Songti TC",serif;scrollbar-color:rgba(207,174,124,.45) rgba(255,255,255,.05)}
     .prompt-note{font-size:11.5px;color:var(--gold-dim);letter-spacing:.04em;line-height:1.8;text-align:center;margin-top:10px}
     .copied{background:linear-gradient(180deg,#bfe3cf,#7fb79a)!important;color:#10261b!important;border-color:#d6f2e2!important;text-shadow:none}
+    .prompt-box[hidden]{display:none!important}
+    .spread-list{overflow-x:auto;scrollbar-color:rgba(207,174,124,.45) rgba(255,255,255,.04)}
+    .spread-board{position:relative;margin:14px auto 22px;border:1px solid var(--line-soft);border-radius:10px;padding:18px;background:radial-gradient(ellipse 80% 65% at 50% 0%,rgba(207,174,124,.08),transparent 72%),rgba(255,255,255,.014);box-shadow:var(--shadow);max-width:720px}
+    .spread-board .spread-tile{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;text-align:center;min-width:0;position:relative}
+    .spread-board .mini-card{flex:none}
+    .spread-meta{width:100%;min-width:0}
+    .spread-label{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--gold);line-height:1.5;font-weight:500}
+    .spread-name{display:block;font-size:11.5px;color:var(--muted);line-height:1.55;word-break:break-word}
+    .spread-board.one{display:flex;justify-content:center;align-items:center;min-height:188px}
+    .spread-board.one .spread-tile{max-width:180px}
+    .spread-board.line{display:grid;grid-template-columns:repeat(var(--count),minmax(72px,1fr));gap:14px;align-items:start}
+    .spread-board.cross{display:grid;grid-template-columns:repeat(3,minmax(74px,1fr));grid-template-areas:". top ." "left center right" ". bottom .";gap:14px;align-items:center;justify-items:center;min-height:360px}
+    .spread-board.cross .slot-1{grid-area:top}
+    .spread-board.cross .slot-2{grid-area:left}
+    .spread-board.cross .slot-3{grid-area:right}
+    .spread-board.cross .slot-4{grid-area:bottom}
+    .spread-board.pentacle{display:grid;grid-template-columns:repeat(5,minmax(56px,1fr));grid-template-rows:repeat(3,auto);gap:12px 10px;align-items:center;justify-items:center;min-height:340px}
+    .spread-board.pentacle .slot-1{grid-column:3;grid-row:1}
+    .spread-board.pentacle .slot-2{grid-column:5;grid-row:2}
+    .spread-board.pentacle .slot-3{grid-column:4;grid-row:3}
+    .spread-board.pentacle .slot-4{grid-column:2;grid-row:3}
+    .spread-board.pentacle .slot-5{grid-column:1;grid-row:2}
+    .spread-board.horseshoe{display:grid;grid-template-columns:repeat(7,minmax(54px,1fr));gap:8px;align-items:end;min-height:300px;padding-top:56px}
+    .spread-board.horseshoe .slot-1{transform:translateY(48px)}
+    .spread-board.horseshoe .slot-2{transform:translateY(20px)}
+    .spread-board.horseshoe .slot-3{transform:translateY(4px)}
+    .spread-board.horseshoe .slot-4{transform:translateY(-10px)}
+    .spread-board.horseshoe .slot-5{transform:translateY(4px)}
+    .spread-board.horseshoe .slot-6{transform:translateY(20px)}
+    .spread-board.horseshoe .slot-7{transform:translateY(48px)}
+    .spread-board.horseshoe .slot-1 .mini-card{transform:rotate(-14deg)}
+    .spread-board.horseshoe .slot-2 .mini-card{transform:rotate(-8deg)}
+    .spread-board.horseshoe .slot-3 .mini-card{transform:rotate(-4deg)}
+    .spread-board.horseshoe .slot-5 .mini-card{transform:rotate(4deg)}
+    .spread-board.horseshoe .slot-6 .mini-card{transform:rotate(8deg)}
+    .spread-board.horseshoe .slot-7 .mini-card{transform:rotate(14deg)}
+    .spread-board.celtic{display:grid;grid-template-columns:repeat(6,minmax(54px,1fr));grid-template-rows:repeat(4,auto);gap:14px 10px;align-items:center;justify-items:center;min-height:470px}
+    .spread-board.celtic .slot-1{grid-column:2;grid-row:2;z-index:1}
+    .spread-board.celtic .slot-2{grid-column:2;grid-row:2;z-index:3;transform:translateY(-4px)}
+    .spread-board.celtic .slot-2 .mini-card{transform:rotate(90deg)}
+    .spread-board.celtic .slot-2 .spread-meta{margin-top:14px}
+    .spread-board.celtic .slot-3{grid-column:2;grid-row:3}
+    .spread-board.celtic .slot-4{grid-column:1;grid-row:2}
+    .spread-board.celtic .slot-5{grid-column:2;grid-row:1}
+    .spread-board.celtic .slot-6{grid-column:3;grid-row:2}
+    .spread-board.celtic .slot-7{grid-column:5;grid-row:4}
+    .spread-board.celtic .slot-8{grid-column:5;grid-row:3}
+    .spread-board.celtic .slot-9{grid-column:5;grid-row:2}
+    .spread-board.celtic .slot-10{grid-column:5;grid-row:1}
+    .spread-board.tree{display:grid;grid-template-columns:repeat(5,minmax(54px,1fr));grid-template-rows:repeat(5,auto);gap:12px 10px;align-items:center;justify-items:center;min-height:520px}
+    .spread-board.tree .slot-1{grid-column:3;grid-row:1}
+    .spread-board.tree .slot-2{grid-column:2;grid-row:2}
+    .spread-board.tree .slot-3{grid-column:4;grid-row:2}
+    .spread-board.tree .slot-4{grid-column:1;grid-row:3}
+    .spread-board.tree .slot-5{grid-column:5;grid-row:3}
+    .spread-board.tree .slot-6{grid-column:3;grid-row:3}
+    .spread-board.tree .slot-7{grid-column:2;grid-row:4}
+    .spread-board.tree .slot-8{grid-column:4;grid-row:4}
+    .spread-board.tree .slot-9{grid-column:3;grid-row:4}
+    .spread-board.tree .slot-10{grid-column:3;grid-row:5}
+    @media (max-width:520px){
+      .spread-board{padding:14px;min-width:520px}
+      .spread-board.one,.spread-board.line,.spread-board.cross,.spread-board.pentacle{min-width:0}
+      .spread-board.line{grid-template-columns:repeat(var(--count),minmax(62px,1fr));gap:10px}
+      .spread-board.cross{grid-template-columns:repeat(3,minmax(62px,1fr));gap:10px;min-height:330px}
+      .spread-board.pentacle{grid-template-columns:repeat(5,minmax(48px,1fr));min-height:318px}
+      .spread-label,.spread-name{font-size:10.5px}
+    }
     @media (max-width:480px){
       .spread-grid{grid-template-columns:1fr}
       .prompt-box{font-size:13.5px;line-height:2}
@@ -503,9 +571,9 @@
       <div class="prompt-block">
         <h4>專 屬 解 牌 P R O M P T</h4>
         <p class="prompt-intro" id="promptIntro"></p>
-        <div class="prompt-box" id="promptBox"></div>
+        <div class="prompt-box" id="promptBox" hidden aria-hidden="true"></div>
         <button class="btn primary" type="button" id="copyPromptBtn" onclick="copyPrompt()">⧉ 一 鍵 複 製 P R O M P T</button>
-        <p class="prompt-note">複製後貼到任何 AI（ChatGPT、Claude、Gemini…），就能得到專屬於你的六月解讀；AI 解完後，也可以再追問你想深入的問題。</p>
+        <p class="prompt-note">Prompt 內容不會顯示在頁面上；點擊按鈕後會直接複製到剪貼簿。貼到任何 AI（ChatGPT、Claude、Gemini…），就能得到專屬於你的六月解讀。</p>
       </div>
       <div class="transition-panel">
         <h4>給六月的你，一個過渡提醒</h4>
@@ -1900,6 +1968,31 @@
       try{ done(document.execCommand("copy")); }catch(err){ done(false); }
       document.body.removeChild(ta);
     }
+    function spreadLayoutClass(id){
+      const map = {
+        one:"one",
+        "three-time":"line",
+        "three-act":"line",
+        four:"cross",
+        five:"pentacle",
+        horseshoe:"horseshoe",
+        celtic:"celtic",
+        tree:"tree"
+      };
+      return map[id] || "line";
+    }
+    function spreadTileHtml(card, position, index){
+      return `<div class="spread-tile slot-${index + 1}">
+        <div class="mini-card ${card.orientation === "reversed" ? "rev" : ""}">${cardFaceHtml(card)}</div>
+        <div class="spread-meta"><span class="spread-label">${escapeHtml(position)}</span><span class="spread-name">${escapeHtml(card.name)}（${escapeHtml(orientationLabel(card))}）</span></div>
+      </div>`;
+    }
+    function renderSpreadLayout(positions){
+      const spread = currentSpread();
+      const layout = spreadLayoutClass(spread.id);
+      const tiles = state.drawn.map((card, i) => spreadTileHtml(card, positions[i] || `第 ${i + 1} 張`, i)).join("");
+      return `<h4>你 抽 到 的 牌 陣</h4><div class="spread-board ${layout}" data-spread="${escapeHtml(spread.id)}" style="--count:${Math.max(state.drawn.length,1)}">${tiles}</div>`;
+    }
     function copyPrompt(){
       const text = state.promptText || ($("promptBox") ? $("promptBox").textContent : "");
       const btn = $("copyPromptBtn");
@@ -1911,7 +2004,7 @@
           track("prompt-copy", comboDisplay().key, {deck:state.deckType, spread:state.spreadId});
           setTimeout(() => { btn.textContent = "⧉ 一 鍵 複 製 P R O M P T"; btn.classList.remove("copied"); }, 2600);
         }else{
-          btn.textContent = "請 長 按 上 方 文 字 手 動 複 製";
+          btn.textContent = "複 製 失 敗 ・ 請 再 點 一 次";
           setTimeout(() => { btn.textContent = "⧉ 一 鍵 複 製 P R O M P T"; }, 2600);
         }
       };
@@ -1934,14 +2027,12 @@
         ? combo.sun.overview
         : `六月先看上升 ${combo.rising.name} 的外在事件：${combo.rising.overview} 同時，太陽 ${combo.sun.name} 會說明你內在真正想守住的核心：${combo.sun.overview}`;
       const positions = spreadPositions();
-      $("spreadList").innerHTML = `<h4>你 抽 到 的 牌 陣</h4>` + state.drawn.map((card, i) => `<div class="spread-card">
-        <div class="mini-card ${card.orientation === "reversed" ? "rev" : ""}">${cardFaceHtml(card)}</div>
-        <div class="mini-info"><b>${escapeHtml(positions[i])}</b><p>${escapeHtml(card.name)}（${escapeHtml(orientationLabel(card))}）</p></div>
-      </div>`).join("");
+      $("spreadList").innerHTML = renderSpreadLayout(positions);
 
       state.promptText = buildAiPrompt(combo, positions);
-      $("promptIntro").textContent = `依照你的「${combo.orderedName}」與抽到的牌，為你寫好了這段專屬解牌指令：`;
-      $("promptBox").textContent = state.promptText;
+      $("promptIntro").textContent = `依照你的「${combo.orderedName}」與抽到的牌，專屬解牌指令已為你準備好；頁面不顯示全文，點下方按鈕即可直接複製。`;
+      const promptBox = $("promptBox");
+      if(promptBox){ promptBox.textContent = ""; promptBox.setAttribute("hidden", ""); promptBox.setAttribute("aria-hidden", "true"); }
       const copyBtn = $("copyPromptBtn");
       if(copyBtn){ copyBtn.textContent = "⧉ 一 鍵 複 製 P R O M P T"; copyBtn.classList.remove("copied"); }
 
