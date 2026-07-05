@@ -1,0 +1,23 @@
+{
+  "name": "primary",
+  "version": "1.0.0",
+  "description": "五芒星航的免費互動占卜遊戲。玩家通過三道試煉（啟動星盤 → 凝聚星能量 → 命運抽牌）， 解鎖自己的 2026 六月運勢「搶先看」，完整版報告導購至官方賣場。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rihshenstudio/pentacles-june-fortune.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rihshenstudio/pentacles-june-fortune/issues"
+  },
+  "homepage": "https://github.com/rihshenstudio/pentacles-june-fortune#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
